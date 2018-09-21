@@ -36,6 +36,29 @@ namespace HowFar.Tests
         }
 
         [Test]
+        public void Order()
+        {
+            var current = double.MinValue;
+            foreach (var modelObjectMeasurement in model.ObjectMeasurements)
+            {
+               var result = model.Convert(modelObjectMeasurement.Name, "Centimeters");
+                result.Assert(p=> p > current);
+                current = result;
+            }
+        }
+
+        [Test]
+        public void MileToMile()
+        {
+            model.Convert("Miles","Miles").Assert(1);
+        }
+
+        [Test]
+        public void CentimeterToCentimeter()
+        {
+            model.Convert("Centimeters","Centimeters").Assert(1);
+        }
+        [Test]
         public void Kilometer2ToCentimeter()
         {
             model.Convert("Kilometers", "Centimeters",2).Assert(200000);

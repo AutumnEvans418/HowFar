@@ -29,7 +29,7 @@ namespace HowFar.Models
             var lightyear = NewObject("Lightyears", mile, 5878625000000);
 
             var alpha = NewObject("Distance from Earth to Alpha Centauri", lightyear, 4.4, ObjectType.Distance);
-
+            var pico = NewObject("Picometers", nanoMeter, 0.001);
 
             //var inch = new ObjectMeasurement() { Value = 2.54, Name = "Inches" };
             //Centimeter.Add(inch);
@@ -44,17 +44,20 @@ namespace HowFar.Models
             //meter.Add(kiloMeter);
             // UpdateList();
         }
-
+        
         private void UpdateList()
         {
-            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll());
+            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p=> Convert(p.Name, "Picometer")));
         }
 
         public double Convert(string nameFrom, string nameTo, double valueFrom = 1)
         {
             var from = Find(nameFrom);
             var to = Find(nameTo);
-
+            if (to == from)
+            {
+                return valueFrom;
+            }
             return valueFrom * Calculate(from, to) ?? 0;
         }
 
