@@ -13,17 +13,17 @@ namespace HowFar.Models
         //public List<ObjectMeasurement> ObjectMeasurements { get; set; }
         public MeasureConverters()
         {
-            Centimeter = new ObjectMeasurement() { Name = "Centimeter", Value = 1 };
-            var inch = new ObjectMeasurement() { Value = 2.54, Name = "Inch" };
+            Centimeter = new ObjectMeasurement() { Name = "Centimeters", Value = 1 };
+            var inch = new ObjectMeasurement() { Value = 2.54, Name = "Inches" };
             Centimeter.Add(inch);
-            var foot = new ObjectMeasurement() { Value = 12, Name = "Foot" };
+            var foot = new ObjectMeasurement() { Value = 12, Name = "Feet" };
 
             inch.Add(foot);
-            var mile = new ObjectMeasurement() { Value = 5280, Name = "Mile" };
+            var mile = new ObjectMeasurement() { Value = 5280, Name = "Miles" };
             foot.Add(mile);
-            var meter = new ObjectMeasurement() { Value = 100, Name = "Meter" };
+            var meter = new ObjectMeasurement() { Value = 100, Name = "Meters" };
             Centimeter.Add(meter);
-            var kiloMeter = new ObjectMeasurement() { Value = 1000, Name = "Kilometer" };
+            var kiloMeter = new ObjectMeasurement() { Value = 1000, Name = "Kilometers" };
             meter.Add(kiloMeter);
             UpdateList();
         }

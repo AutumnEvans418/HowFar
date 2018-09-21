@@ -4,8 +4,41 @@
              x:Class="HowFar.Views.MainPage"
              Title="{Binding Title}">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <ListView ItemsSource="{Binding MeasureConverters.ObjectMeasurements}"></ListView>
+    <StackLayout Padding="10">
+        <ListView ItemsSource="{Binding MeasureConverters.ObjectMeasurements}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Name}"></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout Padding="5">
+            <Label>Convert</Label>
+            <Label Text="From"></Label>
+            <StackLayout Orientation="Horizontal">
+                <Entry Text="{Binding FromValue}"></Entry>
+                <Picker ItemsSource="{Binding MeasureConverters.ObjectMeasurements}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedFrom}"></Picker>
+            </StackLayout>
+            <Label Text="To"></Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding ConvertResult}"></Label>
+                <Picker ItemsSource="{Binding MeasureConverters.ObjectMeasurements}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedTo}"></Picker>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Padding="5">
+            <Label Text="Create Measurement"></Label>
+            <Label Text="Name"></Label>
+            <Entry Text="{Binding CreateName}"></Entry>
+            <Label Text="Units"></Label>
+            <StackLayout Orientation="Horizontal">
+                <Entry Text="{Binding CreateValue}"></Entry>
+                <Picker ItemsSource="{Binding MeasureConverters.ObjectMeasurements}" ItemDisplayBinding="{Binding Name}" 
+                        SelectedItem="{Binding CreateUnits}"></Picker>
+            </StackLayout>
+            <Button Text="Create" Command="{Binding CreateCommand}"></Button>
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>

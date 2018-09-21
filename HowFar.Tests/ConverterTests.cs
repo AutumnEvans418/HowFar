@@ -21,8 +21,8 @@ namespace HowFar.Tests
         [Test]
         public void NewObject()
         {
-            var mil = "Millimeter";
-            var cent = "Centimeter";
+            var mil = "Millimeters";
+            var cent = "Centimeters";
             model.NewObject(mil, cent, 0.01);
             var result = model.Find(mil);
             result.Name.Assert(mil);
@@ -38,64 +38,64 @@ namespace HowFar.Tests
         [Test]
         public void Kilometer2ToCentimeter()
         {
-            model.Convert("Kilometer", "Centimeter",2).Assert(200000);
+            model.Convert("Kilometers", "Centimeters",2).Assert(200000);
         }
         [Test]
         public void KilometerToCentimeter()
         {
-            model.Convert("Kilometer", "Centimeter").Assert(100000);
+            model.Convert("Kilometers", "Centimeters").Assert(100000);
         }
 
         [Test]
         public void PencilConvert()
         {
-           var result = model.NewObject("Pencil","Inch", 7.5);
-            result.Name.Assert("Pencil");
-            result.Measurement.Name.Assert("Inch");
+           var result = model.NewObject("Pencils","Inches", 7.5);
+            result.Name.Assert("Pencils");
+            result.Measurement.Name.Assert("Inches");
 
-            model.Convert("Mile", "Pencil").Assert(8448);
+            model.Convert("Miles", "Pencils").Assert(8448);
         }
 
         [Test]
         public void CentimeterToKilometer()
         {
-            model.Convert("Centimeter", "Kilometer").Assert(0.00001);
+            model.Convert("Centimeters", "Kilometers").Assert(0.00001);
         }
 
         [Test]
         public void ConvertMilesToInches()
         {
-            model.Convert("Mile", "Inch").Assert(63360);
+            model.Convert("Miles", "Inches").Assert(63360);
         }
 
         [Test]
         public void FindMile()
         {
-            model.Find("Mile").Name.Assert("Mile");
+            model.Find("Miles").Name.Assert("Miles");
         }
 
         [Test]
         public void FindCentimeter()
         {
-            var cent = "Centimeter";
+            var cent = "Centimeters";
             model.Find(cent).Name.Assert(cent);
         }
         [Test]
         public void ConvertInchToCm()
         {
-            Math.Round(model.Convert("Centimeter", "Inch"), 4).Assert(Math.Round(0.3937, 4));
+            Math.Round(model.Convert("Centimeters", "Inches"), 4).Assert(Math.Round(0.3937, 4));
         }
 
         [Test]
         public void ConvertCmToInch()
         {
-            model.Convert("Inch", "Centimeter").Assert(2.54);
+            model.Convert("Inches", "Centimeters").Assert(2.54);
         }
 
         [Test]
         public void Convert2CmToInch()
         {
-            model.Convert("Inch", "Centimeter", 2).Assert(5.08);
+            model.Convert("Inches", "Centimeters", 2).Assert(5.08);
         }
     }
 }
