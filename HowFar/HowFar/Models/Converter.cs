@@ -1,12 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Prism.Mvvm;
 
 namespace HowFar.Models
 {
-    public class Converters
+    public class MeasureConverters : BindableBase
     {
+        private ObservableCollection<ObjectMeasurement> _objectMeasurements;
+
         private ObjectMeasurement Centimeter { get; set; }
         //public List<ObjectMeasurement> ObjectMeasurements { get; set; }
-        public Converters()
+        public MeasureConverters()
         {
             Centimeter = new ObjectMeasurement() { Name = "Centimeter", Value = 1 };
             var inch = new ObjectMeasurement() { Value = 2.54, Name = "Inch" };
@@ -20,6 +25,12 @@ namespace HowFar.Models
             Centimeter.Add(meter);
             var kiloMeter = new ObjectMeasurement() { Value = 1000, Name = "Kilometer" };
             meter.Add(kiloMeter);
+            UpdateList();
+        }
+
+        private void UpdateList()
+        {
+            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll());
         }
 
         public double Convert(string nameFrom, string nameTo, double valueFrom = 1)
@@ -74,6 +85,28 @@ namespace HowFar.Models
 
             return null;
         }
+
+        public ObservableCollection<ObjectMeasurement> ObjectMeasurements
+        {
+            get => _objectMeasurements;
+            set => SetProperty(ref _objectMeasurements, value);
+        }
+
+        private List<ObjectMeasurement> GetAll(ObjectMeasurement start = null, List<ObjectMeasurement> obj = null)
+        {
+            if (start == null) start = Centimeter;
+            if (obj == null) obj = new List<ObjectMeasurement>();
+            obj.Add(start);
+            if (start.GetChildren().Any())
+            {
+                foreach (var objectMeasurement in start.GetChildren())
+                {
+                    GetAll(objectMeasurement, obj);
+                }
+            }
+            return obj;
+        }
+
         public ObjectMeasurement Find(string name)
         {
             return Find(Centimeter, name);
@@ -104,13 +137,17 @@ namespace HowFar.Models
             return null;
         }
 
-        public void NewObject(string name, string measurement, double value)
+        public ObjectMeasurement NewObject(string name, string measurement, double value)
         {
             var measure = Find(measurement);
             if (measure != null)
             {
-                measure.Add(new ObjectMeasurement() { Name = name, Value = value });
+                var newObject = new ObjectMeasurement() { Name = name, Value = value };
+                measure.Add(newObject);
+                UpdateList();
+                return newObject;
             }
+            return null;
         }
     }
 

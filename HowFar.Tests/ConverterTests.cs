@@ -11,11 +11,11 @@ namespace HowFar.Tests
 {
     public class ConverterTests
     {
-        private Converters model;
+        private MeasureConverters model;
         [SetUp]
         public void Setup()
         {
-            model = new Converters();
+            model = new MeasureConverters();
         }
 
         [Test]
@@ -28,6 +28,13 @@ namespace HowFar.Tests
             result.Name.Assert(mil);
             result.Measurement.Name.Assert(cent);
         }
+
+        [Test]
+        public void ObjectCount()
+        {
+            model.ObjectMeasurements.Count.Assert(6);
+        }
+
         [Test]
         public void Kilometer2ToCentimeter()
         {
@@ -42,7 +49,11 @@ namespace HowFar.Tests
         [Test]
         public void PencilConvert()
         {
-            model.NewObject("");
+           var result = model.NewObject("Pencil","Inch", 7.5);
+            result.Name.Assert("Pencil");
+            result.Measurement.Name.Assert("Inch");
+
+            model.Convert("Mile", "Pencil").Assert(8448);
         }
 
         [Test]
