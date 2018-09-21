@@ -17,12 +17,12 @@
         <StackLayout Padding="5">
             <Label>Convert</Label>
             <Label Text="From"></Label>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Entry Text="{Binding FromValue}"></Entry>
                 <Picker ItemsSource="{Binding MeasureConverters.ObjectMeasurements}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedFrom}"></Picker>
             </StackLayout>
             <Label Text="To"></Label>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Label Text="{Binding ConvertResult}"></Label>
                 <Picker ItemsSource="{Binding MeasureConverters.ObjectMeasurements}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedTo}"></Picker>
             </StackLayout>
@@ -32,7 +32,7 @@
             <Label Text="Name"></Label>
             <Entry Text="{Binding CreateName}"></Entry>
             <Label Text="Units"></Label>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Entry Text="{Binding CreateValue}"></Entry>
                 <Picker ItemsSource="{Binding MeasureConverters.ObjectMeasurements}" ItemDisplayBinding="{Binding Name}" 
                         SelectedItem="{Binding CreateUnits}"></Picker>

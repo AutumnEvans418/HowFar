@@ -14,7 +14,7 @@ namespace HowFar.Models
         }
 
         public ObjectMeasurement Measurement { get; set; }
-
+        public ObjectType ObjectType { get; set; }
         public double Value
         {
             get => _value;
@@ -27,8 +27,9 @@ namespace HowFar.Models
             set => SetProperty(ref _name,value);
         }
 
-        public ObjectMeasurement()
+        public ObjectMeasurement(ObjectType objectType)
         {
+            ObjectType = objectType;
             ObjectMeasurements = new List<ObjectMeasurement>();
         }
 

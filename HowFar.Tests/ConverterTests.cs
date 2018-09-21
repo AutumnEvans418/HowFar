@@ -32,7 +32,7 @@ namespace HowFar.Tests
         [Test]
         public void ObjectCount()
         {
-            model.ObjectMeasurements.Count.Assert(6);
+            model.ObjectMeasurements.Count.Assert(p=> p >= 6);
         }
 
         [Test]
