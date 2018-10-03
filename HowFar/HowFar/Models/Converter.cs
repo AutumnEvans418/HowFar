@@ -7,44 +7,47 @@ namespace HowFar.Models
 {
     public class MeasureConverters : BindableBase
     {
+        private readonly IApp _app;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
-
         private ObjectMeasurement Centimeter { get; set; }
         //public List<ObjectMeasurement> ObjectMeasurements { get; set; }
-        public MeasureConverters()
+        public MeasureConverters(IApp app)
+        {
+            _app = app;
+            if (app.Properties.ContainsKey(PropertyKey))
+            {
+                if (app.Properties[PropertyKey] is ObjectMeasurement measure)
+                {
+                    Centimeter = measure;
+                }
+            }
+            else
+            {
+                Startup();
+            }
+
+        }
+
+        private void Startup()
         {
             Centimeter = new ObjectMeasurement(ObjectType.Unit) { Name = "Centimeters", Value = 1 };
+            var inches = NewObject("Inches", 2.54, Centimeter);
+            var feet = NewObject("Feet", 12, inches);
+            var mile = NewObject("Miles", 5280, feet);
+            var meter = NewObject("Meter", 100, Centimeter);
+            var kiloMeter = NewObject("Kilometers", 1000, meter);
 
-            var inches = NewObject("Inches", Centimeter.Name, 2.54);
-            var feet = NewObject("Feet", inches.Name, 12);
-            var mile = NewObject("Miles", feet.Name, 5280);
-            var meter = NewObject("Meter", Centimeter.Name, 100);
-            var kiloMeter = NewObject("Kilometers", meter.Name, 1000);
+            var nanoMeter = NewObject("Nanometers", 0.0000001, Centimeter);
 
-            var nanoMeter = NewObject("Nanometers", Centimeter.Name, 0.0000001);
+            var earth = this.NewObject("Earths", 25000, mile, ObjectType.Object);
+            var sun = NewObject("Suns", 103, earth, ObjectType.Object);
+            var dist = NewObject("Distance from Earth to Sun", 92955807, mile, ObjectType.Distance);
+            var lightyear = NewObject("Lightyears", 5878625000000, mile);
 
-            var earth = this.NewObject("Earths", mile, 25000, ObjectType.Object);
-            var sun = NewObject("Suns", earth, 103, ObjectType.Object);
-            var dist = NewObject("Distance from Earth to Sun", mile, 92955807, ObjectType.Distance);
-            var lightyear = NewObject("Lightyears", mile, 5878625000000);
-
-            var alpha = NewObject("Distance from Earth to Alpha Centauri", lightyear, 4.4, ObjectType.Distance);
-            var pico = NewObject("Picometers", nanoMeter, 0.001);
-
-            //var inch = new ObjectMeasurement() { Value = 2.54, Name = "Inches" };
-            //Centimeter.Add(inch);
-            //var foot = new ObjectMeasurement() { Value = 12, Name = "Feet" };
-
-            //inch.Add(foot);
-            //var mile = new ObjectMeasurement() { Value = 5280, Name = "Miles" };
-            //foot.Add(mile);
-            //var meter = new ObjectMeasurement() { Value = 100, Name = "Meters" };
-            //Centimeter.Add(meter);
-            //var kiloMeter = new ObjectMeasurement() { Value = 1000, Name = "Kilometers" };
-            //meter.Add(kiloMeter);
-            // UpdateList();
+            var alpha = NewObject("Distance from Earth to Alpha Centauri", 4.4, lightyear, ObjectType.Distance);
+            var pico = NewObject("Picometers", 0.001, nanoMeter);
         }
-        
+
         private void UpdateList()
         {
             ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p=> Convert(p.Name, "Picometer")));
@@ -60,7 +63,16 @@ namespace HowFar.Models
             }
             return valueFrom * Calculate(from, to) ?? 0;
         }
-
+        public double ConvertEff(string nameFrom, string nameTo, double valueFrom = 1)
+        {
+            var from = Find(nameFrom);
+            var to = Find(nameTo);
+            if (to == from)
+            {
+                return valueFrom;
+            }
+            return valueFrom * Calculate(from, to) ?? 0;
+        }
         private double? Calculate(ObjectMeasurement @from, ObjectMeasurement to, double value = 1)
         {
             if (from.Measurement != null)
@@ -156,8 +168,9 @@ namespace HowFar.Models
 
             return null;
         }
-        
-        public ObjectMeasurement NewObject(string name, string measurement, double value, ObjectType type = ObjectType.Unit)
+
+       
+        public ObjectMeasurement NewObject(string name, double value, string measurement, ObjectType type = ObjectType.Unit)
         {
             var measure = Find(measurement);
             if (measure != null)
@@ -165,15 +178,30 @@ namespace HowFar.Models
                 var newObject = new ObjectMeasurement(type) { Name = name, Value = value };
                 measure.Add(newObject);
                 UpdateList();
+                UpdateProperties();
                 return newObject;
             }
             return null;
         }
-        public ObjectMeasurement NewObject(string name,
-            ObjectMeasurement measurement, double value, ObjectType type = ObjectType.Unit)
+
+        public const string PropertyKey = "Conversions";
+        private void UpdateProperties()
         {
-            return NewObject(name, measurement.Name, value, type);
+            if (_app.Properties.ContainsKey(PropertyKey))
+            {
+                _app.Properties[PropertyKey] = Centimeter;
+            }
+        }
+
+        public ObjectMeasurement NewObject(string name,
+            double value, ObjectMeasurement measurement, ObjectType type = ObjectType.Unit)
+        {
+            return NewObject(name, value, measurement.Name, type);
         }
     }
 
+    public interface IApp
+    {
+        IDictionary<string,object> Properties { get; }
+    }
 }

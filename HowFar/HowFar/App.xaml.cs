@@ -1,4 +1,6 @@
-﻿using Prism;
+﻿using System.Collections.Generic;
+using HowFar.Models;
+using Prism;
 using Prism.Ioc;
 using HowFar.ViewModels;
 using HowFar.Views;
@@ -9,7 +11,7 @@ using Prism.Autofac;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace HowFar
 {
-    public partial class App : PrismApplication
+    public partial class App : PrismApplication, IApp
     {
         /* 
          * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
@@ -32,5 +34,6 @@ namespace HowFar
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
         }
+
     }
 }

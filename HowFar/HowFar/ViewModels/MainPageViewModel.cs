@@ -26,12 +26,12 @@ namespace HowFar.ViewModels
             set => SetProperty(ref _measureConverters,value);
         }
 
-        public MainPageViewModel(INavigationService navigationService) 
+        public MainPageViewModel(INavigationService navigationService, IApp app) 
             : base (navigationService)
         {
             Title = "Main Page";
-            MeasureConverters = new MeasureConverters();
-            CreateCommand = new DelegateCommand(() => MeasureConverters.NewObject(CreateName, CreateUnits.Name, CreateValue), () => CreateUnits != null);
+            MeasureConverters = new MeasureConverters(app);
+            CreateCommand = new DelegateCommand(() => MeasureConverters.NewObject(CreateName, CreateValue, CreateUnits.Name), () => CreateUnits != null);
             CreateCommand.ObservesProperty(() => CreateUnits);
             FromValue = 1;
         }

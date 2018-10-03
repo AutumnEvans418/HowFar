@@ -1,21 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HowFar.Models;
+using Moq;
 using NUnit.Framework;
 using Peerless.Testing;
 
 namespace HowFar.Tests
 {
+    public static class TestExt
+    {
+        public static TimeSpan AverageTimeSpan(Action action, int count = 1000)
+        {
+            var time = new List<TimeSpan>(count);
+            for (int i = 0; i < count; i++)
+            {
+                time.Add(Time(action));
+            }
+            double doubleAverageTicks = time.Average(timeSpan => timeSpan.Ticks);
+            long longAverageTicks = Convert.ToInt64(doubleAverageTicks);
+
+            return new TimeSpan(longAverageTicks);
+        }
+        public static TimeSpan Time(Action action)
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            action();
+            stopwatch.Stop();
+            return stopwatch.Elapsed;
+        }
+    }
     public class ConverterTests
     {
         private MeasureConverters model;
         [SetUp]
         public void Setup()
         {
-            model = new MeasureConverters();
+            var app = new Mock<IApp>();
+            app.Setup(p => p.Properties).Returns(new Dictionary<object, object>());
+            model = new MeasureConverters(app.Object);
+        }
+
+        [Test]
+        public void CalculateEffeciency()
+        {
+            var result = TestExt.AverageTimeSpan(() =>
+            {
+                model.Convert("Centimeters", "Miles");
+                model.Convert("Centimeters", "Centimeters");
+                model.Convert("Miles", "Centimeters");
+            });
+
+            var eff = TestExt.AverageTimeSpan(() =>
+            {
+                model.ConvertEff("Centimeters", "Miles");
+                model.ConvertEff("Centimeters", "Centimeters");
+                model.ConvertEff("Miles", "Centimeters");
+            });
+
+            Assert.That(()=> eff < result, $"Eff: {eff}, Old: {result}");
         }
 
         [Test]
@@ -23,7 +69,7 @@ namespace HowFar.Tests
         {
             var mil = "Millimeters";
             var cent = "Centimeters";
-            model.NewObject(mil, cent, 0.01);
+            model.NewObject(mil, 0.01, cent);
             var result = model.Find(mil);
             result.Name.Assert(mil);
             result.Measurement.Name.Assert(cent);
@@ -72,7 +118,7 @@ namespace HowFar.Tests
         [Test]
         public void PencilConvert()
         {
-           var result = model.NewObject("Pencils","Inches", 7.5);
+           var result = model.NewObject("Pencils", 7.5, "Inches");
             result.Name.Assert("Pencils");
             result.Measurement.Name.Assert("Inches");
 
