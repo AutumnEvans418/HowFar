@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowFar", "HowFar\HowFar\HowFar.csproj", "{9FDB77DE-70A9-444E-8DEB-F3C55524FB05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowFar", "HowFar\HowFar\HowFar.csproj", "{9FDB77DE-70A9-444E-8DEB-F3C55524FB05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowFar.Android", "HowFar\HowFar.Android\HowFar.Android.csproj", "{1C7335AB-1E8F-45FE-ADC6-F1AF708900C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowFar.UWP", "HowFar\HowFar.UWP\HowFar.UWP.csproj", "{62051AD2-0664-4E24-8475-B95FBEFD3CB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowFar.Tests", "HowFar.Tests\HowFar.Tests.csproj", "{DE3078D6-11E3-4BF5-A42E-EAE1DB5B4FF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowFarApp", "HowFarApp\HowFarApp\HowFarApp.csproj", "{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prism Depreciated", "Prism Depreciated", "{7F58D45B-E5A2-4603-BF6A-F0F5DECA711F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,9 +103,30 @@ Global
 		{DE3078D6-11E3-4BF5-A42E-EAE1DB5B4FF1}.Release|x64.Build.0 = Release|Any CPU
 		{DE3078D6-11E3-4BF5-A42E-EAE1DB5B4FF1}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE3078D6-11E3-4BF5-A42E-EAE1DB5B4FF1}.Release|x86.Build.0 = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|ARM.Build.0 = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x64.Build.0 = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9FDB77DE-70A9-444E-8DEB-F3C55524FB05} = {7F58D45B-E5A2-4603-BF6A-F0F5DECA711F}
+		{1C7335AB-1E8F-45FE-ADC6-F1AF708900C5} = {7F58D45B-E5A2-4603-BF6A-F0F5DECA711F}
+		{62051AD2-0664-4E24-8475-B95FBEFD3CB6} = {7F58D45B-E5A2-4603-BF6A-F0F5DECA711F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92000548-347D-43FC-B44D-2E4467DB15A0}
