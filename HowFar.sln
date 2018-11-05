@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowFarApp", "HowFarApp\HowF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prism Depreciated", "Prism Depreciated", "{7F58D45B-E5A2-4603-BF6A-F0F5DECA711F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowFarApp.UWP", "HowFarApp\HowFarApp.UWP\HowFarApp.UWP.csproj", "{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +121,26 @@ Global
 		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x64.Build.0 = Release|Any CPU
 		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}.Release|x86.Build.0 = Release|Any CPU
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|ARM.Build.0 = Debug|ARM
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|x64.ActiveCfg = Debug|x64
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|x64.Build.0 = Debug|x64
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|x64.Deploy.0 = Debug|x64
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|x86.ActiveCfg = Debug|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|x86.Build.0 = Debug|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Debug|x86.Deploy.0 = Debug|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|Any CPU.ActiveCfg = Release|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|ARM.ActiveCfg = Release|ARM
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|ARM.Build.0 = Release|ARM
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|ARM.Deploy.0 = Release|ARM
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|x64.ActiveCfg = Release|x64
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|x64.Build.0 = Release|x64
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|x64.Deploy.0 = Release|x64
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|x86.ActiveCfg = Release|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|x86.Build.0 = Release|x86
+		{5B8D9087-A638-4CD9-907C-E7DC55DFDBA4}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
