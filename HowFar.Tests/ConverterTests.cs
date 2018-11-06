@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using HowFar.Models;
 using Moq;
 using NUnit.Framework;
-using Peerless.Testing;
 
 namespace HowFar.Tests
 {
@@ -71,14 +70,15 @@ namespace HowFar.Tests
             var cent = "Centimeters";
             model.NewObject(mil, 0.01, cent);
             var result = model.Find(mil);
-            result.Name.Assert(mil);
-            result.Measurement.Name.Assert(cent);
+
+            Assert.AreEqual(mil, result.Name);
+            Assert.AreEqual(cent, result.Measurement.Name);
         }
 
         [Test]
         public void ObjectCount()
         {
-            model.ObjectMeasurements.Count.Assert(p=> p >= 6);
+            Assert.True(model.ObjectMeasurements.Count >= 6);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace HowFar.Tests
             foreach (var modelObjectMeasurement in model.ObjectMeasurements)
             {
                var result = model.Convert(modelObjectMeasurement.Name, "Centimeters");
-                result.Assert(p=> p > current);
+                Assert.True(result > current);
                 current = result;
             }
         }
@@ -96,22 +96,23 @@ namespace HowFar.Tests
         [Test]
         public void MileToMile()
         {
-            model.Convert("Miles","Miles").Assert(1);
+            Assert.AreEqual(1, model.Convert("Miles", "Miles"));
         }
 
         [Test]
         public void CentimeterToCentimeter()
         {
-            model.Convert("Centimeters","Centimeters").Assert(1);
+            Assert.AreEqual(1, model.Convert("Centimeters", "Centimeters"));
         }
         [Test]
         public void Kilometer2ToCentimeter()
         {
-            model.Convert("Kilometers", "Centimeters",2).Assert(200000);
+            Assert.AreEqual(200000, model.Convert("Kilometers", "Centimeters", 2));
         }
         [Test]
         public void KilometerToCentimeter()
         {
+
             model.Convert("Kilometers", "Centimeters").Assert(100000);
         }
 
