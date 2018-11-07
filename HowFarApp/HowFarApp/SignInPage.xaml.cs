@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace HowFarApp
 {
-    public partial class MainPage : ContentPage
+    public partial class SignInPage : ContentPage
     {
-        public MainPage()
+        public SignInPage()
         {
             InitializeComponent();
         }
