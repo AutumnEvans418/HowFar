@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace HowFar.Models
 {
-    public class MeasureConverters
+    public class MeasureConverters : IMeasureConverters
     {
         private readonly IApp _app;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
@@ -197,10 +197,5 @@ namespace HowFar.Models
         {
             return NewObject(name, value, measurement.Name, type);
         }
-    }
-
-    public interface IApp
-    {
-        IDictionary<string,object> Properties { get; }
     }
 }

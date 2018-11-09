@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using HowFar.Models;
 using Moq;
 using NUnit.Framework;
@@ -38,30 +40,13 @@ namespace HowFar.Tests
         [SetUp]
         public void Setup()
         {
-            var app = new Mock<IApp>();
-           // app.Setup(p => p.Properties).Returns(new Dictionary<object, object>());
-            model = new MeasureConverters(app.Object);
+            var fixture = new Fixture();
+            fixture.Customize(new AutoMoqCustomization());
+            
+            model = fixture.Build<MeasureConverters>().OmitAutoProperties().Create();
         }
 
-        [Test]
-        public void CalculateEffeciency()
-        {
-            var result = TestExt.AverageTimeSpan(() =>
-            {
-                model.Convert("Centimeters", "Miles");
-                model.Convert("Centimeters", "Centimeters");
-                model.Convert("Miles", "Centimeters");
-            });
-
-            var eff = TestExt.AverageTimeSpan(() =>
-            {
-                model.ConvertEff("Centimeters", "Miles");
-                model.ConvertEff("Centimeters", "Centimeters");
-                model.ConvertEff("Miles", "Centimeters");
-            });
-
-            Assert.That(()=> eff < result, $"Eff: {eff}, Old: {result}");
-        }
+    
 
         [Test]
         public void NewObject()
