@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Prism.Mvvm;
 
 namespace HowFar.Models
 {
-    public class ObjectMeasurement : BindableBase
+    public class ObjectMeasurement
     {
         private double _value;
         private string _name;
@@ -18,13 +17,13 @@ namespace HowFar.Models
         public double Value
         {
             get => _value;
-            set => SetProperty(ref _value,value);
+            set =>  _value=value;
         }
 
         public string Name
         {
             get => _name;
-            set => SetProperty(ref _name,value);
+            set =>  _name=value;
         }
 
         public ObjectMeasurement(ObjectType objectType)

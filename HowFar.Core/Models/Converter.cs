@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Prism.Mvvm;
 
 namespace HowFar.Models
 {
-    public class MeasureConverters : BindableBase
+    public class MeasureConverters
     {
         private readonly IApp _app;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
@@ -121,7 +120,7 @@ namespace HowFar.Models
         public ObservableCollection<ObjectMeasurement> ObjectMeasurements
         {
             get => _objectMeasurements;
-            set => SetProperty(ref _objectMeasurements, value);
+            set =>  _objectMeasurements= value;
         }
 
         private List<ObjectMeasurement> GetAll(ObjectMeasurement start = null, List<ObjectMeasurement> obj = null)

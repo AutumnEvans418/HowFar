@@ -9,4 +9,8 @@
     <PackageReference Include="Prism.Autofac.Forms" Version="7.1.0.431" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\HowFar.Core\HowFar.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -113,30 +113,30 @@ namespace HowFar.Tests
         public void KilometerToCentimeter()
         {
 
-            //model.Convert("Kilometers", "Centimeters").Assert(100000);
+            Assert.AreEqual(100000,model.Convert("Kilometers", "Centimeters"));
         }
 
         [Test]
         public void PencilConvert()
         {
-           //var result = model.NewObject("Pencils", 7.5, "Inches");
-           // result.Name.Assert("Pencils");
-           // result.Measurement.Name.Assert("Inches");
+            var result = model.NewObject("Pencils", 7.5, "Inches");
+            Assert.AreEqual("Pencils", result.Name); ;
+           Assert.AreEqual("Inches", result.Measurement.Name); ;
 
-           // model.Convert("Miles", "Pencils").Assert(8448);
+           Assert.AreEqual(8448, model.Convert("Miles", "Pencils"));
         }
 
         [Test]
         public void CentimeterToKilometer()
         {
-            //model.Convert("Centimeters", "Kilometers").Assert(0.00001);
+          Assert.AreEqual(0.00001  ,model.Convert("Centimeters", "Kilometers"));
         }
 
-        //[Test]
-        //public void ConvertMilesToInches()
-        //{
-        //    model.Convert("Miles", "Inches").Assert(63360);
-        //}
+        [Test]
+        public void ConvertMilesToInches()
+        {
+          Assert.AreEqual(63360,  model.Convert("Miles", "Inches"));
+        }
 
         //[Test]
         //public void FindMile()
