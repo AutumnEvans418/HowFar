@@ -31,7 +31,7 @@ namespace HowFar.ViewModels
         {
             Title = "Main Page";
             MeasureConverters = new MeasureConverters(app);
-            CreateCommand = new DelegateCommand(() => MeasureConverters.NewObject(CreateName, CreateValue, CreateUnits.Name), () => CreateUnits != null);
+            CreateCommand = new DelegateCommand(() => MeasureConverters.NewObject(CreateName, "", CreateValue, CreateUnits.PluralName), () => CreateUnits != null);
             CreateCommand.ObservesProperty(() => CreateUnits);
             FromValue = 1;
         }
@@ -58,7 +58,7 @@ namespace HowFar.ViewModels
         {
             if (SelectedFrom != null && SelectedTo != null)
             {
-                ConvertResult = MeasureConverters.Convert(SelectedFrom.Name, SelectedTo.Name, FromValue);
+                ConvertResult = MeasureConverters.Convert(SelectedFrom.PluralName, SelectedTo.PluralName, FromValue);
             }
         }
 

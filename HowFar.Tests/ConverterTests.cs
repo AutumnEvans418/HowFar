@@ -53,11 +53,11 @@ namespace HowFar.Tests
         {
             var mil = "Millimeters";
             var cent = "Centimeters";
-            model.NewObject(mil, 0.01, cent);
+            model.NewObject(mil, "Millimeter", 0.01, cent);
             var result = model.Find(mil);
 
-            Assert.AreEqual(mil, result.Name);
-            Assert.AreEqual(cent, result.Measurement.Name);
+            Assert.AreEqual(mil, result.PluralName);
+            Assert.AreEqual(cent, result.Measurement.PluralName);
         }
 
         [Test]
@@ -67,12 +67,27 @@ namespace HowFar.Tests
         }
 
         [Test]
+        public void PluralNameTest()
+        {
+            var result = model.Find("Inches");
+            var sing = model.Find("Inch");
+
+
+            Assert.AreEqual(sing, result);
+            Assert.AreEqual("Inch", result.SingleName);
+            Assert.AreEqual("Inches", result.PluralName);
+
+        }
+
+        
+
+        [Test]
         public void Order()
         {
             var current = double.MinValue;
             foreach (var modelObjectMeasurement in model.ObjectMeasurements)
             {
-               var result = model.Convert(modelObjectMeasurement.Name, "Centimeters");
+               var result = model.Convert(modelObjectMeasurement.PluralName, "Centimeters");
                 Assert.True(result > current);
                 current = result;
             }
@@ -104,9 +119,9 @@ namespace HowFar.Tests
         [Test]
         public void PencilConvert()
         {
-            var result = model.NewObject("Pencils", 7.5, "Inches");
-            Assert.AreEqual("Pencils", result.Name); ;
-           Assert.AreEqual("Inches", result.Measurement.Name); ;
+            var result = model.NewObject("Pencils","Pencil", 7.5, "Inches");
+            Assert.AreEqual("Pencils", result.PluralName); ;
+           Assert.AreEqual("Inches", result.Measurement.PluralName); ;
 
            Assert.AreEqual(8448, model.Convert("Miles", "Pencils"));
         }

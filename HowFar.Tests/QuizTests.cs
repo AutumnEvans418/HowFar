@@ -21,6 +21,16 @@ namespace HowFar.Tests
             quiz = fixture.Create<QuizGenerator>();
         }
 
+        [Test, AutoData]
+        public void FromToNotTheSame(int size)
+        {
+            var quizResult = quiz.CreateQuiz(size);
+
+            foreach (var quizResultQuestion in quizResult.Questions)
+            {
+                Assert.AreNotEqual(quizResultQuestion.From, quizResultQuestion.To);
+            }
+        }
 
         [Test, AutoData]
         public void QuizGeneratorTest(int size)
