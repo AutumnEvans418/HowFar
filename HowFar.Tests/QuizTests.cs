@@ -1,4 +1,7 @@
-﻿using AutoFixture;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.NUnit3;
 using HowFar.Models;
@@ -19,6 +22,28 @@ namespace HowFar.Tests
 
             fixture.Inject(new MeasureConverters(fixture.Create<IApp>()) as IMeasureConverters);
             quiz = fixture.Create<QuizGenerator>();
+        }
+
+        [Test, AutoData]
+        [Repeat(10)]
+        public void CombinatorTest(List<string> data)
+        {
+            var random = data.Combinationator();
+           
+           // Assert.True(random.All(p=>p.GroupBy(r=>r).Count() == 1));
+            Assert.AreEqual(data.Count, random.First().Count());
+            Assert.AreEqual(data.Count, random.Count());
+        }
+
+
+        [Test, AutoData]
+        [Repeat(10)]
+        public void RandomTest(List<string> data, int seed)
+        {
+            var random = data.Randomize(new Random(seed));
+
+            Assert.AreEqual(data.Count, random.Count());
+            Assert.AreEqual(data.GroupBy(p=>p).Count(), random.GroupBy(p=>p).Count());
         }
 
         [Test, AutoData]
