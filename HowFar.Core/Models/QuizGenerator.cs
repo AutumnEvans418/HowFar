@@ -8,7 +8,7 @@ namespace HowFar.Models
     {
 
 
-        public static IEnumerable<IEnumerable<T>> Combinationator<T>(this IEnumerable<T> data, int? depth = null)
+        public static IEnumerable<T[]> Combinator<T>(this IEnumerable<T> data, int? depth = null)
         {
             var datalist = data.ToList();
             var count = datalist.Count();
@@ -25,8 +25,7 @@ namespace HowFar.Models
                 datalist.Remove(item);
                 datalist.Add(item);
             }
-
-            return array.ToArray();
+            return array.Select(p=> p.ToArray());
         }
 
         public static IEnumerable<T> Randomize<T>(this IEnumerable<T> data, Random random)
@@ -76,12 +75,11 @@ namespace HowFar.Models
         public Quiz CreateQuiz(int size)
         {
             var items = _converters.ObjectMeasurements.Randomize(random).ToList();
+            var t = items.Combinator();
+
             var quiz = new Quiz();
             for (int i = 0; i < size; i++)
             {
-                //items = items.Randomize(random).ToList();
-                var t = items.Combinationator();
-                
                 quiz.Questions.Add(new Question(){From = items[0], To = items[1]});
             }
             return quiz;

@@ -28,7 +28,7 @@ namespace HowFar.Tests
         [Repeat(10)]
         public void CombinatorTest(List<string> data)
         {
-            var random = data.Combinationator();
+            var random = data.Combinator();
            
            // Assert.True(random.All(p=>p.GroupBy(r=>r).Count() == 1));
             Assert.AreEqual(data.Count, random.First().Count());
@@ -44,6 +44,14 @@ namespace HowFar.Tests
 
             Assert.AreEqual(data.Count, random.Count());
             Assert.AreEqual(data.GroupBy(p=>p).Count(), random.GroupBy(p=>p).Count());
+        }
+
+        [Test, AutoData]
+        public void NoQuestionIsTheSame(int size)
+        {
+            var quizResult = quiz.CreateQuiz(size);
+            Console.WriteLine(size);
+            Assert.True(quizResult.Questions.GroupBy(p=>new {p.From.SingleName,To= p.To.SingleName}).All(r=>r.Count() ==1));
         }
 
         [Test, AutoData]

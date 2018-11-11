@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CombinatorTests.cs" />
     <Compile Include="ConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizTests.cs" />
@@ -77,6 +78,9 @@
     </PackageReference>
     <PackageReference Include="FSharp.Core">
       <Version>4.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.11.0</Version>
