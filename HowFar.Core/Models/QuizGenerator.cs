@@ -7,25 +7,28 @@ namespace HowFar.Models
     public static class Extensions
     {
 
-
-        public static IEnumerable<T[]> Combinator<T>(this IEnumerable<T> data, int? depth = null)
+        public static List<List<T>> Combinator<T>(this IEnumerable<T> data, int? pairSize = null)
         {
             var datalist = data.ToList();
             var count = datalist.Count();
-            if (depth == null)
+            if (pairSize == null)
             {
-                depth = count;
+                pairSize = count;
             }
-            var array = new List<IEnumerable<T>>();
-            for (int i = 0; i < depth; i++)
-            {
-                array.Add(datalist);
 
-                var item = datalist.First();
-                datalist.Remove(item);
-                datalist.Add(item);
+            int size = (int)pairSize;
+
+            var array = new List<List<T>>();
+            for (int i = 0; i < count; i++)
+            {
+                var l = new List<T>();
+                for (int j = 0; j < count; j++)
+                {
+
+                }
+
             }
-            return array.Select(p=> p.ToArray());
+            return array;
         }
 
         public static IEnumerable<T> Randomize<T>(this IEnumerable<T> data, Random random)
