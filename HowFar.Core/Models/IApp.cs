@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HowFar.Models
+namespace HowFar.Core.Models
 {
     public interface IApp
     {

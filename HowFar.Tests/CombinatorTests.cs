@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HowFar.Models;
+using HowFar.Core.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
 

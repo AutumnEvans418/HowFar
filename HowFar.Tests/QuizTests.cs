@@ -4,7 +4,7 @@ using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.NUnit3;
-using HowFar.Models;
+using HowFar.Core.Models;
 using NUnit.Framework;
 
 namespace HowFar.Tests

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace HowFar.Models
+namespace HowFar.Core.Models
 {
     public interface IMeasureConverters
     {

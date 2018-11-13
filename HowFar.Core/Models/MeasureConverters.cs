@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace HowFar.Models
+namespace HowFar.Core.Models
 {
     public class MeasureConverters : IMeasureConverters
     {

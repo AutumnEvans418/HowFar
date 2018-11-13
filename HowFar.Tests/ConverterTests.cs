@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using HowFar.Models;
+using HowFar.Core.Models;
 using Moq;
 using NUnit.Framework;
 

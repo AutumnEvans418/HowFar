@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using HowFar.Models;
+using HowFar.Core.Models;
 using Prism;
 using Prism.Ioc;
 using HowFar.ViewModels;

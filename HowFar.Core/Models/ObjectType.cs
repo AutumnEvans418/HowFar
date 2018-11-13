@@ -1,4 +1,4 @@
-﻿namespace HowFar.Models
+﻿namespace HowFar.Core.Models
 {
     public enum ObjectType
     {
