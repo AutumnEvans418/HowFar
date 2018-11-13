@@ -4,27 +4,16 @@ namespace HowFar.Models
 {
     public class ObjectMeasurement
     {
-        private double _value;
-        private string _pluralName;
-
         public override string ToString()
         {
-            return Measurement != null ? $"{PluralName}: {Value} {Measurement.PluralName}s" : $"{Value} {PluralName}s";
+            return Measurement != null ? $"{SingleName}: {Value} {Measurement.PluralName}" : $"{Value} {PluralName}";
         }
 
         public ObjectMeasurement Measurement { get; set; }
         public ObjectType ObjectType { get; set; }
-        public double Value
-        {
-            get => _value;
-            set =>  _value=value;
-        }
+        public double Value { get; set; }
 
-        public string PluralName
-        {
-            get => _pluralName;
-            set =>  _pluralName=value;
-        }
+        public string PluralName { get; set; }
 
         public ObjectMeasurement(ObjectType objectType)
         {

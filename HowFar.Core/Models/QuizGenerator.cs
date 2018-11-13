@@ -6,6 +6,21 @@ namespace HowFar.Models
 {
     public static class Extensions
     {
+        public static bool Same<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        {
+            var fList = first.ToList();
+            var sList = second.ToList();
+
+            for (int i = 0; i < fList.Count; i++)
+            {
+                if (fList[i].Equals(sList[i]) != true)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         public static List<List<T>> Combinator<T>(this IEnumerable<T> data, int? pairSize = null)
         {
@@ -19,16 +34,73 @@ namespace HowFar.Models
             int size = (int)pairSize;
 
             var array = new List<List<T>>();
+
+            //1,2,3,4
+            //2,3,4,1
+            //3,4,1,2
+            //4,1,2,3
+
+            //1,2,3
+            //2,3,1
+            //3,1,2
+
+            //1,2
+            //2,1
+
+            //build Grid
             for (int i = 0; i < count; i++)
             {
-                var l = new List<T>();
-                for (int j = 0; j < count; j++)
-                {
+                array.Add(datalist.ToList());
 
+                var item = datalist[0];
+                datalist.Remove(item);
+                datalist.Add(item);
+            }
+            var actionArray = array.SelectMany(p => p).ToList();
+
+            List<List<T>> finalData = GetCombinations(size, actionArray);
+
+            var r = actionArray.ToList();
+            r.Reverse();
+            var secondFinalData = GetCombinations(size, r);
+
+            foreach (var list in secondFinalData)
+            {
+                if (finalData.Any(p => p.Same(list)) != true)
+                {
+                    finalData.Add(list);
+                }
+            }
+            return finalData;
+        }
+
+        private static List<List<T>> GetCombinations<T>(int size, List<T> actionArray)
+        {
+            var finalData = new List<List<T>>();
+            bool complete = false;
+            var start = 0;
+            int arrayCount = actionArray.Count;
+            while (!complete)
+            {
+                List<T> sub = null;
+                if (start + size > actionArray.Count)
+                {
+                    actionArray.AddRange(actionArray.GetRange(0, size));
+                }
+                sub = actionArray.GetRange(start, size);
+                if (finalData.Any(p => p.Same(sub)) != true && sub.GroupBy(p => p).Any(r => r.Count() > 1) != true)
+                {
+                    finalData.Add(sub);
+                }
+                if (start > arrayCount)
+                {
+                    complete = true;
                 }
 
+                start++;
             }
-            return array;
+
+            return finalData;
         }
 
         public static IEnumerable<T> Randomize<T>(this IEnumerable<T> data, Random random)
@@ -42,7 +114,7 @@ namespace HowFar.Models
                     if (random.Next(0, 10) > 5)
                     {
                         var item = queue[index];
-                         queue.Remove(x1);
+                        queue.Remove(x1);
                         yield return item;
                     }
                 }
@@ -78,12 +150,12 @@ namespace HowFar.Models
         public Quiz CreateQuiz(int size)
         {
             var items = _converters.ObjectMeasurements.Randomize(random).ToList();
-            var t = items.Combinator();
+            var t = items.Combinator(2);
 
             var quiz = new Quiz();
             for (int i = 0; i < size; i++)
             {
-                quiz.Questions.Add(new Question(){From = items[0], To = items[1]});
+                quiz.Questions.Add(new Question() { From = t[i][0], To = t[i][1] });
             }
             return quiz;
         }

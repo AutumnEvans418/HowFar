@@ -32,7 +32,7 @@ namespace HowFar.Tests
            
            // Assert.True(random.All(p=>p.GroupBy(r=>r).Count() == 1));
             Assert.AreEqual(data.Count, random.First().Count());
-            Assert.AreEqual(data.Count, random.Count());
+            Assert.AreEqual(data.Count *2, random.Count() );
         }
 
 
