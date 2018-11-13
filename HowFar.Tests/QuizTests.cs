@@ -13,11 +13,11 @@ namespace HowFar.Tests
     public class QuizTests
     {
         private QuizGenerator quiz;
-
+        private Fixture fixture;
         [SetUp]
         public void Setup()
         {
-            var fixture = new Fixture();
+            fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
             fixture.Inject(new MeasureConverters(fixture.Create<IApp>()) as IMeasureConverters);
@@ -47,11 +47,23 @@ namespace HowFar.Tests
         }
 
         [Test, AutoData]
+        public void CorrectAnswerMatchesConverter(int size)
+        {
+            var quizResult = quiz.CreateQuiz(size);
+            Console.WriteLine(size);
+            var converter = fixture.Create<IMeasureConverters>();
+            foreach (var quizResultAnswer in quizResult.Answers)
+            {
+               Assert.AreEqual(converter.Convert(quizResultAnswer.Question.From,quizResultAnswer.Question.To, quizResultAnswer.Question.FromQuantity), quizResultAnswer.CorrectAnswer);
+            }
+        }
+
+        [Test, AutoData]
         public void NoQuestionIsTheSame(int size)
         {
             var quizResult = quiz.CreateQuiz(size);
             Console.WriteLine(size);
-            Assert.True(quizResult.Questions.GroupBy(p=>new {p.From.SingleName,To= p.To.SingleName}).All(r=>r.Count() ==1));
+            Assert.True(quizResult.Questions.GroupBy(p=>new {p.From.SingleName,To= p.To.SingleName, p.FromQuantity}).All(r=>r.Count() ==1));
         }
 
         [Test, AutoData]

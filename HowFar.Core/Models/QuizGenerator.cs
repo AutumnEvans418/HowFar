@@ -126,15 +126,24 @@ namespace HowFar.Models
         public Quiz()
         {
             Questions = new List<Question>();
+            Answers = new List<Answer>();
         }
 
         public List<Question> Questions { get; set; }
+        public List<Answer> Answers { get; set; }
     }
 
-    public class Question
+    public class Answer
+    {
+        public double? UserInput { get; set; }
+        public Question Question { get; set; }
+        public double CorrectAnswer { get; set; }
+    }
+    public struct Question
     {
         public ObjectMeasurement From { get; set; }
         public ObjectMeasurement To { get; set; }
+        public int FromQuantity { get; set; }
     }
     public class QuizGenerator
     {
@@ -147,16 +156,30 @@ namespace HowFar.Models
             _converters = converters;
         }
 
-        public Quiz CreateQuiz(int size)
+        public Quiz CreateQuiz(int size, int maximumQty = 30)
         {
             var items = _converters.ObjectMeasurements.Randomize(random).ToList();
-            var t = items.Combinator(2);
+            var t = items.Combinator(2).Select(p=> new Question(){From = p[0], To = p[1], FromQuantity = random.Next(1, maximumQty)}).ToList();
+            while (t.Count < size)
+            {
+                t.AddRange(t.Select(p => 
+                {
+                    p.FromQuantity = random.Next(1, maximumQty);
+                    return p;
+                }).ToList());
 
+                t = t.GroupBy(p => new {p.To, p.FromQuantity, p.From}).Select(p =>
+                    new Question() {From = p.Key.From, To = p.Key.To, FromQuantity = p.Key.FromQuantity}).ToList();
+            }
             var quiz = new Quiz();
             for (int i = 0; i < size; i++)
             {
-                quiz.Questions.Add(new Question() { From = t[i][0], To = t[i][1] });
+                var question = t[i];
+                quiz.Questions.Add(question);
+                quiz.Answers.Add(new Answer(){Question = question, CorrectAnswer = _converters.Convert(question.From,question.To,question.FromQuantity)});
+
             }
+
             return quiz;
         }
     }

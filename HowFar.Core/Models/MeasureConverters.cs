@@ -52,6 +52,11 @@ namespace HowFar.Models
             ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p=> Convert(p.PluralName, "Picometer")));
         }
 
+        public double Convert(ObjectMeasurement @from, ObjectMeasurement to, double valueFrom = 1)
+        {
+            return Convert(from.PluralName, to.PluralName, valueFrom);
+        }
+
         public double Convert(string nameFrom, string nameTo, double valueFrom = 1)
         {
             var from = Find(nameFrom);
