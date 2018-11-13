@@ -30,22 +30,10 @@ namespace HowFar.Core.Models
             {
                 pairSize = count;
             }
-
             int size = (int)pairSize;
-
             var array = new List<List<T>>();
 
-            //1,2,3,4
-            //2,3,4,1
-            //3,4,1,2
-            //4,1,2,3
-
-            //1,2,3
-            //2,3,1
-            //3,1,2
-
-            //1,2
-            //2,1
+            
 
             //build Grid
             for (int i = 0; i < count; i++)
@@ -57,20 +45,20 @@ namespace HowFar.Core.Models
                 datalist.Add(item);
             }
             var actionArray = array.SelectMany(p => p).ToList();
-
+            actionArray.AddRange(array.SelectMany(p=>p).Reverse());
             List<List<T>> finalData = GetCombinations(size, actionArray);
 
-            var r = actionArray.ToList();
-            r.Reverse();
-            var secondFinalData = GetCombinations(size, r);
+            //var r = actionArray.ToList();
+            //r.Reverse();
+            //var secondFinalData = GetCombinations(size, r);
 
-            foreach (var list in secondFinalData)
-            {
-                if (finalData.Any(p => p.Same(list)) != true)
-                {
-                    finalData.Add(list);
-                }
-            }
+            //foreach (var list in secondFinalData)
+            //{
+            //    if (finalData.Any(p => p.Same(list)) != true)
+            //    {
+            //        finalData.Add(list);
+            //    }
+            //}
             return finalData;
         }
 

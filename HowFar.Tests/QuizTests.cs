@@ -5,6 +5,7 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.NUnit3;
 using HowFar.Core.Models;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace HowFar.Tests
@@ -75,6 +76,18 @@ namespace HowFar.Tests
             {
                 Assert.AreNotEqual(quizResultQuestion.From, quizResultQuestion.To);
             }
+        }
+
+        [Test, AutoData]
+        public void QuizTextUsesCorrectGrammer()
+        {
+            var quizResult = quiz.CreateQuiz(10);
+
+            foreach (var quizResultQuestion in quizResult.Questions)
+            {
+                Assert.AreEqual($"How many {quizResultQuestion.To.PluralName} are in {quizResultQuestion.FromQuantity} {quizResultQuestion.From.PluralName}?", quizResultQuestion.QuestionText);
+            }
+            
         }
 
         [Test, AutoData]

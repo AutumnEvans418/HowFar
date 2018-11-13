@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoFixture.NUnit3;
 using HowFar.Core.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -10,6 +11,25 @@ namespace HowFar.Tests
     [TestFixture]
     public class CombinatorTests
     {
+
+
+        [Test, AutoData]
+        public void AdvancedCombinatorRandomTest(List<int> data)
+        {
+
+            var result = data.Combinator().ToList();
+            //1,2,3,4
+            //2,3,4,1
+            //3,4,1,2
+            //4,1,2,3
+
+
+            Console.WriteLine(JsonConvert.SerializeObject(result));
+
+
+            Assert.AreEqual(data.Count * 2, result.Count);
+            Assert.AreEqual(data.Count, result.First().Count);
+        }
 
         [Test]
         public void Single()
@@ -21,6 +41,11 @@ namespace HowFar.Tests
             Assert.AreEqual(3, result.Count);
             Assert.AreEqual(1, result.First().Count);
         }
+
+        //1,2,3,4
+        //2,3,4,1
+        //3,4,1,2
+        //4,1,2,3
 
         //1,2,3
         //2,3,1
