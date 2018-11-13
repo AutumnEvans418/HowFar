@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HowFar.Core.Models
@@ -40,5 +41,85 @@ namespace HowFar.Core.Models
 
             return quiz;
         }
+    }
+
+    public enum GradeLetter
+    {
+        A,
+        B,
+        C,
+        D,
+        F
+    }
+
+    public class Grade : IGrade
+    {
+        public GradeLetter GradeLetter => GetLetter();
+
+        private GradeLetter GetLetter()
+        {
+            var percent = Percent;
+            if (percent < .6) return GradeLetter.F;
+            if (percent < .7) return GradeLetter.D;
+            if (percent < .8) return GradeLetter.C;
+            if (percent < .9) return GradeLetter.B;
+            return GradeLetter.A;
+        }
+
+        public double Percent => ActualPoints / PossiblePoints;
+        public double PossiblePoints { get; set; }
+        public double ActualPoints { get; set; }
+        public int RightQuestions { get; set; }
+        public int TotalQuestions { get; set; }
+    }
+
+    public class QuizScorer : IQuizScorer
+    {
+        private readonly IAnswerScorer _answerScorer;
+
+        public QuizScorer(IAnswerScorer answerScorer)
+        {
+            _answerScorer = answerScorer;
+        }
+        public IGrade CalculateScore(IEnumerable<Answer> answers)
+        {
+            var grade = new Grade
+            {
+                TotalQuestions = answers.Count(),
+                PossiblePoints = _answerScorer.MaxScore,
+                RightQuestions = answers.Count(p => _answerScorer.GetScore(p) > 0),
+                ActualPoints = answers.Sum(p=> _answerScorer.GetScore(p))
+            };
+            return grade;
+        }
+    }
+
+    public interface IGrade
+    {
+        GradeLetter GradeLetter { get; }
+        double Percent { get; }
+        double PossiblePoints { get; }
+        double ActualPoints { get; }
+        int RightQuestions { get; }
+        int TotalQuestions { get; }
+    }
+
+    public class AnswerScorer : IAnswerScorer
+    {
+        public double GetScore(Answer answer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double MaxScore { get; }
+    }
+    public interface IAnswerScorer
+    {
+        double GetScore(Answer answer);
+        double MaxScore { get; }
+    }
+    public interface IQuizScorer
+    {
+        IGrade CalculateScore(IEnumerable<Answer> answers);
     }
 }
