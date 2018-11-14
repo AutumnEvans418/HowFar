@@ -13,12 +13,14 @@ namespace HowFar.Core.Models
         }
         public IGrade CalculateScore(IEnumerable<Answer> answers)
         {
+
+            var answList = answers.ToList();
             var grade = new Grade
             {
-                TotalQuestions = answers.Count(),
-                PossiblePoints = answers.Count() * _answerScorer.MaxScore,
-                RightQuestions = answers.Count(p => _answerScorer.GetScore(p) > 0),
-                ActualPoints = answers.Sum(p=> _answerScorer.GetScore(p))
+                TotalQuestions = answList.Count,
+                PossiblePoints = answList.Sum(p=> _answerScorer.GetMaxScore(p)),
+                RightQuestions = answList.Count(p => _answerScorer.GetScore(p) > 0),
+                ActualPoints = answList.Sum(p=> _answerScorer.GetScore(p)),
             };
             return grade;
         }
