@@ -2,7 +2,7 @@
 
 namespace HowFar.Core.Models
 {
-    public class ObjectMeasurement
+    public class ObjectMeasurement : IObjectMeasurement
     {
         public override string ToString()
         {

@@ -13,28 +13,28 @@ using Xamarin.Forms;
 
 namespace HowFar.Tests
 {
-    public static class TestExt
-    {
-        public static TimeSpan AverageTimeSpan(Action action, int count = 1000)
-        {
-            var time = new List<TimeSpan>(count);
-            for (int i = 0; i < count; i++)
-            {
-                time.Add(Time(action));
-            }
-            double doubleAverageTicks = time.Average(timeSpan => timeSpan.Ticks);
-            long longAverageTicks = Convert.ToInt64(doubleAverageTicks);
+    //public static class TestExt
+    //{
+    //    public static TimeSpan AverageTimeSpan(Action action, int count = 1000)
+    //    {
+    //        var time = new List<TimeSpan>(count);
+    //        for (int i = 0; i < count; i++)
+    //        {
+    //            time.Add(Time(action));
+    //        }
+    //        double doubleAverageTicks = time.Average(timeSpan => timeSpan.Ticks);
+    //        long longAverageTicks = Convert.ToInt64(doubleAverageTicks);
 
-            return new TimeSpan(longAverageTicks);
-        }
-        public static TimeSpan Time(Action action)
-        {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            action();
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
-        }
-    }
+    //        return new TimeSpan(longAverageTicks);
+    //    }
+    //    public static TimeSpan Time(Action action)
+    //    {
+    //        Stopwatch stopwatch = Stopwatch.StartNew();
+    //        action();
+    //        stopwatch.Stop();
+    //        return stopwatch.Elapsed;
+    //    }
+    //}
     public class ConverterTests
     {
         private MeasureConverters model;
