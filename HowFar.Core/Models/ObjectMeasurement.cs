@@ -13,6 +13,8 @@ namespace HowFar.Core.Models
         public ObjectType ObjectType { get; set; }
         public double Value { get; set; }
 
+        public byte[] Image { get; set; }
+
         public string PluralName { get; set; }
 
         public ObjectMeasurement(ObjectType objectType)

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using HowFar.Core.Models;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace HowFarApp
 {
-    public partial class App : Application
+    public partial class App : Application, IApp
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new SignInPage();
+            var measures = new MeasureConverters(this);
+            MainPage = new SignInPage(measures);
         }
 
         protected override void OnStart()

@@ -9,6 +9,7 @@ using AutoFixture.AutoMoq;
 using HowFar.Core.Models;
 using Moq;
 using NUnit.Framework;
+using Xamarin.Forms;
 
 namespace HowFar.Tests
 {
@@ -42,7 +43,6 @@ namespace HowFar.Tests
         {
             var fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
-            
             model = fixture.Build<MeasureConverters>().OmitAutoProperties().Create();
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HowFarApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,18 @@ namespace HowFarApp
 {
     public partial class SignInPage : ContentPage
     {
-        public SignInPage()
+        private readonly HowFar.Core.Models.MeasureConverters measures;
+
+        public SignInPage(HowFar.Core.Models.MeasureConverters measures)
         {
             InitializeComponent();
+            this.measures = measures;
+        }
+
+
+        void NavigateToMainPage()
+        {
+            Navigation.PushAsync(new MainMenuPage(measures));
         }
     }
 }

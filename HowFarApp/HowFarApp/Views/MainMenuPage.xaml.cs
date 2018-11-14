@@ -12,7 +12,7 @@ namespace HowFarApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MainMenuPage : ContentPage
 	{
-		public MainMenuPage ()
+		public MainMenuPage (HowFar.Core.Models.MeasureConverters measures)
 		{
 			InitializeComponent ();
 		}
