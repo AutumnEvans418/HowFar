@@ -68,6 +68,7 @@ namespace HowFar.Tests
             {
                 quizQuestion.UserInput = quizQuestion.CorrectAnswer;
             }
+            Console.WriteLine(JsonConvert.SerializeObject(quiz.Answers, Formatting.Indented));
 
             var score = grader.CalculateScore(quiz.Answers);
             Console.WriteLine(JsonConvert.SerializeObject(score, Formatting.Indented));
