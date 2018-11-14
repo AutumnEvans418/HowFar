@@ -10,6 +10,6 @@ namespace HowFar.Core.Models
             return 1 - (Math.Abs((int) answer.UserInput - answer.CorrectAnswer) / answer.CorrectAnswer);
         }
 
-        public double MaxScore => 1;
+        public double GetMaxScore(Answer answer) => 1;
     }
 }

@@ -59,10 +59,6 @@
       <Project>{3388b70a-141d-443f-9ceb-88f3a9c09a97}</Project>
       <Name>HowFar.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HowFar\HowFar\HowFar.csproj">
-      <Project>{9fdb77de-70a9-444e-8deb-f3c55524fb05}</Project>
-      <Name>HowFar</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
