@@ -3,6 +3,6 @@
     public interface IAnswerScorer
     {
         double GetScore(Answer answer);
-        double MaxScore { get; }
+        double GetMaxScore(Answer answer);
     }
 }

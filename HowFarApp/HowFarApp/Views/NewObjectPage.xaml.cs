@@ -15,6 +15,7 @@ namespace HowFarApp.Views
 		public NewObjectPage ()
 		{
 			InitializeComponent ();
+
 		}
 	}
 }

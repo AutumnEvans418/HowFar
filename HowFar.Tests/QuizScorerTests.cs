@@ -9,18 +9,32 @@ using NUnit.Framework;
 
 namespace HowFar.Tests
 {
+
+    public class InlineAutoDataCustAttribute : InlineAutoDataAttribute
+    {
+        public InlineAutoDataCustAttribute(params object[] arguments) : base(AutoDataCustAttribute.GetFixture(), arguments)
+        {
+
+        }
+    }
     public class AutoDataCustAttribute : AutoDataAttribute
     {
-        public AutoDataCustAttribute() : base(() => {
-            var fixture = new Fixture();
-            fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-                .ForEach(b => fixture.Behaviors.Remove(b));
-            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-           
-            return fixture;
-        })
+        public AutoDataCustAttribute() : base(GetFixture())
         {
-            
+
+        }
+
+        public static Func<IFixture> GetFixture()
+        {
+            return () =>
+            {
+                var fixture = new Fixture();
+                fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                    .ForEach(b => fixture.Behaviors.Remove(b));
+                fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+                return fixture;
+            };
         }
     }
 
@@ -32,7 +46,7 @@ namespace HowFar.Tests
         [SetUp]
         public void Setup()
         {
-           fixture = new Fixture();
+            fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
             fixture.Inject(fixture.Build<MeasureConverters>().OmitAutoProperties().Create() as IMeasureConverters);
@@ -40,10 +54,12 @@ namespace HowFar.Tests
         }
 
 
+
+
         [Test]
         public void Quiz100PercentTest()
         {
-           
+
             var grader = fixture.Create<QuizScorer>();
             var generator = fixture.Create<QuizGenerator>();
 
@@ -52,6 +68,7 @@ namespace HowFar.Tests
             {
                 quizQuestion.UserInput = quizQuestion.CorrectAnswer;
             }
+            Console.WriteLine(JsonConvert.SerializeObject(quiz.Answers, Formatting.Indented));
 
             var score = grader.CalculateScore(quiz.Answers);
             Console.WriteLine(JsonConvert.SerializeObject(score, Formatting.Indented));
@@ -64,6 +81,18 @@ namespace HowFar.Tests
 
         }
 
+
+        [Test, AutoDataCust]
+        [InlineAutoDataCust(10)]
+        [InlineAutoDataCust(-10)]
+        [InlineAutoDataCust(1)]
+        [InlineAutoDataCust(2)]
+        public void AnsCustwer100LargePercentTest(int input, AnswerScorerPercent percent, Answer answer)
+        {
+            answer.UserInput = input;
+            answer.CorrectAnswer = input;
+            Assert.AreEqual(1, percent.GetScore(answer));
+        }
 
 
         [Test, AutoDataCust]

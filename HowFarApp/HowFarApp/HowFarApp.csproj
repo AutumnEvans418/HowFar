@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\HowFar.Core\HowFar.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>

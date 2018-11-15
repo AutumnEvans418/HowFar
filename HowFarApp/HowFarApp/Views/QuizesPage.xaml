@@ -3,10 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.QuizesPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="CenterAndExpand">
+                <BoxView BackgroundColor="White"></BoxView>
+                <BoxView BackgroundColor="White"></BoxView>
+                <BoxView BackgroundColor="White"></BoxView>
+            </StackLayout>
+
+            <StackLayout Grid.Row="1">
+                <Entry Placeholder="# of Questions"></Entry>
+                <Label Text="Object Packs"></Label>
+                <Picker></Picker>
+                <Button Text="Go!" HorizontalOptions="End"></Button>
+            </StackLayout>
+        </Grid>
+      
     </ContentPage.Content>
 </ContentPage>
