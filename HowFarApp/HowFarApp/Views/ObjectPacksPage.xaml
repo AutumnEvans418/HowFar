@@ -4,9 +4,11 @@
              x:Class="HowFarApp.Views.ObjectPacksPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ListView x:Name="extendedListView"
+                      HasUnevenRows="True">
+               
+            </ListView>
+               
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

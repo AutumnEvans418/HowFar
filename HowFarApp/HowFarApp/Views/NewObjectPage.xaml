@@ -1,12 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HowFarApp.Views.NewObjectPage">
+             x:Class="HowFarApp.Views.NewObjectPage"
+             Title="New Object"
+             BackgroundColor="Black">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="45"
+                     Spacing="10"
+                     BackgroundColor="White"
+                     VerticalOptions="FillAndExpand">
+           
+            <Label Text="Name"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="Large"/>
+
+            <Entry x:Name="NameEntry"
+                   Text="Pencil"
+                   TextColor="LightGray"
+                   
+                />
+
+            <Label Text="Plural Name"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="Large"/>
+
+            <Entry x:Name="PluralEntry"
+                   Text="Pencils"
+                   TextColor="LightGray"
+                   
+                />
+
+            <Label Text="Measurement"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="Large"/>
+
+            <Entry x:Name="MeasurementEntry"
+                   Text="ex. 6.25"
+                   TextColor="LightGray"
+                   
+                />
+
+            <Label Text="Units"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="Large"/>
+
+            <Picker x:Name="UnitsPicker" 
+                    TextColor="Black"
+                    HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Inches</x:String>
+                    <x:String>Centimeters</x:String>
+                </Picker.Items>
+            </Picker>
+
+
+
+            <Button x:Name="ImageInsert"
+                    WidthRequest="15"
+                    HeightRequest="30"
+                    Text="Insert Image"
+                    BackgroundColor="ForestGreen"
+                    VerticalOptions="EndAndExpand"/>
+    
+
+            <Button x:Name="NewButton"
+                    WidthRequest="15"
+                    HeightRequest="30"
+                    Text="New"
+                    BackgroundColor="ForestGreen"
+                    VerticalOptions="End"/>
+               
+          
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
