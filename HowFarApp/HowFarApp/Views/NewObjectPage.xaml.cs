@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HowFar.Core.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +14,21 @@ namespace HowFarApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewObjectPage : ContentPage
 	{
-		public NewObjectPage ()
+        private readonly MeasureConverters measure;
+
+        public NewObjectPage (MeasureConverters measure)
 		{
 			InitializeComponent ();
+            ObjectMeasurements = measure.ObjectMeasurements;
+            this.measure = measure;
+        }
+        public ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
 
-		}
+        public ObjectMeasurement SelectedObject { get; set; }
+        void NewObject()
+        {
+           // measure.NewObject(pluralnameentry.text, singularnameentry.text, value, SelectedObject, SelectedObject.Measurement);
+
+        }
 	}
 }
