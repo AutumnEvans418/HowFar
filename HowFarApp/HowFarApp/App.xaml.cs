@@ -1,5 +1,6 @@
 ﻿using HowFar.Core.Models;
 using System;
+using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,8 +12,17 @@ namespace HowFarApp
         public App()
         {
             InitializeComponent();
-            var measures = new MeasureConverters(this);
-            MainPage = new SignInPage(measures);
+            //var containerBuilder = new ContainerBuilder();
+
+            //containerBuilder.RegisterInstance(this).As<IApp>();
+            //containerBuilder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
+           
+            //var container = containerBuilder.Build();
+            var container = new UnityContainer();
+            container.RegisterInstance(typeof(IApp), this);
+            container.RegisterSingleton<IMeasureConverters>();
+             
+            MainPage = new NavigationPage(container.Resolve<SignInPage>()); ;
         }
 
         protected override void OnStart()

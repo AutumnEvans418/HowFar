@@ -20,43 +20,39 @@
                     
                 </Grid.RowDefinitions>
 
-                <Label Text="Object Manager"
+                <Button Text="Object Manager"
                        TextColor="White"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
                        BackgroundColor="Red"
                        FontAttributes="Bold"
                        FontSize="Large"
+                        Clicked="ObjectManager"
                        Grid.Row="0"
                        Grid.Column="0"/>
 
-                <Label Text="Object Packs"
+                <Button Text="Object Packs"
                        TextColor="White"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
                        BackgroundColor="Blue"
                        FontAttributes="Bold"
                        FontSize="Large"
                        Grid.Row="0"
+                        Clicked="ObjectPacks"
                        Grid.Column="1"/>
 
-                <Label Text="Map"
+                <Button Text="Map"
                        TextColor="White"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
                        BackgroundColor="Purple"
                        FontAttributes="Bold"
                        FontSize="Large"
+                        Clicked="Map"
                        Grid.Row="1"
                        Grid.Column="0"/>
                
-               <Label Text="Practice Quizes"
+               <Button Text="Practice Quizes"
                        TextColor="White"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
                        BackgroundColor="Green"
                        FontAttributes="Bold"
                        FontSize="Large"
+                       Clicked="Quizes"
                        Grid.Row="1"
                        Grid.Column="1"/>
                 

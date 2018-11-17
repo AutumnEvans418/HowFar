@@ -4,24 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 using Xamarin.Forms;
 
 namespace HowFarApp
 {
     public partial class SignInPage : ContentPage
     {
-        private readonly HowFar.Core.Models.MeasureConverters measures;
+        private readonly IUnityContainer _container;
 
-        public SignInPage(HowFar.Core.Models.MeasureConverters measures)
+        public SignInPage(IUnityContainer container)
         {
+            _container = container;
             InitializeComponent();
-            this.measures = measures;
         }
 
 
         void NavigateToMainPage()
         {
-            Navigation.PushAsync(new MainMenuPage(measures));
+            
+            Navigation.PushAsync(_container.Resolve<MainMenuPage>(), true);
+        }
+
+        private void Button_OnClicked(object sender, EventArgs e)
+        {
+            NavigateToMainPage();
         }
     }
 }
