@@ -3,6 +3,17 @@ using System.Linq;
 
 namespace HowFar.Core.Models
 {
+
+    public enum QuizDifficulty : int
+    {
+        Beginner = 10,
+        Novice = 100,
+        Experienced = 1000,
+        Expert = 100000,
+        Metrologist = 100000000,
+        GOD = 1000000000
+    }
+
     public class QuizGenerator
     {
         private readonly IMeasureConverters _converters;
@@ -14,10 +25,21 @@ namespace HowFar.Core.Models
             _converters = converters;
         }
 
-        public Quiz CreateQuiz(int size, int maximumQty = 30)
+        public int MaxQuizSize => _converters.ObjectMeasurements.Count * _converters.ObjectMeasurements.Count;
+
+        public Quiz CreateQuiz(int size, QuizDifficulty difficulty, int maximumQty = 30)
         {
+            return CreateQuiz(size, maximumQty, (int) difficulty);
+        }
+
+        public Quiz CreateQuiz(int size, int maximumQty = 30, int maximumRange = int.MaxValue)
+        {
+            if (size > MaxQuizSize)
+            {
+                throw new InvalidOperationException($"the quiz is too large. MaxSize: {MaxQuizSize}");
+            }
             var items = _converters.ObjectMeasurements.Randomize(random).ToList();
-            var t = items.Combinator(2).Select(p=> new Question(){From = p[0], To = p[1], FromQuantity = random.Next(1, maximumQty)}).ToList();
+            var t = items.Combinator(2).Select(p=> new Question(){From = p[0], To = p[1], FromQuantity = random.Next(1, maximumQty)}).Where(p=> Math.Abs(Convert(p)) <= maximumRange).ToList();
             while (t.Count < size)
             {
                 t.AddRange(t.Select(p => 
@@ -34,11 +56,17 @@ namespace HowFar.Core.Models
             {
                 var question = t[i];
                 quiz.Questions.Add(question);
-                quiz.Answers.Add(new Answer(){Question = question, CorrectAnswer = _converters.Convert(question.From,question.To,question.FromQuantity)});
+                double correctAnswer = Convert(question);
+                quiz.Answers.Add(new Answer() { Question = question, CorrectAnswer = correctAnswer });
 
             }
 
             return quiz;
+        }
+
+        private double Convert(Question question)
+        {
+            return _converters.Convert(question.From, question.To, question.FromQuantity);
         }
     }
 }

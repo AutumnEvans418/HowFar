@@ -47,11 +47,10 @@ namespace HowFar.Tests
             Assert.AreEqual(data.GroupBy(p=>p).Count(), random.GroupBy(p=>p).Count());
         }
 
-        [Test, AutoData]
-        public void CorrectAnswerMatchesConverter(int size)
+        [Test, AutoData()]
+        public void CorrectAnswerMatchesConverter()
         {
-            var quizResult = quiz.CreateQuiz(size);
-            Console.WriteLine(size);
+            var quizResult = quiz.CreateQuiz(50);
             var converter = fixture.Create<IMeasureConverters>();
             foreach (var quizResultAnswer in quizResult.Answers)
             {
@@ -59,18 +58,17 @@ namespace HowFar.Tests
             }
         }
 
-        [Test, AutoData]
-        public void NoQuestionIsTheSame(int size)
+        [Test]
+        public void NoQuestionIsTheSame([Random(1,50, 20)]int size)
         {
             var quizResult = quiz.CreateQuiz(size);
-            Console.WriteLine(size);
             Assert.True(quizResult.Questions.GroupBy(p=>new {p.From.SingleName,To= p.To.SingleName, p.FromQuantity}).All(r=>r.Count() ==1));
         }
 
         [Test, AutoData]
-        public void FromToNotTheSame(int size)
+        public void FromToNotTheSame()
         {
-            var quizResult = quiz.CreateQuiz(size);
+            var quizResult = quiz.CreateQuiz(50);
 
             foreach (var quizResultQuestion in quizResult.Questions)
             {
@@ -91,11 +89,11 @@ namespace HowFar.Tests
         }
 
         [Test, AutoData]
-        public void QuizGeneratorTest(int size)
+        public void QuizGeneratorTest()
         {
-            var quizResult = quiz.CreateQuiz(size);
+            var quizResult = quiz.CreateQuiz(20);
             
-            Assert.AreEqual(size, quizResult.Questions.Count);
+            Assert.AreEqual(20, quizResult.Questions.Count);
         }
     }
 }

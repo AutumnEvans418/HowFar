@@ -48,39 +48,93 @@ namespace HowFar.Tests
         {
             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
-
+            
             fixture.Inject(fixture.Build<MeasureConverters>().OmitAutoProperties().Create() as IMeasureConverters);
-            fixture.Inject(fixture.Create<AnswerScorerPercent>() as IAnswerScorer);
+            fixture.Inject(fixture.Build<AnswerScorerPercent>().OmitAutoProperties().Create<AnswerScorerPercent>() as IAnswerScorer);
         }
 
+        [Test]
+        public void QuizPoints()
+        {
+            IGrade score = Grade();
 
+            Assert.AreEqual(10, score.ActualPoints);
+        }
+
+        [Test]
+        public void QuizPointsPossible()
+        {
+            var score = Grade();
+            Assert.AreEqual(10, score.PossiblePoints);
+        }
+        [Test]
+        public void QuizPercent()
+        {
+            var score = Grade();
+            Assert.AreEqual(1, score.Percent);
+        }
+
+        [Test]
+        public void Quiz100PercentATest()
+        {
+            IGrade score = Grade();
+            //Assert.AreEqual(10, score.RightQuestions);
+            Assert.AreEqual(GradeLetter.A, score.GradeLetter);
+           
+
+        }
+
+        [Test]
+        [TestCase(0.0124274238447467)]
+        [TestCase(-0.0124274238447467)]
+        [TestCase(528000000)]
+        [TestCase(4.55846688E+22)]
+        [TestCase(8702527680000)]
+        public void ScoreTest(double data)
+        {
+            var score = new AnswerScorerPercent();
+            var answer = new Answer {UserInput = data, CorrectAnswer = data};
+
+            var result = score.GetScore(answer);
+            Assert.AreEqual(1, result);
+        }
 
 
         [Test]
         public void Quiz100PercentTest()
         {
+            IGrade score = Grade();
+            Assert.AreEqual(10, score.TotalQuestions);
 
-            var grader = fixture.Create<QuizScorer>();
-            var generator = fixture.Create<QuizGenerator>();
+        }
+
+        private IGrade Grade()
+        {
+            var grader = fixture.Build<QuizScorer>().OmitAutoProperties().Create<QuizScorer>();
+            var generator = fixture.Build<QuizGenerator>().OmitAutoProperties().Create<QuizGenerator>();
 
             var quiz = generator.CreateQuiz(10);
             foreach (var quizQuestion in quiz.Answers)
             {
                 quizQuestion.UserInput = quizQuestion.CorrectAnswer;
+                Assert.AreEqual(quizQuestion.CorrectAnswer, quizQuestion.UserInput);
             }
+            var ansscore = new AnswerScorerPercent();
+
+            foreach (var quizAnswer in quiz.Answers)
+            {
+                Console.WriteLine(quizAnswer.CorrectAnswer);
+                var result = ansscore.GetScore(quizAnswer);
+                Assert.AreEqual(1, result);
+            }
+            
             Console.WriteLine(JsonConvert.SerializeObject(quiz.Answers, Formatting.Indented));
 
             var score = grader.CalculateScore(quiz.Answers);
             Console.WriteLine(JsonConvert.SerializeObject(score, Formatting.Indented));
             Assert.AreEqual(10, score.TotalQuestions);
-            Assert.AreEqual(10, score.RightQuestions);
-            Assert.AreEqual(GradeLetter.A, score.GradeLetter);
-            Assert.AreEqual(10, score.PossiblePoints);
-            Assert.AreEqual(10, score.ActualPoints);
-            Assert.AreEqual(1, score.Percent);
-
+            return score;
         }
-
 
         [Test, AutoDataCust]
         [InlineAutoDataCust(10)]
