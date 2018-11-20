@@ -9,12 +9,21 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             
-            <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="CenterAndExpand">
+            <!--<StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="CenterAndExpand">
                 <BoxView BackgroundColor="White"></BoxView>
                 <BoxView BackgroundColor="White"></BoxView>
-                <BoxView BackgroundColor="White"></BoxView>
-            </StackLayout>
-
+            </StackLayout>-->
+            <ListView x:Name="MessagesListView" Rotation="270" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" RowHeight="40">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <StackLayout Grid.Row="1">
                 <Entry Placeholder="# of Questions"></Entry>
                 <Label Text="Object Packs"></Label>
