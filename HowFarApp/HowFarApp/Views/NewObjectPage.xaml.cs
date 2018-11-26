@@ -27,7 +27,7 @@ namespace HowFarApp.Views
         public ObjectMeasurement SelectedObject { get; set; }
         void NewObject()
         {
-           // measure.NewObject(pluralnameentry.text, singularnameentry.text, value, SelectedObject, SelectedObject.Measurement);
+           measure.NewObject(PluralEntry.Text, NameEntry.Text, MeasurementEntry, SelectedObject, SelectedObject.Measurement);
 
         }
 	}

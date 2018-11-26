@@ -38,7 +38,7 @@
                    FontSize="Large"/>
 
             <Entry x:Name="MeasurementEntry"
-                   Text="ex. 6.25"
+                   Placeholder="ex. 6.25"
                    TextColor="LightGray"
                    
                 />
