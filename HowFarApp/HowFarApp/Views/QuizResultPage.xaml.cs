@@ -15,6 +15,7 @@ namespace HowFarApp.Views
 		public QuizResultPage (HowFar.Core.Models.IGrade grade)
 		{
 			InitializeComponent ();
+		    BindingContext = this;
 		}
 	}
 }

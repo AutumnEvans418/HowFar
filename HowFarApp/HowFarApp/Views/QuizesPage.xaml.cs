@@ -22,14 +22,17 @@ namespace HowFarApp.Views
         private string _selectedItem;
         private ObservableCollection<string> _packs;
         private string _selectedPack = AllPacks;
+        private int _questionNumber;
 
         public QuizesPage(IMeasureConverters converters, IQuizGenerator generator, IUnityContainer container)
         {
+            
             _generator = generator;
             _container = container;
             InitializeComponent();
             Packs = new ObservableCollection<string>(converters.ObjectPacks.Select(p=>p.PackName));
             Packs.Add(AllPacks);
+            QuestionNumber = 10;
             BindingContext = this;
         }
 
@@ -75,7 +78,16 @@ namespace HowFarApp.Views
             }
         }
 
-        public int QuestionNumber { get; set; }
+        public int QuestionNumber
+        {
+            get => _questionNumber;
+            set
+            {
+                _questionNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
         private async void GoClicked(object sender, EventArgs e)
         {
             var quiz = _generator.CreateQuiz(QuestionNumber,

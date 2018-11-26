@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Quiz"></Label>
-            <ListView ItemsSource="{Binding Quiz.Answers}">
+            <ListView ItemsSource="{Binding Quiz.Answers}" BackgroundColor="AliceBlue" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
