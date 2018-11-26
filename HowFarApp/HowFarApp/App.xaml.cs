@@ -20,8 +20,9 @@ namespace HowFarApp
             //var container = containerBuilder.Build();
             var container = new UnityContainer();
             container.RegisterInstance(typeof(IApp), this);
-            container.RegisterSingleton<IMeasureConverters>();
-             
+            container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
+            container.RegisterInstance(typeof(IQuizGenerator),
+                new QuizGenerator(container.Resolve<IMeasureConverters>(), DateTime.Now.GetHashCode()));
             MainPage = new NavigationPage(container.Resolve<SignInPage>()); ;
         }
 

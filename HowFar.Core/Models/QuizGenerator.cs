@@ -14,7 +14,7 @@ namespace HowFar.Core.Models
         GOD = 1000000000
     }
 
-    public class QuizGenerator
+    public class QuizGenerator : IQuizGenerator
     {
         private readonly IMeasureConverters _converters;
 

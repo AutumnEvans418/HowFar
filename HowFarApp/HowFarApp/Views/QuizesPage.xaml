@@ -24,7 +24,7 @@
                 <Entry Placeholder="# of Questions" Text="{Binding QuestionNumber}"></Entry>
                 <Label Text="Object Packs"></Label>
                 <Picker ItemsSource="{Binding Packs}"></Picker>
-                <Button Text="Go!" HorizontalOptions="End"></Button>
+                <Button Text="Go!" HorizontalOptions="End" Clicked="GoClicked"></Button>
             </StackLayout>
         </Grid>
       

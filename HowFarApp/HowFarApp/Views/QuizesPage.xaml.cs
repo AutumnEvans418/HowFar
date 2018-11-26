@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
+using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,15 +16,32 @@ namespace HowFarApp.Views
     public partial class QuizesPage : ContentPage
     {
         private readonly IMeasureConverters _converters;
+        private readonly IQuizGenerator _generator;
         private ObservableCollection<string> _items = new ObservableCollection<string>(Enum.GetNames(typeof(QuizDifficulty)));
         private string _selectedItem;
         private ObservableCollection<string> _packs;
+        private string _selectedPack = AllPacks;
 
-        public QuizesPage(IMeasureConverters converters)
+        public QuizesPage(IMeasureConverters converters, IQuizGenerator generator)
         {
             _converters = converters;
+            _generator = generator;
             InitializeComponent();
+            Packs = new ObservableCollection<string>(converters.ObjectPacks.Select(p=>p.PackName));
+            Packs.Add(AllPacks);
             BindingContext = this;
+        }
+
+        public const string AllPacks = "All";
+
+        public string SelectedPack
+        {
+            get => _selectedPack;
+            set
+            {
+                _selectedPack = value;
+                OnPropertyChanged();
+            }
         }
 
         public ObservableCollection<string> Packs
@@ -54,6 +72,12 @@ namespace HowFarApp.Views
                 _items = value;
                 OnPropertyChanged();
             }
+        }
+
+        public int QuestionNumber { get; set; }
+        private async void GoClicked(object sender, EventArgs e)
+        {
+           await  Navigation.PushAsync(new QuizPage(_generator.CreateQuiz(QuestionNumber,(QuizDifficulty) Enum.Parse(typeof(QuizDifficulty),SelectedItem))));
         }
     }
 }
