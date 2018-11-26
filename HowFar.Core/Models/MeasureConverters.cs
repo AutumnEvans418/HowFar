@@ -27,30 +27,37 @@ namespace HowFar.Core.Models
 
         }
 
+        public const string Metric = "Metric";
+        public const string Imperial = "Imperial";
+        public const string Space = "Space";
         private void Startup()
         {
-            Centimeter = new ObjectMeasurement(ObjectType.Unit) { PluralName = "Centimeters", Value = 1 };
-            var inches = NewObject("Inches", "Inch", 2.54, Centimeter);
-            var feet = NewObject("Feet","Foot", 12, inches);
-            var mile = NewObject("Miles", "Mile", 5280, feet);
-            var meter = NewObject("Meters", "Meter", 100, Centimeter);
-            var kiloMeter = NewObject("Kilometers", "Kilometer", 1000, meter);
+            ObjectPacks = new ObservableCollection<ObjectPack>();
+            Centimeter = new ObjectMeasurement() { PluralName = "Centimeters", Value = 1 };
+            UpdatePack(Imperial, Centimeter);
+            var inches = NewObject("Inches", "Inch", 2.54, Centimeter, Imperial);
+            var feet = NewObject("Feet","Foot", 12, inches, Imperial);
+            var mile = NewObject("Miles", "Mile", 5280, feet, Imperial);
+            var meter = NewObject("Meters", "Meter", 100, Centimeter, Metric);
+            var kiloMeter = NewObject("Kilometers", "Kilometer", 1000, meter, Metric);
 
-            var nanoMeter = NewObject("Nanometers", "Nanometer", 0.0000001, Centimeter);
+            var nanoMeter = NewObject("Nanometers", "Nanometer", 0.0000001, Centimeter, Metric);
 
-            var earth = this.NewObject("Earths","Earth", 25000, mile, ObjectType.Object);
-            var sun = NewObject("Suns","Sun", 103, earth, ObjectType.Object);
-            var dist = NewObject("Distance from Earth to Sun", "Distance from Earth to Sun", 92955807, mile, ObjectType.Distance);
-            var lightyear = NewObject("Lightyears", "Lightyear", 5878625000000, mile);
+            var earth = this.NewObject("Earths","Earth", 25000, mile, Space);
+            var sun = NewObject("Suns","Sun", 103, earth, Space);
+            var dist = NewObject("Distance from Earth to Sun", "Distance from Earth to Sun", 92955807, mile, Space);
+            var lightyear = NewObject("Lightyears", "Lightyear", 5878625000000, mile, Space);
 
-            var alpha = NewObject("Distance from Earth to Alpha Centauri", "Distance from Earth to Alpha Centauri", 4.4, lightyear, ObjectType.Distance);
-            var pico = NewObject("Picometers", "Picometer", 0.001, nanoMeter);
+            var alpha = NewObject("Distance from Earth to Alpha Centauri", "Distance from Earth to Alpha Centauri", 4.4, lightyear, Space);
+            var pico = NewObject("Picometers", "Picometer", 0.001, nanoMeter, Metric);
         }
 
         private void UpdateList()
         {
             ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p=> Convert(p.PluralName, "Picometer")));
         }
+
+        public ObservableCollection<ObjectPack> ObjectPacks { get; set; }
 
         public double Convert(ObjectMeasurement @from, ObjectMeasurement to, double valueFrom = 1)
         {
@@ -170,18 +177,33 @@ namespace HowFar.Core.Models
         }
 
        
-        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, ObjectType type = ObjectType.Unit)
+        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string pack = "Custom")
         {
             var measure = Find(measurement);
             if (measure != null)
             {
-                var newObject = new ObjectMeasurement(type) { PluralName = pluralName, Value = value , SingleName = singleName};
+                var newObject = new ObjectMeasurement() { PluralName = pluralName, Value = value, SingleName = singleName };
                 measure.Add(newObject);
                 UpdateList();
                 UpdateProperties();
+                UpdatePack(pack, newObject);
+
                 return newObject;
             }
             return null;
+        }
+
+        private void UpdatePack(string pack, ObjectMeasurement newObject)
+        {
+            var packs = ObjectPacks.FirstOrDefault(p => p.PackName == pack);
+            if (packs != null)
+            {
+                packs.ObjectMeasurements.Add(newObject);
+            }
+            else
+            {
+                ObjectPacks.Add(new ObjectPack() { PackName = pack });
+            }
         }
 
         public const string PropertyKey = "Conversions";
@@ -194,9 +216,9 @@ namespace HowFar.Core.Models
         }
 
         public ObjectMeasurement NewObject(string pluralName, string singleName,
-            double value, ObjectMeasurement measurement, ObjectType type = ObjectType.Unit)
+            double value, ObjectMeasurement measurement, string pack = "Custom")
         {
-            return NewObject(pluralName, singleName, value, measurement.PluralName, type);
+            return NewObject(pluralName, singleName, value, measurement.PluralName, pack);
         }
     }
 }

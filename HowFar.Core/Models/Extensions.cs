@@ -22,6 +22,35 @@ namespace HowFar.Core.Models
             return true;
         }
 
+
+        public static List<List<object>> Combinator<T, S>(this IEnumerable<T> data, int? pairSize,
+            IEnumerable<S> secondData)
+        {
+           // var hashList = data.Select(p => new {Hash = p.GetHashCode(), Type = p.GetType()}).ToList();
+
+           // hashList.AddRange(secondData.Select(p=> new {Hash = p.GetHashCode(), Type = p.GetType()}));
+
+
+            var result = Combinator(data, pairSize);
+            var finalList = new List<List<object>>();
+
+            foreach (var list in result)
+            {
+                foreach (var s in secondData)
+                {
+                    var columnList = new List<object>();
+
+                    list.ForEach(p => columnList.Add(p));
+                    columnList.Add(s);
+
+                    finalList.Add(columnList);
+                }
+               
+            }
+
+            return finalList;
+        }
+
         public static List<List<T>> Combinator<T>(this IEnumerable<T> data, int? pairSize = null)
         {
             var datalist = data.ToList();

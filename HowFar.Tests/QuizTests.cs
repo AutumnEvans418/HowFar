@@ -47,10 +47,10 @@ namespace HowFar.Tests
             Assert.AreEqual(data.GroupBy(p=>p).Count(), random.GroupBy(p=>p).Count());
         }
 
-        [Test, AutoData()]
+        [Test]
         public void CorrectAnswerMatchesConverter()
         {
-            var quizResult = quiz.CreateQuiz(50);
+            var quizResult = quiz.CreateQuiz(20);
             var converter = fixture.Create<IMeasureConverters>();
             foreach (var quizResultAnswer in quizResult.Answers)
             {

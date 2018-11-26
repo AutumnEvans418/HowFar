@@ -74,6 +74,39 @@ namespace HowFar.Tests
             Assert.AreEqual(2, result.First().Count);
         }
 
+        [Test]
+        public void MultiTypeCombinatorTest()
+        {
+            var numData = new[]{1, 2};
+            var strData = new[] {"2", "1"};
+
+            var result = numData.Combinator(2, strData);
+
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(3, result.First().Count);
+
+
+
+            Assert.AreEqual(1, result[0][0]);
+            Assert.AreEqual(2, result[0][1]);
+            Assert.AreEqual("2", result[0][2]);
+            Assert.AreEqual(1, result[1][0]);
+            Assert.AreEqual(2, result[1][1]);
+            Assert.AreEqual("1", result[1][2]);
+
+            Assert.AreEqual(2, result[2][0]);
+            Assert.AreEqual(1, result[2][1]);
+            Assert.AreEqual("2", result[2][2]);
+            Assert.AreEqual(2, result[3][0]);
+            Assert.AreEqual(1, result[3][1]);
+            Assert.AreEqual("1", result[3][2]);
+            //1,2, "1"
+            //1,2, "2"
+            //2,1, "2"
+            //2,1, "1"
+
+        }
+
 
         [Test]
         public void SimpleCombinatorTest()

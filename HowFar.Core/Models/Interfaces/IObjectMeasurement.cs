@@ -4,9 +4,8 @@ namespace HowFar.Core.Models
 {
     public interface IObjectMeasurement
     {
-        byte[] Image { get; set; }
+        string Image { get; set; }
         ObjectMeasurement Measurement { get; set; }
-        ObjectType ObjectType { get; set; }
         string PluralName { get; set; }
         string SingleName { get; set; }
         double Value { get; set; }

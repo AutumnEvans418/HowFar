@@ -11,36 +11,49 @@ using Xamarin.Forms.Xaml;
 
 namespace HowFarApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class QuizesPage : ContentPage
-	{
-	    private ObservableCollection<string> _items = new ObservableCollection<string>(Enum.GetNames(typeof(QuizDifficulty)));
-	    private string _selectedItem;
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class QuizesPage : ContentPage
+    {
+        private readonly IMeasureConverters _converters;
+        private ObservableCollection<string> _items = new ObservableCollection<string>(Enum.GetNames(typeof(QuizDifficulty)));
+        private string _selectedItem;
+        private ObservableCollection<string> _packs;
 
-	    public QuizesPage ()
-		{
-			InitializeComponent ();
-		    BindingContext = this;
-		}
+        public QuizesPage(IMeasureConverters converters)
+        {
+            _converters = converters;
+            InitializeComponent();
+            BindingContext = this;
+        }
 
-	    public string SelectedItem
-	    {
-	        get => _selectedItem;
-	        set
-	        {
-	            _selectedItem = value;
+        public ObservableCollection<string> Packs
+        {
+            get => _packs;
+            set
+            {
+                _packs = value;
                 OnPropertyChanged();
-	        }
-	    }
+            }
+        }
 
-	    public ObservableCollection<string> Items
-	    {
-	        get => _items;
-	        set
-	        {
-	            _items = value;
+        public string SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
                 OnPropertyChanged();
-	        }
-	    }
-	}
+            }
+        }
+
+        public ObservableCollection<string> Items
+        {
+            get => _items;
+            set
+            {
+                _items = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 }
