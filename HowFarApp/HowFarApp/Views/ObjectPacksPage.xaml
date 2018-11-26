@@ -3,12 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.ObjectPacksPage">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="extendedListView"
+        <StackLayout Spacing="10"
+                     Padding="20"
+                     BackgroundColor="White">
+
+            <ListView x:Name="ObjectPacksList"                     
                       HasUnevenRows="True">
-               
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="15">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image WidthRequest="50"                                          
+                                           HeightRequest="50"                                          
+                                           Source="{Binding ImageURL}"                                          
+                                           Grid.Row="0"                                           
+                                           Grid.RowSpan="2"
+                                           Grid.Column="0" />
+                                    <Label Text="{Binding Name}" 
+                                           TextColor="Black"
+                                           FontAttributes="Bold"                                           
+                                           FontSize="Large"                                          
+                                           Grid.Row="0"                                           
+                                           Grid.Column="1"/>
+                                    <Button WidthRequest="20"
+                                            HeightRequest="10"
+                                            Text="Buy"
+                                            TextColor="Black"
+                                            BackgroundColor="LightGray"
+                                            Grid.Row="0"
+                                            Grid.Column="2" />
+                                    <Label Text="{Binding Description}" 
+                                           TextColor="Black"
+                                           Grid.Row="1"                                           
+                                           Grid.Column="1"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-               
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
