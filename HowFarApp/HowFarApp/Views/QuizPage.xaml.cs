@@ -20,6 +20,7 @@ namespace HowFarApp.Views
 	        _scorer = scorer;
 	        Quiz = quiz;
 	        InitializeComponent ();
+	        BindingContext = this;
 	    }
 
 	    private async void FinishQuizClick(object sender, EventArgs e)

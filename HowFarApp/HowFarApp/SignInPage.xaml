@@ -4,12 +4,15 @@
              xmlns:local="clr-namespace:HowFarApp"
              x:Class="HowFarApp.SignInPage">
 
-    <StackLayout>
+    <Grid Margin="20">
         <!-- Place new controls here -->
+      
+        <Image Source="Assets/Login.png" Aspect="AspectFill"></Image>
         <Label Text="How Far?" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-        <Button Text="Login" Clicked="Button_OnClicked" VerticalOptions="End"></Button>
-    </StackLayout>
+               FontAttributes="Bold" FontSize="30"
+               HorizontalOptions="Center"
+        />
+        <Button Text="Login as Guest" Clicked="Button_OnClicked" HorizontalOptions="End" VerticalOptions="End"></Button>
+    </Grid>
 
 </ContentPage>
