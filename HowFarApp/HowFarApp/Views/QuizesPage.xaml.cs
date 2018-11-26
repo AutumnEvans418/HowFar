@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
 using Unity;
+using Unity.Resolution;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,17 +16,17 @@ namespace HowFarApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class QuizesPage : ContentPage
     {
-        private readonly IMeasureConverters _converters;
         private readonly IQuizGenerator _generator;
+        private readonly IUnityContainer _container;
         private ObservableCollection<string> _items = new ObservableCollection<string>(Enum.GetNames(typeof(QuizDifficulty)));
         private string _selectedItem;
         private ObservableCollection<string> _packs;
         private string _selectedPack = AllPacks;
 
-        public QuizesPage(IMeasureConverters converters, IQuizGenerator generator)
+        public QuizesPage(IMeasureConverters converters, IQuizGenerator generator, IUnityContainer container)
         {
-            _converters = converters;
             _generator = generator;
+            _container = container;
             InitializeComponent();
             Packs = new ObservableCollection<string>(converters.ObjectPacks.Select(p=>p.PackName));
             Packs.Add(AllPacks);
@@ -77,7 +78,9 @@ namespace HowFarApp.Views
         public int QuestionNumber { get; set; }
         private async void GoClicked(object sender, EventArgs e)
         {
-           await  Navigation.PushAsync(new QuizPage(_generator.CreateQuiz(QuestionNumber,(QuizDifficulty) Enum.Parse(typeof(QuizDifficulty),SelectedItem))));
+            var quiz = _generator.CreateQuiz(QuestionNumber,
+                (QuizDifficulty) Enum.Parse(typeof(QuizDifficulty), SelectedItem));
+           await  Navigation.PushAsync(_container.Resolve<QuizPage>(new DependencyOverride(typeof(Quiz), quiz)));
         }
     }
 }

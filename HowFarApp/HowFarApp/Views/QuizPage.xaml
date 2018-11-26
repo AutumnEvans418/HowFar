@@ -1,12 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance views:QuizPage}"
              x:Class="HowFarApp.Views.QuizPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Quiz"></Label>
+            <ListView ItemsSource="{Binding Quiz.Answers}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Question.QuestionText}"></Label>
+                                <Entry Text="{Binding UserInput}"></Entry>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Finish Quiz" HorizontalOptions="End" Clicked="FinishQuizClick"></Button>
         </StackLayout>
+       
     </ContentPage.Content>
 </ContentPage>

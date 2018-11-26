@@ -23,6 +23,9 @@ namespace HowFarApp
             container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
             container.RegisterInstance(typeof(IQuizGenerator),
                 new QuizGenerator(container.Resolve<IMeasureConverters>(), DateTime.Now.GetHashCode()));
+
+            container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
+            container.RegisterSingleton<IQuizScorer, QuizScorer>();
             MainPage = new NavigationPage(container.Resolve<SignInPage>()); ;
         }
 

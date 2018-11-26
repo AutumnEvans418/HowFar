@@ -12,9 +12,19 @@ namespace HowFarApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class QuizPage : ContentPage
 	{
-		public QuizPage (Quiz quiz)
-		{
-			InitializeComponent ();
-		}
+	    private readonly IQuizScorer _scorer;
+	    public Quiz Quiz { get; }
+
+	    public QuizPage (Quiz quiz, IQuizScorer scorer)
+	    {
+	        _scorer = scorer;
+	        Quiz = quiz;
+	        InitializeComponent ();
+	    }
+
+	    private async void FinishQuizClick(object sender, EventArgs e)
+	    {
+	        await Navigation.PushAsync(new QuizResultPage(_scorer.CalculateScore(Quiz.Answers)));
+	    }
 	}
 }

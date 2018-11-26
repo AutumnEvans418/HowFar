@@ -12,7 +12,7 @@ namespace HowFarApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class QuizResultPage : ContentPage
 	{
-		public QuizResultPage ()
+		public QuizResultPage (HowFar.Core.Models.IGrade grade)
 		{
 			InitializeComponent ();
 		}
