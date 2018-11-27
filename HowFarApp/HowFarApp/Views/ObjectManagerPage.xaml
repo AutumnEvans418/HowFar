@@ -3,10 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.ObjectManagerPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Spacing="10"
+                     Padding="20"
+                     BackgroundColor="White">
+
+            <ListView x:Name="ObjectManagerList"                     
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="15">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image WidthRequest="50"                                          
+                                           HeightRequest="50"                                          
+                                           Source="{Binding ImageURL}"                                          
+                                           Grid.Row="0"                                           
+                                           Grid.RowSpan="2"
+                                           Grid.Column="0" />
+                                    <Label Text="{Binding Name}" 
+                                           TextColor="Black"
+                                           FontAttributes="Bold"                                           
+                                           FontSize="Large"                                          
+                                           Grid.Row="0"                                           
+                                           Grid.Column="1"/>
+                                    <Switch/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
