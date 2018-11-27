@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname">
-    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="25" />
-    <application android:label="HowFarApp.Android"></application>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.pittstate.howfar" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="25" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:label="HowFarApp.Android">
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC40Tpm1zyXPatlq0FO1I6qThA2KRsHVK4" />
+	</application>
 </manifest>

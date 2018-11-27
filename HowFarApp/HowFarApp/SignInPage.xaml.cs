@@ -22,8 +22,8 @@ namespace HowFarApp
 
         void NavigateToMainPage()
         {
-            
-            Navigation.PushAsync(_container.Resolve<MainMenuPage>(), true);
+            Application.Current.MainPage = new NavigationPage(_container.Resolve<MainMenuPage>());
+            //Navigation.PushAsync(, true);
         }
 
         private void Button_OnClicked(object sender, EventArgs e)

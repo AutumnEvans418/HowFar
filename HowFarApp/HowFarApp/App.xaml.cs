@@ -26,7 +26,7 @@ namespace HowFarApp
 
             container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
-            MainPage = new NavigationPage(container.Resolve<SignInPage>()); ;
+            MainPage = container.Resolve<SignInPage>(); ;
         }
 
         protected override void OnStart()

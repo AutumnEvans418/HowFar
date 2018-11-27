@@ -38,9 +38,9 @@ namespace HowFar.Core.Models
             {
                 throw new InvalidOperationException($"the quiz is too large. MaxSize: {MaxQuizSize}");
             }
-            var items = _converters.ObjectMeasurements.Randomize(random).ToList();
+            var items = _converters.ObjectMeasurements.ToList();
 
-            var combination = items.Combinator(2, Enumerable.Range(1, maximumQty));
+            var combination = items.Combinator(2, Enumerable.Range(1, maximumQty)).Randomize(random);
             var t = combination.Select(p=> new Question(){From = p[0] as ObjectMeasurement, To = p[1] as ObjectMeasurement, FromQuantity = (int)p[2]}).Where(p=> Math.Abs(Convert(p)) <= maximumRange).ToList();
            
             var quiz = new Quiz();

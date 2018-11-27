@@ -12,7 +12,7 @@
                FontAttributes="Bold" FontSize="30"
                HorizontalOptions="Center"
         />
-        <Button Text="Login as Guest" Clicked="Button_OnClicked" HorizontalOptions="End" VerticalOptions="End"></Button>
+        <Button Text="Login as Guest" Clicked="Button_OnClicked" HorizontalOptions="Center" VerticalOptions="Center"></Button>
     </Grid>
 
 </ContentPage>
