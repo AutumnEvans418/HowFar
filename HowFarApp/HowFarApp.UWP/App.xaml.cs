@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -49,6 +50,10 @@ namespace HowFarApp.UWP
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
+                var rendererAssemblies = new[]
+        {
+            typeof(Xamarin.Forms.GoogleMaps.UWP.MapRenderer).GetTypeInfo().Assembly
+        };
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
