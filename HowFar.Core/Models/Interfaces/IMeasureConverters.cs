@@ -13,18 +13,4 @@ namespace HowFar.Core.Models
         ObjectMeasurement NewObject(string pluralName, string singleName, double value, ObjectMeasurement measurement, string pack = "Custom");
         ObjectMeasurement NewObject(string pluralName, string  singleName, double value, string measurement, string pack = "Custom");
     }
-
-    public class ObjectPack
-    {
-        public ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
-        public string PackName { get; set; }
-        public string Name => PackName;
-        public string ImageURL => PackImage;
-        public string Description { get; set; }
-        public string PackImage { get; set; }
-        public ObjectPack()
-        {
-            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>();
-        }
-    }
 }

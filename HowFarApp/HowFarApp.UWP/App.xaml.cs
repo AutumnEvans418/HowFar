@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Xamarin;
 
 namespace HowFarApp.UWP
 {
@@ -49,11 +51,15 @@ namespace HowFarApp.UWP
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
+                var rendererAssemblies = new[]
+        {
+            typeof(Xamarin.Forms.GoogleMaps.UWP.MapRenderer).GetTypeInfo().Assembly
+        };
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
-
+                FormsMaps.Init("9zm9A9AKIrg8rmJ8xuqs~USg9KkvGYkKNNTcFq0iyiQ~Auh3FThNkQ6oVLyFaHkTzt3wA99hi6gtStX9-n1lfj95oY6wYFjbjF3qy7HVdMVn");
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
