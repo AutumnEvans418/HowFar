@@ -12,7 +12,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="15">
+                            <StackLayout >
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
@@ -32,7 +32,7 @@
                                     <Label Text="{Binding Name}" 
                                            TextColor="Black"
                                            FontAttributes="Bold"                                           
-                                           FontSize="Large"                                          
+                                           FontSize="14"                                          
                                            Grid.Row="0"                                           
                                            Grid.Column="1"/>
                                     <Button WidthRequest="20"
