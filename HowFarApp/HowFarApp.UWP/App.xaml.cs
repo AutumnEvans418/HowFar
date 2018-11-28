@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Xamarin;
 
 namespace HowFarApp.UWP
 {
@@ -53,7 +54,7 @@ namespace HowFarApp.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
-
+                FormsMaps.Init("9zm9A9AKIrg8rmJ8xuqs~USg9KkvGYkKNNTcFq0iyiQ~Auh3FThNkQ6oVLyFaHkTzt3wA99hi6gtStX9-n1lfj95oY6wYFjbjF3qy7HVdMVn");
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
