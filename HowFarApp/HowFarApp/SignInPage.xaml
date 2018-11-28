@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:HowFarApp"
              x:Class="HowFarApp.SignInPage">
 
-    <Grid Margin="20">
+    <Grid>
         <!-- Place new controls here -->
       
         <Image Source="Assets/Login.png" Aspect="AspectFill"></Image>

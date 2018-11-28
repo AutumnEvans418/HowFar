@@ -8,8 +8,8 @@
         <StackLayout>
             <maps:Map WidthRequest="320" HeightRequest="200"
             x:Name="Map"
-            IsShowingUser="true"
-            MapType="Hybrid" />
+            
+            MapType="Hybrid"  HasZoomEnabled="True" HasScrollEnabled="True"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
