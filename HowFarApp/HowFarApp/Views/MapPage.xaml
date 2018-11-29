@@ -8,7 +8,7 @@
         <StackLayout>
             <maps:Map WidthRequest="320" HeightRequest="200"
             x:Name="Map"
-            
+            MapLongClicked="Map_OnMapLongClicked"
             MapType="Hybrid"  HasZoomEnabled="True" HasScrollEnabled="True"/>
         </StackLayout>
     </ContentPage.Content>
