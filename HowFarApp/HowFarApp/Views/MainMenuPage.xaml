@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.MainMenuPage"
              Title="Main Menu"
-             BackgroundColor="Black">
+             BackgroundColor="LightBlue">
     <ContentPage.Content>
         <StackLayout Padding="10"
                      Spacing="10"
@@ -15,46 +15,67 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="250"/>
-                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     
                 </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="ContentView">
+                        <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                        <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="TextColor" Value="White"></Setter>
+                        <Setter Property="FontAttributes" Value="Bold"></Setter>
+                    </Style>
+                </Grid.Resources>
+                <ContentView Grid.Row="0"
+                             Grid.Column="0">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ObjectManager"></TapGestureRecognizer>
+                    </ContentView.GestureRecognizers>
+                    <Grid>
+                        
+                        <Image Aspect="AspectFill" Source="Assets/block.png"></Image>
 
-                <Button Text="Object Manager"
-                       TextColor="White"
-                       BackgroundColor="Red"
-                       FontAttributes="Bold"
-                       FontSize="Large"
-                        Clicked="ObjectManager"
-                       Grid.Row="0"
-                       Grid.Column="0"/>
+                        <Label Text="Object Manager"
+                        />
+                    </Grid>
+                
+                </ContentView>
 
-                <Button Text="Object Packs"
-                       TextColor="White"
-                       BackgroundColor="Blue"
-                       FontAttributes="Bold"
-                       FontSize="Large"
-                       Grid.Row="0"
-                        Clicked="ObjectPacks"
-                       Grid.Column="1"/>
+                <ContentView Grid.Column="1" Grid.Row="0">
+                    <Button Text="Object Packs"
+                            TextColor="White"
+                            BackgroundColor="Blue"
+                            FontAttributes="Bold"
+                            FontSize="Large"
+                            Clicked="ObjectPacks"
+                            />
+                </ContentView>
 
-                <Button Text="Map"
-                       TextColor="White"
-                       BackgroundColor="Purple"
-                       FontAttributes="Bold"
-                       FontSize="Large"
-                        Clicked="Map"
-                       Grid.Row="1"
-                       Grid.Column="0"/>
-               
-               <Button Text="Practice Quizes"
-                       TextColor="White"
-                       BackgroundColor="Green"
-                       FontAttributes="Bold"
-                       FontSize="Large"
-                       Clicked="Quizes"
-                       Grid.Row="1"
-                       Grid.Column="1"/>
+                <ContentView 
+                    Grid.Row="1"
+                    Grid.Column="0">
+                    <Button Text="Map"
+                            TextColor="White"
+                            BackgroundColor="Purple"
+                            FontAttributes="Bold"
+                            FontSize="Large"
+                            Clicked="Map"/>
+                </ContentView>
+
+                <ContentView 
+                    Grid.Row="1"
+                    Grid.Column="1">
+                   <Button Text="Practice Quizes"
+                           TextColor="White"
+                           BackgroundColor="Green"
+                           FontAttributes="Bold"
+                           FontSize="Large"
+                           Clicked="Quizes"/>
+                </ContentView>
+              
                 
 
             </Grid>

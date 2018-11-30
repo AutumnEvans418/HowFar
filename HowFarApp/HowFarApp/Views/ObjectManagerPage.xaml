@@ -51,7 +51,7 @@
                      WidthRequest="40" 
                      HeightRequest="40" 
                      BorderRadius="20"
-                     HorizontalOptions="End"/>
+                     HorizontalOptions="End" Clicked="Button_OnClicked"/>
                                 
         </StackLayout>
     </ContentPage.Content>

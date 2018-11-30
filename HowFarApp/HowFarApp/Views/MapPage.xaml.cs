@@ -53,10 +53,6 @@ namespace HowFarApp.Views
         private void Map_OnMapLongClicked(object sender, MapLongClickedEventArgs e)
         {
             Map.Pins.Add(new Pin(){Position = e.Point, Label = $"Pin {Map.Pins.Count +1} ({e.Point.Longitude},{e.Point.Latitude})"});
-
-            if (Map.Pins.Count % 2 == 0)
-            {
-            }
             
         }
 

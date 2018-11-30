@@ -30,5 +30,11 @@ namespace HowFarApp.Views
            measure.NewObject(PluralEntry.Text, NameEntry.Text, MeasurementEntry, SelectedObject, SelectedObject.Measurement);
 
         }
+
+	    private void NewButton_OnClicked(object sender, EventArgs e)
+	    {
+	        NewObject();
+	        Navigation.PopAsync(true);
+	    }
 	}
 }

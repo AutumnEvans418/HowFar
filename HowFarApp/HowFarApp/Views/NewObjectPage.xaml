@@ -72,7 +72,7 @@
                     HeightRequest="30"
                     Text="New"
                     BackgroundColor="ForestGreen"
-                    VerticalOptions="End"/>
+                    VerticalOptions="End" Clicked="NewButton_OnClicked"/>
                
           
         </StackLayout>
