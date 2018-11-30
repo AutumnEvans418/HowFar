@@ -6,13 +6,17 @@
 
     <Grid>
         <!-- Place new controls here -->
-      
-        <Image Source="Assets/Login.png" Aspect="AspectFill"></Image>
-        <Label Text="How Far?" 
-               FontAttributes="Bold" FontSize="30"
-               HorizontalOptions="Center"
-        />
-        <Button Text="Login as Guest" Clicked="Button_OnClicked" HorizontalOptions="Center" VerticalOptions="Center"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="Assets/Login.png" Aspect="AspectFill" Grid.RowSpan="2"></Image>
+        <StackLayout Grid.Row="1">
+            <Label Text="How Far?" 
+                   FontAttributes="Bold" FontSize="30"
+                   HorizontalOptions="Center" />
+            <Button Text="Login as Guest" Clicked="Button_OnClicked"  HorizontalOptions="Center" VerticalOptions="Center"></Button>
+        </StackLayout>
     </Grid>
 
 </ContentPage>
