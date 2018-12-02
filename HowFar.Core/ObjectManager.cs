@@ -73,10 +73,7 @@ namespace HowFar.Core
         public ObjectManager(IMeasureConverters measureConverters)
         {
             MeasureConverters = measureConverters;
-            ObjectMeasurementViewModels = 
-                new ObservableCollection<ObjectMeasurementViewModel>(MeasureConverters.ObjectMeasurements
-                    .Select(p=> new ObjectMeasurementViewModel(SelectionChanged){ObjectMeasurement = p}));
-            Comparisons = new ObservableCollection<ObjectCompare>();
+          Refresh();
         }
 
         public ObservableCollection<ObjectCompare> Comparisons
@@ -104,6 +101,29 @@ namespace HowFar.Core
             }
         }
 
-      
+
+        public void Refresh()
+        {
+            ObjectMeasurementViewModels =
+                new ObservableCollection<ObjectMeasurementViewModel>(MeasureConverters.ObjectMeasurements
+                    .Select(p => new ObjectMeasurementViewModel(SelectionChanged) { ObjectMeasurement = p }));
+            Comparisons = new ObservableCollection<ObjectCompare>();
+        }
+
+        public void SelectAll()
+        {
+            foreach (var objectMeasurementViewModel in ObjectMeasurementViewModels)
+            {
+                objectMeasurementViewModel.Selected = true;
+            }
+        }
+
+        public void DeSelectAll()
+        {
+            foreach (var objectMeasurementViewModel in ObjectMeasurementViewModels)
+            {
+                objectMeasurementViewModel.Selected = true;
+            }
+        }
     }
 }

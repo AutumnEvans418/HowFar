@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance views:QuizPage}"
+             Title="Quiz"
              x:Class="HowFarApp.Views.QuizPage">
     <ContentPage.Content>
         <StackLayout>

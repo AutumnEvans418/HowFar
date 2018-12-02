@@ -14,11 +14,11 @@ namespace HowFarApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewObjectPage : ContentPage
 	{
-        private readonly MeasureConverters measure;
+        private readonly IMeasureConverters measure;
 	    private ObjectMeasurement _selectedObject;
 	    private ObservableCollection<ObjectMeasurement> _objectMeasurements;
 
-	    public NewObjectPage (MeasureConverters measure)
+	    public NewObjectPage (IMeasureConverters measure)
 		{
 			InitializeComponent ();
 		    BindingContext = this;

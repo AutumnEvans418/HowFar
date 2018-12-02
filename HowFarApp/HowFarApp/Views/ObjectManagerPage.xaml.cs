@@ -88,7 +88,7 @@ namespace HowFarApp.Views
         protected override void OnAppearing()
         {
             this.Objects = new ObservableCollection<ObjectMeasurement>(_converter.ObjectMeasurements);
-
+            Manager.Refresh();
             base.OnAppearing();
         }
 
@@ -108,6 +108,16 @@ namespace HowFarApp.Views
         private void Button_OnClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(_container.Resolve<NewObjectPage>());
+        }
+
+        private void SelectAll(object sender, EventArgs e)
+        {
+            Manager.SelectAll();
+        }
+
+        private void DeselectAll(object sender, EventArgs e)
+        {
+            Manager.DeSelectAll();
         }
     }
 }

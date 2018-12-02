@@ -24,6 +24,7 @@ namespace HowFarApp
             var container = new UnityContainer();
             container.RegisterInstance(typeof(IApp), this);
             container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
+            container.RegisterInstance(container.Resolve<MeasureConverters>());
             container.RegisterInstance(typeof(IQuizGenerator),
                 new QuizGenerator(container.Resolve<IMeasureConverters>(), DateTime.Now.GetHashCode()));
 
