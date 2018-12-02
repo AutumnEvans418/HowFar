@@ -85,6 +85,13 @@ namespace HowFarApp.Views
             }
         }
 
+        protected override void OnAppearing()
+        {
+            this.Objects = new ObservableCollection<ObjectMeasurement>(_converter.ObjectMeasurements);
+
+            base.OnAppearing();
+        }
+
         public ObjectManagerPage (IMeasureConverters converter, IUnityContainer container, ObjectManager manager)
 		{
 		    Manager = manager;

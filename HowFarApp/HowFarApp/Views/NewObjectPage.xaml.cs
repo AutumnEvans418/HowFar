@@ -15,19 +15,45 @@ namespace HowFarApp.Views
 	public partial class NewObjectPage : ContentPage
 	{
         private readonly MeasureConverters measure;
+	    private ObjectMeasurement _selectedObject;
+	    private ObservableCollection<ObjectMeasurement> _objectMeasurements;
 
-        public NewObjectPage (MeasureConverters measure)
+	    public NewObjectPage (MeasureConverters measure)
 		{
 			InitializeComponent ();
+		    BindingContext = this;
             ObjectMeasurements = measure.ObjectMeasurements;
             this.measure = measure;
-        }
-        public ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
+		    NewButton.IsEnabled = false;
+		}
 
-        public ObjectMeasurement SelectedObject { get; set; }
-        void NewObject()
+	    public ObservableCollection<ObjectMeasurement> ObjectMeasurements
+	    {
+	        get => _objectMeasurements;
+	        set
+	        {
+	            _objectMeasurements = value;
+                OnPropertyChanged();
+	        }
+	    }
+
+	    public ObjectMeasurement SelectedObject
+	    {
+	        get => _selectedObject;
+	        set
+	        {
+	            _selectedObject = value;
+                OnPropertyChanged();
+	            if (_selectedObject != null)
+	            {
+	                NewButton.IsEnabled = true;
+	            }
+	        }
+	    }
+
+	    void NewObject()
         {
-           measure.NewObject(PluralEntry.Text, NameEntry.Text, MeasurementEntry, SelectedObject, SelectedObject.Measurement);
+           measure.NewObject(PluralEntry.Text, NameEntry.Text,double.Parse(MeasurementEntry.Text), SelectedObject);
 
         }
 

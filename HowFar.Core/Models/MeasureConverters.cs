@@ -31,10 +31,7 @@ namespace HowFar.Core.Models
         public const string Metric = "Metric";
         public const string Imperial = "Imperial";
 
-        public void NewObject(object text1, object text2, object value, ObjectMeasurement selectedObject, ObjectMeasurement measurement)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public const string Space = "Space";
         private void Startup()
