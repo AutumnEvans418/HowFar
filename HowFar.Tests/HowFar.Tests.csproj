@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="CombinatorTests.cs" />
     <Compile Include="ConverterTests.cs" />
+    <Compile Include="ObjectManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizScorerTests.cs" />
     <Compile Include="QuizTests.cs" />

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ms="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
-             ms:Ignorable="d"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DataContext="{d:DesignInstance views:ObjectManagerPage}"
              x:Class="HowFarApp.Views.ObjectManagerPage">
     <ContentPage.Content>
@@ -18,7 +18,7 @@
                 </Style>
             </StackLayout.Resources>
             <Label Text="Objects" Style="{DynamicResource H1}"></Label>
-            <ListView x:Name="ObjectManagerList"   ItemsSource="{Binding Objects}"                  
+            <ListView    ItemsSource="{Binding Manager.ObjectMeasurementViewModels}"     WidthRequest="300"             
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -26,7 +26,6 @@
                             <StackLayout>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="40"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
@@ -36,43 +35,48 @@
                                     </Grid.ColumnDefinitions>
                                     <Image WidthRequest="50"                                          
                                            HeightRequest="50"                                          
-                                           Source="{Binding Image}"                                          
+                                           Source="{Binding ObjectMeasurement.Image}"                                          
                                            Grid.Row="0"                                           
-                                           Grid.RowSpan="2"
                                            Grid.Column="0" />
-                                    <Label Text="{Binding PluralName}" 
+                                    <Label Text="{Binding ObjectMeasurement.PluralName}" 
                                            TextColor="Black"
                                            FontAttributes="Bold"                                           
                                            FontSize="Large"                                          
                                            Grid.Row="0"                                           
                                            Grid.Column="1"/>
-                                    <Switch/>
-                                  </Grid>
+                                    <Switch IsToggled="{Binding Selected}" Grid.Column="2"/>
+                                </Grid>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="Converter" Style="{DynamicResource H1}"></Label>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="From:" WidthRequest="40" VerticalTextAlignment="Center"></Label>
-                <Entry Placeholder="ie. 10"></Entry>
-                <Picker ItemsSource="{Binding Measurements}"></Picker>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="To:" WidthRequest="40"></Label>
-                <Picker ItemsSource="{Binding Measurements}"></Picker>
-                <Label Text="{Binding ConvertResult}"></Label>
-            </StackLayout>
-<Button Text="+"
-                     TextColor="White"
-                     BackgroundColor="SkyBlue"
-                     WidthRequest="40" 
-                     HeightRequest="40" 
-                     CornerRadius="20"
-                     HorizontalOptions="End" Clicked="Button_OnClicked"/>
+            <ListView WidthRequest="150" SelectionMode="None" ItemsSource="{Binding Manager.Comparisons}" HasUnevenRows="True">
+                
+            </ListView>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="Converter" Style="{DynamicResource H1}"></Label>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="From:" WidthRequest="40" VerticalTextAlignment="Center"></Label>
+                        <Entry Placeholder="ie. 10" Text="{Binding FromQty}"></Entry>
+                        <Picker ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="To:" WidthRequest="40"></Label>
+                        <Picker ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
+                        <Label Text="{Binding ConvertResult}"></Label>
+                    </StackLayout>
+                    <Button Text="+"
+                        TextColor="White"
+                        BackgroundColor="SkyBlue"
+                        WidthRequest="40" 
+                        HeightRequest="40" 
+                        CornerRadius="20"
+                        HorizontalOptions="End" Clicked="Button_OnClicked"/>
 
-                                
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

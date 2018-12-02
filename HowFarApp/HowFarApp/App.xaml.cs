@@ -12,14 +12,14 @@ namespace HowFarApp
         public App()
         {
 #if DEBUG
-         LiveReload.Init();   
+            LiveReload.Init();
 #endif
             InitializeComponent();
             //var containerBuilder = new ContainerBuilder();
 
             //containerBuilder.RegisterInstance(this).As<IApp>();
             //containerBuilder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
-           
+
             //var container = containerBuilder.Build();
             var container = new UnityContainer();
             container.RegisterInstance(typeof(IApp), this);

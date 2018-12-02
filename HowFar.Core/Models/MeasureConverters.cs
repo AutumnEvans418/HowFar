@@ -9,7 +9,7 @@ namespace HowFar.Core.Models
     {
         private readonly IApp _app;
 
-        private ObjectMeasurement Centimeter { get; set; }
+        public ObjectMeasurement Centimeter { get; set; }
         //public List<ObjectMeasurement> ObjectMeasurements { get; set; }
         public MeasureConverters(IApp app)
         {
@@ -40,7 +40,7 @@ namespace HowFar.Core.Models
         private void Startup()
         {
             ObjectPacks = new ObservableCollection<ObjectPack>();
-            Centimeter = new ObjectMeasurement() { PluralName = "Centimeters", Value = 1 };
+            Centimeter = new ObjectMeasurement("Centimeter", "Centimeters") {  Value = 1 };
             UpdatePack(Imperial, Centimeter);
             var inches = NewObject("Inches", "Inch", 2.54, Centimeter, Imperial);
             var feet = NewObject("Feet","Foot", 12, inches, Imperial);
@@ -189,7 +189,7 @@ namespace HowFar.Core.Models
             var measure = Find(measurement);
             if (measure != null)
             {
-                var newObject = new ObjectMeasurement() { PluralName = pluralName, Value = value, SingleName = singleName };
+                var newObject = new ObjectMeasurement(singleName, pluralName) { Value = value};
                 measure.Add(newObject);
                 UpdateList();
                 UpdateProperties();

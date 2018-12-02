@@ -4,6 +4,7 @@ namespace HowFar.Core.Models
 {
     public interface IMeasureConverters
     {
+        ObjectMeasurement Centimeter { get; }
         ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
         ObservableCollection<ObjectPack> ObjectPacks { get; set; }
         double Convert(ObjectMeasurement from, ObjectMeasurement to, double valueFrom = 1);

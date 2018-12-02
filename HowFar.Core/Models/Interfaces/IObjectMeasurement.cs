@@ -6,8 +6,8 @@ namespace HowFar.Core.Models
     {
         string Image { get; set; }
         ObjectMeasurement Measurement { get; set; }
-        string PluralName { get; set; }
-        string SingleName { get; set; }
+        string PluralName { get;  }
+        string SingleName { get; }
         double Value { get; set; }
 
         void Add(ObjectMeasurement obj);
