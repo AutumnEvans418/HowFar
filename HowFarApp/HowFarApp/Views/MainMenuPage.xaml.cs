@@ -39,5 +39,7 @@ namespace HowFarApp.Views
 	    {
 	        Navigation.PushAsync(_container.Resolve<QuizesPage>());
 	    }
+
+	    
 	}
 }

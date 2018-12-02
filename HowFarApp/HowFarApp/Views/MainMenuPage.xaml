@@ -22,6 +22,10 @@
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"></Setter>
             </Style>
+            <Style TargetType="Image">
+                <Setter Property="WidthRequest" Value="100"></Setter>
+                <Setter Property="HeightRequest" Value="100"></Setter>
+            </Style>
         </Grid.Resources>
         <Grid Grid.Row="0"
               Grid.Column="0">
@@ -32,7 +36,8 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Aspect="AspectFill" Source="Assets/block.png" Grid.RowSpan="2"></Image>
+            <Image Aspect="AspectFit" Source="Assets/block.png" Grid.RowSpan="2">
+            </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Red" Opacity=".25"></BoxView>-->
 
             <BoxView BackgroundColor="Black" Opacity=".25" Grid.Row="1"></BoxView>
@@ -48,7 +53,8 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Aspect="AspectFill" Source="Assets/cart.png" Grid.RowSpan="2"></Image>
+            <Image Aspect="AspectFit" Source="Assets/cart.png" Grid.RowSpan="2">
+            </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Blue" Opacity=".25"></BoxView>-->
 
             <BoxView BackgroundColor="Black" Opacity=".25" Grid.Row="1"></BoxView>
@@ -65,7 +71,8 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Aspect="AspectFill" Source="Assets/map.png" Grid.RowSpan="2"></Image>
+            <Image Aspect="AspectFit" Source="Assets/map.png" Grid.RowSpan="2">
+            </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Yellow" Opacity=".25"></BoxView>-->
 
             <BoxView BackgroundColor="Black" Opacity=".25" Grid.Row="1"></BoxView>
@@ -81,11 +88,12 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Aspect="AspectFill" Source="Assets/Pencil.png" Grid.RowSpan="2"></Image>
+            <Image Aspect="AspectFit" Source="Assets/Pencil.png" Grid.RowSpan="2">
+            </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Green" Opacity=".25"></BoxView>-->
 
             <BoxView BackgroundColor="Black" Opacity=".25" Grid.Row="1"></BoxView>
-            <Label Text="Practice Quizes" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+            <Label Text="Practice Quizzes" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
         </Grid>
     </Grid>
 </ContentPage>

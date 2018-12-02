@@ -11,6 +11,9 @@ namespace HowFarApp
     {
         public App()
         {
+#if DEBUG
+         LiveReload.Init();   
+#endif
             InitializeComponent();
             //var containerBuilder = new ContainerBuilder();
 

@@ -15,15 +15,15 @@ namespace HowFarApp.Views
 	public partial class ObjectManagerPage : ContentPage
     {
         private readonly IUnityContainer _container;
-        public ObservableCollection<ObjectPack> Objects { get; set; }
+        public ObservableCollection<ObjectMeasurement> Objects { get; set; }
         public ObjectManagerPage (IMeasureConverters converter, IUnityContainer container)
 		{
 		    _container = container;
 		    InitializeComponent ();
+		    BindingContext = this;
+            this.Objects = new ObservableCollection<ObjectMeasurement>(converter.ObjectMeasurements);
 
-            this.Objects = new ObservableCollection<ObjectPack>(converter.ObjectPacks);
-
-            this.ObjectManagerList.ItemsSource = this.Objects;
+            //this.ObjectManagerList.ItemsSource = this.Objects;
         }
 
         private void Button_OnClicked(object sender, EventArgs e)
