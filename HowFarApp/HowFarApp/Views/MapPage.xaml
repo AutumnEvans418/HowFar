@@ -3,22 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              x:Class="HowFarApp.Views.MapPage" Title="Map">
-    
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Place two pins by tap and hold"></Label>
-            <Button Text="Reset Pins"></Button>
-            <maps:Map WidthRequest="320" HeightRequest="200"
+        <ScrollView>
+            <StackLayout>
+                <StackLayout>
+                    <Label Text="Place two pins by tap and hold"></Label>
+                    <Button Text="Reset Pins" Clicked="Reset_Clicked"></Button>
+                    <maps:Map WidthRequest="320" HeightRequest="200"
             x:Name="Map"
              MyLocationEnabled="True"
+             IsShowingUser="True"
             MapLongClicked="Map_OnMapLongClicked"
             MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True"/>
-            <Label Text="Start"></Label>
-            <Entry x:Name="StartEntry"></Entry>
-            <Label Text="End"></Label>
-            <Entry x:Name="EndEntry"></Entry>
-            <Button Text="Compare!"></Button>
-            
-        </StackLayout>
+                </StackLayout>
+                <StackLayout x:Name="Top" IsVisible="True">
+                    <Label Text="Start"></Label>
+                    <Entry x:Name="StartEntry"></Entry>
+                    <Label Text="End"></Label>
+                    <Entry x:Name="EndEntry"></Entry>
+                    <Button Text="Compare!" Clicked="Go_Clicked"></Button>
+                </StackLayout>
+                <StackLayout x:Name="Bottom" IsVisible="False">
+                    <Label Text="Distance"></Label>
+                    <Entry x:Name="DistanceEntry"></Entry>
+                    <Label Text="Units"></Label>
+                    <Picker x:Name="UnitsPicker" ItemsSource="{Binding Converters.ObjectMeasurements}" ItemDisplayBinding="{Binding PluralName}" SelectedItem="{Binding SelectedObject}" ></Picker>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
