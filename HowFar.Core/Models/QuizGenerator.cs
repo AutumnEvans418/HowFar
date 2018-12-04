@@ -42,7 +42,13 @@ namespace HowFar.Core.Models
 
             var combination = items.Combinator(2, Enumerable.Range(1, maximumQty)).Randomize(random);
             
-            var t = combination.Select(p=> new Question(){From = p[0] as ObjectMeasurement, To = p[1] as ObjectMeasurement, FromQuantity = (int)p[2]}).Where(p=> Math.Abs(Convert(p)) <= maximumRange).ToList();
+            var t = combination.Select(p=> new Question(){From = p[0] as ObjectMeasurement, To = p[1] as ObjectMeasurement, FromQuantity = (int)p[2]})
+                .Where(p=> Convert(p) > 1)
+                .Where(p=>
+                {
+                  var result =  Math.Abs(Convert(p));
+                    return result <= maximumRange;
+                }).ToList();
             var group = t.GroupBy(p => new {p.To, p.From}).ToList();
             if (group.Count >= size)
             {

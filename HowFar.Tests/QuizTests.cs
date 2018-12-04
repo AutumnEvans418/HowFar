@@ -67,6 +67,17 @@ namespace HowFar.Tests
 
 
         [Test]
+        public void QuizGreaterThan1()
+        {
+            var result = quiz.CreateQuiz(10, Core.Models.QuizDifficulty.Beginner);
+
+            foreach (var resultAnswer in result.Answers)
+            {
+               Assert.True( resultAnswer.CorrectAnswer > 1);
+            }
+        }
+
+        [Test]
         public void QuizDifficulty()
         {
             var result = quiz.CreateQuiz(10, Core.Models.QuizDifficulty.Beginner);
@@ -74,11 +85,11 @@ namespace HowFar.Tests
             foreach (var resultAnswer in result.Answers)
             {
                 var value = resultAnswer.CorrectAnswer;
-                if (value < 1)
+                if (value < 0)
                 {
                     value = 1 / value;
                 }
-                Assert.True(value < (int) Core.Models.QuizDifficulty.Beginner);
+                Assert.True(value <= (int) Core.Models.QuizDifficulty.Beginner);
             }
         }
 
