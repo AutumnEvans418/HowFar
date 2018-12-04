@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 using Xamarin.Forms.Xaml;
@@ -38,9 +40,30 @@ namespace HowFarApp.Views
             Converters = converters;
             InitializeComponent();
             BindingContext = this;
-
+            GetPermissions();
 
         }
+
+        private async void GetPermissions()
+        {
+            if (CrossPermissions.IsSupported)
+            {
+                var perm = CrossPermissions.Current;
+                var status = await perm.CheckPermissionStatusAsync(Permission.Location);
+                if (status != PermissionStatus.Granted)
+                {
+                    var results = await perm.RequestPermissionsAsync(Permission.Location);
+                    if (results.ContainsKey(Permission.Location))
+                        status = results[Permission.Location];
+                }
+
+                if (status == PermissionStatus.Granted)
+                {
+                    Map.MyLocationEnabled = true;
+                }
+            }
+        }
+
         private double distance(double lat1, double lon1, double lat2, double lon2, char unit)
         {
             double theta = lon1 - lon2;

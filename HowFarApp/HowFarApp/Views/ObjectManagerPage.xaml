@@ -67,28 +67,30 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ScrollView Grid.Row="2">
+            <ScrollView Grid.Row="2" HorizontalScrollBarVisibility="Always" Orientation="Both">
                 <StackLayout>
                     <Label Text="Converter" Style="{DynamicResource H1}"></Label>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="From:" WidthRequest="40" VerticalTextAlignment="Center"></Label>
+                        <Label Text="From:" WidthRequest="40" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
                         <Entry Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
                     <Picker ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="To:" WidthRequest="35"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="To:" VerticalOptions="Center" VerticalTextAlignment="Center" WidthRequest="35"></Label>
                     <Picker ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
-                    <Label Text="{Binding ConvertResult}" WidthRequest="150"></Label>
-                    </StackLayout>
-                    <Button Text="+"
-                        TextColor="White"
-                        BackgroundColor="SkyBlue"
-                        WidthRequest="40" 
-                        HeightRequest="40" 
-                        CornerRadius="20"
-                        HorizontalOptions="End" Clicked="Button_OnClicked"/>
-
+                    <Label VerticalTextAlignment="Center" VerticalOptions="Center" Text="{Binding ConvertResult}" WidthRequest="150"></Label>
+                    <Label Text="{Binding ToObject.PluralName}" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+                   
                 </StackLayout>
+            </StackLayout>
             </ScrollView>
-        </Grid>
+
+            <Button Text="+"
+                    TextColor="White"
+                    BackgroundColor="SkyBlue"
+                    WidthRequest="40" 
+                    HeightRequest="40" 
+                    CornerRadius="20" VerticalOptions="End" Grid.RowSpan="3"
+                    HorizontalOptions="End" Clicked="Button_OnClicked"/>
+    </Grid>
 </ContentPage>

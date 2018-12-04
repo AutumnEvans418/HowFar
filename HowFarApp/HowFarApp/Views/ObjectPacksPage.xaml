@@ -38,9 +38,11 @@
                                            Grid.Column="1" />
                                     <Button WidthRequest="45"
                                             HeightRequest="10"
+                                            
                                             MinimumHeightRequest="45"
                                             MinimumWidthRequest="10"
                                             Text="Buy"
+                                            Grid.RowSpan="2"
                                             TextColor="Black"
                                             BackgroundColor="LightGray"
                                             Grid.Row="0"
