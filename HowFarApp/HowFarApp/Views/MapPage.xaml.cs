@@ -20,8 +20,8 @@ namespace HowFarApp.Views
             _converters = converters;
             InitializeComponent();
             BindingContext = this;
-            
-            
+
+
         }
         private double distance(double lat1, double lon1, double lat2, double lon2, char unit)
         {
@@ -50,10 +50,23 @@ namespace HowFarApp.Views
         {
             return (rad / Math.PI * 180.0);
         }
-        private void Map_OnMapLongClicked(object sender, MapLongClickedEventArgs e)
+        private async void Map_OnMapLongClicked(object sender, MapLongClickedEventArgs e)
         {
-            Map.Pins.Add(new Pin(){Position = e.Point, Label = $"Pin {Map.Pins.Count +1} ({e.Point.Longitude},{e.Point.Latitude})"});
-            
+            if (Map.Pins.Count == 2)
+            {
+                return;
+            }
+            Map.Pins.Add(new Pin() { Position = e.Point, Label = $"Pin {Map.Pins.Count + 1} ({e.Point.Longitude},{e.Point.Latitude})" });
+            if (Map.Pins.Count == 1)
+            {
+                StartEntry.Text = await GetLocationFromAddress(e.Point);
+
+            }
+            else if (Map.Pins.Count==2)
+            {
+                EndEntry.Text = await GetLocationFromAddress(e.Point);
+            }
+
         }
 
         private double CalculateDistances(Pin first, Pin second, ObjectMeasurement measurement)
@@ -61,6 +74,23 @@ namespace HowFarApp.Views
             var kilometers = distance(first.Position.Latitude, first.Position.Longitude, second.Position.Latitude,
                 second.Position.Longitude, 'K');
             return _converters.Convert("Kilometers", measurement.PluralName, kilometers);
+        }
+        public async Task<string> GetLocationFromAddress(Position position)
+        {
+            Geocoder coder = new Geocoder();
+            try
+            {
+                var address = await coder.GetAddressesForPositionAsync(position);
+                if (address == null)
+                {
+                    return null;
+                }
+                return address.FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
