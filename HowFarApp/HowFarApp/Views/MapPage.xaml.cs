@@ -114,7 +114,8 @@ namespace HowFarApp.Views
         private void Reset_Clicked(object sender, EventArgs e)
         {
             Map.Pins.Clear();
-
+            Top.IsVisible = true;
+            Bottom.IsVisible = false;
 
         }
 
