@@ -100,7 +100,7 @@ namespace HowFar.Tests
         [Test]
         public void PencilConvert()
         {
-            var result = model.NewObject("Pencils", "Pencil", 7.5, "", "Inches");
+            var result = model.NewObject("Pencils", "Pencil", 7.5, "Inches", "");
             Assert.AreEqual("Pencils", result.PluralName); ;
             Assert.AreEqual("Inches", result.Measurement.PluralName); ;
 
@@ -110,7 +110,7 @@ namespace HowFar.Tests
         [Test]
         public void CentimeterToKilometer()
         {
-            Assert.AreEqual(0.00001, model.Convert("Centimeters", "Kilometers"));
+            Assert.AreEqual(0.00001, model.Convert("centimeters", "Kilometers"));
         }
 
         [Test]

@@ -65,6 +65,30 @@ namespace HowFar.Tests
             Assert.True(quizResult.Questions.GroupBy(p=>new {p.From.SingleName,To= p.To.SingleName, p.FromQuantity}).All(r=>r.Count() ==1));
         }
 
+
+        [Test]
+        public void QuizDifficulty()
+        {
+            var result = quiz.CreateQuiz(10, Core.Models.QuizDifficulty.Beginner);
+
+            foreach (var resultAnswer in result.Answers)
+            {
+                var value = resultAnswer.CorrectAnswer;
+                if (value < 1)
+                {
+                    value = 1 / value;
+                }
+                Assert.True(value < (int) Core.Models.QuizDifficulty.Beginner);
+            }
+        }
+
+        [Test]
+        public void NoQuestionIsTheSameQuestion()
+        {
+            var quizResult = quiz.CreateQuiz(10);
+            Assert.True(quizResult.Questions.GroupBy(p => new { p.From.SingleName, To = p.To.SingleName }).All(r => r.Count() == 1));
+        }
+
         [Test, AutoData]
         public void FromToNotTheSame()
         {
