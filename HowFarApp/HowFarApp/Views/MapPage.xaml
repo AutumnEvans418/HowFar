@@ -13,6 +13,7 @@
                     <maps:Map WidthRequest="320" HeightRequest="200"
             x:Name="Map"
              MyLocationEnabled="True"
+             IsShowingUser="True"
             MapLongClicked="Map_OnMapLongClicked"
             MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True"/>
                 </StackLayout>
