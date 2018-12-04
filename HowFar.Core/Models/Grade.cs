@@ -1,7 +1,14 @@
-﻿namespace HowFar.Core.Models
+﻿using System.Collections.ObjectModel;
+
+namespace HowFar.Core.Models
 {
     public class Grade : IGrade
     {
+        public Grade(ObservableCollection<Answer> answers)
+        {
+            Answers = answers;
+        }
+
         public GradeLetter GradeLetter => GetLetter();
 
         private GradeLetter GetLetter()
@@ -19,5 +26,6 @@
         public double ActualPoints { get; set; }
         public int RightQuestions { get; set; }
         public int TotalQuestions { get; set; }
+        public ObservableCollection<Answer> Answers { get; }
     }
 }

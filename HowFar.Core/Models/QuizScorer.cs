@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HowFar.Core.Models
@@ -15,7 +16,7 @@ namespace HowFar.Core.Models
         {
 
             var answList = answers.ToList();
-            var grade = new Grade
+            var grade = new Grade(new ObservableCollection<Answer>(answList))
             {
                 TotalQuestions = answList.Count,
                 PossiblePoints = answList.Sum(p=> _answerScorer.GetMaxScore(p)),

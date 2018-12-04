@@ -38,7 +38,7 @@ namespace HowFar.Core.Models
         {
             ObjectPacks = new ObservableCollection<ObjectPack>();
             Centimeter = new ObjectMeasurement("Centimeter", "Centimeters") {  Value = 1 };
-            UpdatePack(Imperial, Centimeter);
+            UpdatePack(Imperial, Centimeter, "A default package for the US measurement system");
             var inches = NewObject("Inches", "Inch", 2.54, Centimeter, Imperial);
             var feet = NewObject("Feet","Foot", 12, inches, Imperial);
             var mile = NewObject("Miles", "Mile", 5280, feet, Imperial);
@@ -181,7 +181,7 @@ namespace HowFar.Core.Models
         }
 
        
-        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string pack = "Custom")
+        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string description, string pack = "Custom")
         {
             var measure = Find(measurement);
             if (measure != null)
@@ -190,14 +190,14 @@ namespace HowFar.Core.Models
                 measure.Add(newObject);
                 UpdateList();
                 UpdateProperties();
-                UpdatePack(pack, newObject);
+                UpdatePack(pack, newObject, description);
 
                 return newObject;
             }
             return null;
         }
 
-        private void UpdatePack(string pack, ObjectMeasurement newObject)
+        private void UpdatePack(string pack, ObjectMeasurement newObject, string description)
         {
             var packs = ObjectPacks.FirstOrDefault(p => p.PackName == pack);
             if (packs != null)
@@ -206,7 +206,7 @@ namespace HowFar.Core.Models
             }
             else
             {
-                ObjectPacks.Add(new ObjectPack() { PackName = pack });
+                ObjectPacks.Add(new ObjectPack(description) { PackName = pack });
             }
         }
 
@@ -220,9 +220,9 @@ namespace HowFar.Core.Models
         }
 
         public ObjectMeasurement NewObject(string pluralName, string singleName,
-            double value, ObjectMeasurement measurement, string pack = "Custom")
+            double value, ObjectMeasurement measurement, string desc, string pack = "Custom")
         {
-            return NewObject(pluralName, singleName, value, measurement.PluralName, pack);
+            return NewObject(pluralName, singleName, value, measurement.PluralName, desc, pack);
         }
     }
 }

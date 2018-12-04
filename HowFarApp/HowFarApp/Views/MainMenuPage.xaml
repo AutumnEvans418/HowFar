@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.MainMenuPage"
              Title="Main Menu"
-             BackgroundColor="LightBlue">
-    <Grid>
+             BackgroundColor="White">
+    <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -28,7 +28,7 @@
             </Style>
         </Grid.Resources>
         <Grid Grid.Row="0"
-              Grid.Column="0">
+              Grid.Column="0" RowSpacing="0" ColumnSpacing="0">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Tapped="ObjectManager"></TapGestureRecognizer>
             </Grid.GestureRecognizers>
@@ -36,10 +36,12 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2" Opacity=".54" BackgroundColor="{DynamicResource Red}"></BoxView>
+
             <Image Aspect="AspectFit" Source="Assets/block.png" Grid.RowSpan="2">
             </Image>
-            <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Red" Opacity=".25"></BoxView>-->
-
+            <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="{DynamicResource Red}" Opacity=".25"></BoxView>-->
+            
             <BoxView BackgroundColor="Black" Opacity=".25" Grid.Row="1"></BoxView>
             <Label Text="Object Manager" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
         </Grid>
@@ -53,6 +55,8 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2" Opacity=".73" BackgroundColor="{DynamicResource Yellow}"></BoxView>
+
             <Image Aspect="AspectFit" Source="Assets/cart.png" Grid.RowSpan="2">
             </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Blue" Opacity=".25"></BoxView>-->
@@ -71,7 +75,9 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Aspect="AspectFit" Source="Assets/map.png" Grid.RowSpan="2">
+            <BoxView Grid.RowSpan="2" Opacity=".38" BackgroundColor="{DynamicResource Blue}"></BoxView>
+
+            <Image Aspect="AspectFit" Source="Assets/Map.png" Grid.RowSpan="2">
             </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Yellow" Opacity=".25"></BoxView>-->
 
@@ -88,6 +94,8 @@
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2" Opacity=".43" BackgroundColor="{DynamicResource Green}"></BoxView>
+
             <Image Aspect="AspectFit" Source="Assets/Pencil.png" Grid.RowSpan="2">
             </Image>
             <!--<BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="Green" Opacity=".25"></BoxView>-->
