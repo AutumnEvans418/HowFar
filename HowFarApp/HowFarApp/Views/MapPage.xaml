@@ -13,7 +13,12 @@
              MyLocationEnabled="True"
             MapLongClicked="Map_OnMapLongClicked"
             MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True"/>
+            <Label Text="Start"></Label>
+            <Entry x:Name="StartEntry"></Entry>
+            <Label Text="End"></Label>
+            <Entry x:Name="EndEntry"></Entry>
             <Button Text="Compare!"></Button>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
