@@ -13,11 +13,29 @@ namespace HowFarApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage : ContentPage
     {
-        private readonly IMeasureConverters _converters;
+        private ObjectMeasurement _selectedObject;
+
+        public IMeasureConverters Converters { get; set; }
+        public ObjectMeasurement SelectedObject
+        {
+            get => _selectedObject;
+            set
+            {
+                _selectedObject = value;
+                OnPropertyChanged();
+                if (_selectedObject != null)
+                {
+                    var calc = CalculateDistances(Map.Pins.First(), Map.Pins.Last(), SelectedObject);
+                    DistanceEntry.Text = calc.ToString();
+
+
+                }
+            }
+        }
 
         public MapPage(IMeasureConverters converters)
         {
-            _converters = converters;
+            Converters = converters;
             InitializeComponent();
             BindingContext = this;
 
@@ -69,11 +87,11 @@ namespace HowFarApp.Views
 
         }
 
-        private double CalculateDistances(Pin first, Pin second, ObjectMeasurement measurement)
+        public double CalculateDistances(Pin first, Pin second, ObjectMeasurement measurement)
         {
             var kilometers = distance(first.Position.Latitude, first.Position.Longitude, second.Position.Latitude,
                 second.Position.Longitude, 'K');
-            return _converters.Convert("Kilometers", measurement.PluralName, kilometers);
+            return Converters.Convert("Kilometers", measurement.PluralName, kilometers);
         }
         public async Task<string> GetLocationFromAddress(Position position)
         {
@@ -93,11 +111,19 @@ namespace HowFarApp.Views
             }
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Reset_Clicked(object sender, EventArgs e)
         {
             Map.Pins.Clear();
 
 
+        }
+
+        private void Go_Clicked(object sender, EventArgs e)
+        {
+            Top.IsVisible = false;
+            Bottom.IsVisible = true;
+            SelectedObject = Converters.Find("Mile");
+       
         }
     }
 }
