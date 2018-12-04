@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace HowFar.Tests
 {
-    
+
     public class ConverterTests
     {
         private MeasureConverters model;
@@ -25,7 +25,7 @@ namespace HowFar.Tests
             model = fixture.Build<MeasureConverters>().OmitAutoProperties().Create();
         }
 
-    
+
 
         [Test]
         public void NewObject()
@@ -58,7 +58,7 @@ namespace HowFar.Tests
 
         }
 
-        
+
 
         [Test]
         public void Order()
@@ -66,7 +66,7 @@ namespace HowFar.Tests
             var current = double.MinValue;
             foreach (var modelObjectMeasurement in model.ObjectMeasurements)
             {
-               var result = model.Convert(modelObjectMeasurement.PluralName, "Centimeters");
+                var result = model.Convert(modelObjectMeasurement.PluralName, "Centimeters");
                 Assert.True(result > current);
                 current = result;
             }
@@ -92,29 +92,31 @@ namespace HowFar.Tests
         public void KilometerToCentimeter()
         {
 
-            Assert.AreEqual(100000,model.Convert("Kilometers", "Centimeters"));
+            Assert.AreEqual(100000, model.Convert("Kilometers", "Centimeters"));
         }
+
+        
 
         [Test]
         public void PencilConvert()
         {
-            var result = model.NewObject("Pencils","Pencil", 7.5, "Inches");
+            var result = model.NewObject("Pencils", "Pencil", 7.5, "Inches");
             Assert.AreEqual("Pencils", result.PluralName); ;
-           Assert.AreEqual("Inches", result.Measurement.PluralName); ;
+            Assert.AreEqual("Inches", result.Measurement.PluralName); ;
 
-           Assert.AreEqual(8448, model.Convert("Miles", "Pencils"));
+            Assert.AreEqual(8448, model.Convert("Miles", "Pencils"));
         }
 
         [Test]
         public void CentimeterToKilometer()
         {
-          Assert.AreEqual(0.00001  ,model.Convert("Centimeters", "Kilometers"));
+            Assert.AreEqual(0.00001, model.Convert("Centimeters", "Kilometers"));
         }
 
         [Test]
         public void ConvertMilesToInches()
         {
-          Assert.AreEqual(63360,  model.Convert("Miles", "Inches"));
+            Assert.AreEqual(63360, model.Convert("Miles", "Inches"));
         }
 
         //[Test]
