@@ -30,16 +30,22 @@
             </StackLayout>
             <Button x:Name="ImageInsert"
                     WidthRequest="15"
-                    HeightRequest="30"
+                    HeightRequest="45"
+                    MinimumHeightRequest="45"
+                    MinimumWidthRequest="15"
                     Text="Insert Image"
+                    TextColor="White"
                     BackgroundColor="ForestGreen"
                     VerticalOptions="EndAndExpand"/>
 
 
             <Button x:Name="NewButton"
                     WidthRequest="15"
-                    HeightRequest="30"
+                    HeightRequest="45"
+                    MinimumHeightRequest="45"
+                    MinimumWidthRequest="15"
                     Text="New"
+                    TextColor="White"
                     BackgroundColor="ForestGreen"
                     VerticalOptions="End" Clicked="NewButton_OnClicked"/>
         </StackLayout>

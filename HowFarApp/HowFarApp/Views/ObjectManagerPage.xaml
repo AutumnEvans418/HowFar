@@ -62,7 +62,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding Result}"></Label>
+                        <Label Text="{Binding Result}"></Label>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -72,13 +72,13 @@
                     <Label Text="Converter" Style="{DynamicResource H1}"></Label>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="From:" WidthRequest="40" VerticalTextAlignment="Center"></Label>
-                        <Entry Placeholder="ie. 10" Text="{Binding FromQty}"></Entry>
-                        <Picker ItemDisplayBinding="{Binding PluralName}" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
+                        <Entry Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
+                    <Picker ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="To:" WidthRequest="40"></Label>
-                        <Picker ItemDisplayBinding="{Binding PluralName}" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
-                        <Label Text="{Binding ConvertResult}"></Label>
+                        <Label Text="To:" WidthRequest="35"></Label>
+                    <Picker ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
+                    <Label Text="{Binding ConvertResult}" WidthRequest="150"></Label>
                     </StackLayout>
                     <Button Text="+"
                         TextColor="White"

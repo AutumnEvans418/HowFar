@@ -53,7 +53,7 @@ namespace HowFarApp.Views
 
 	    void NewObject()
         {
-           measure.NewObject(PluralEntry.Text, NameEntry.Text,double.Parse(MeasurementEntry.Text), SelectedObject);
+           measure.NewObject(PluralEntry.Text, NameEntry.Text,double.Parse(MeasurementEntry.Text), SelectedObject, "");
 
         }
 

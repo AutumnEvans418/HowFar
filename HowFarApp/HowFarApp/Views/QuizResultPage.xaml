@@ -3,13 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.QuizResultPage"
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
-
              >
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Grade.GradeLetter}" FontSize="30" FontAttributes="Bold" 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="50">
+            <StackLayout  HorizontalOptions="CenterAndExpand">
+                <Label Text="{Binding Grade.GradeLetter, StringFormat='{}And your score is: {0}'}" Style="{DynamicResource SubtitleStyle}"/>
+                <Label Text="{Binding Grade.Percent, StringFormat='{}Percent: {0}%'}" Style="{DynamicResource SubtitleStyle}"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Grade.ActualPoints}" Style="{DynamicResource SubtitleStyle}"></Label>
+                    <Label Text="/" Style="{DynamicResource SubtitleStyle}"></Label>
+                    <Label Text="{Binding Grade.PossiblePoints}" Style="{DynamicResource SubtitleStyle}"></Label>
+
+                </StackLayout>
+            </StackLayout>
+            <ListView MinimumHeightRequest="200" HasUnevenRows="True" ItemsSource="{Binding Grade.Answers}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Question.QuestionText}"></Label>
+                                <Label Text="{Binding CorrectAnswer, StringFormat='{}Correct: {0}'}"></Label>
+                                <Label Text="{Binding UserInput, StringFormat='{}Your Input: {0}'}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <Button Text="Share"></Button>
             <Button Text="Done" Clicked="DoneClicked"></Button>
         </StackLayout>
