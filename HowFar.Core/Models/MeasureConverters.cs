@@ -70,6 +70,7 @@ namespace HowFar.Core.Models
 
         public double Convert(string nameFrom, string nameTo, double valueFrom = 1)
         {
+
             var from = Find(nameFrom);
             var to = Find(nameTo);
             if (to == from)
@@ -157,13 +158,13 @@ namespace HowFar.Core.Models
 
         private ObjectMeasurement Find(ObjectMeasurement start, string name)
         {
-            if (start.PluralName == name || start.SingleName == name)
+            if (start.PluralName.ToLower() == name.ToLower() || start.SingleName.ToLower() == name.ToLower())
             {
                 return start;
             }
             foreach (var startObjectMeasurement in start.GetChildren())
             {
-                if (startObjectMeasurement.PluralName == name || startObjectMeasurement.SingleName == name)
+                if (startObjectMeasurement.PluralName.ToLower() == name.ToLower() || startObjectMeasurement.SingleName.ToLower() == name.ToLower())
                 {
                     return startObjectMeasurement;
                 }
