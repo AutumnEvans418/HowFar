@@ -16,7 +16,7 @@
                             <StackLayout >
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="45"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
@@ -35,9 +35,11 @@
                                            FontAttributes="Bold"                                           
                                            FontSize="14"                                          
                                            Grid.Row="0"                                           
-                                           Grid.Column="1"/>
-                                    <Button WidthRequest="20"
+                                           Grid.Column="1" />
+                                    <Button WidthRequest="45"
                                             HeightRequest="10"
+                                            MinimumHeightRequest="45"
+                                            MinimumWidthRequest="10"
                                             Text="Buy"
                                             TextColor="Black"
                                             BackgroundColor="LightGray"
