@@ -92,5 +92,12 @@ namespace HowFarApp.Views
                 return null;
             }
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Map.Pins.Clear();
+
+
+        }
     }
 }
