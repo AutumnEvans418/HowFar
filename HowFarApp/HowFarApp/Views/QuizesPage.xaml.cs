@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 using HowFar.Core.Models;
 using Unity;
 using Unity.Resolution;
@@ -16,6 +17,14 @@ namespace HowFarApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class QuizesPage : ContentPage
     {
+        public class QuizesPageValidator : AbstractValidator<QuizesPage>
+        {
+            public QuizesPageValidator()
+            {
+                RuleFor(p => p.SelectedItem).NotEmpty().WithMessage("Must set difficulty");
+                RuleFor(p => p.QuestionNumber).GreaterThan(0);
+            }
+        }
         private readonly IQuizGenerator _generator;
         private readonly IUnityContainer _container;
         private ObservableCollection<string> _items = new ObservableCollection<string>(Enum.GetNames(typeof(QuizDifficulty)));
@@ -90,9 +99,19 @@ namespace HowFarApp.Views
 
         private async void GoClicked(object sender, EventArgs e)
         {
-            var quiz = _generator.CreateQuiz(QuestionNumber,
-                (QuizDifficulty) Enum.Parse(typeof(QuizDifficulty), SelectedItem));
-           await  Navigation.PushAsync(_container.Resolve<QuizPage>(new DependencyOverride(typeof(Quiz), quiz)));
+            var validator = new QuizesPageValidator();
+           var result =  validator.Validate(this);
+            if (result.IsValid)
+            {
+                var quiz = _generator.CreateQuiz(QuestionNumber,
+                    (QuizDifficulty)Enum.Parse(typeof(QuizDifficulty), SelectedItem));
+                await Navigation.PushAsync(_container.Resolve<QuizPage>(new DependencyOverride(typeof(Quiz), quiz)));
+            }
+            else
+            {
+               await Ext.DisplayError(result, this);
+            }
+
         }
     }
 }

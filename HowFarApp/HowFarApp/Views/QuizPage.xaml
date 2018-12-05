@@ -6,15 +6,14 @@
              Title="Quiz"
              x:Class="HowFarApp.Views.QuizPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Quiz"></Label>
+        <StackLayout Margin="10">
             <ListView ItemsSource="{Binding Quiz.Answers}" BackgroundColor="AliceBlue" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
                                 <Label Text="{Binding Question.QuestionText}"></Label>
-                                <Entry Text="{Binding UserInput}"></Entry>
+                                <Entry Text="{Binding UserInputString, Mode=TwoWay}"></Entry>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
