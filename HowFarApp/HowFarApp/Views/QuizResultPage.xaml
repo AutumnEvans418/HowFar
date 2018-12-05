@@ -23,7 +23,7 @@
                             <StackLayout>
                                 <Label Text="{Binding Question.QuestionText}"></Label>
                                 <Label Text="{Binding CorrectAnswer, StringFormat='{}Correct: {0}'}"></Label>
-                                <Label Text="{Binding UserInput, StringFormat='{}Your Input: {0}'}"></Label>
+                                <Label Text="{Binding UserInputString, StringFormat='{}Your Input: {0}'}"></Label>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -15,7 +15,6 @@
                 <StackLayout Grid.Row="1">
                     <Label Text="Place two pins by tap and hold"></Label>
                     <Button Text="Reset Pins" Clicked="Reset_Clicked"></Button>
-                    
                 </StackLayout>
                 <maps:Map Grid.Row="0" 
                           Grid.RowSpan="3"

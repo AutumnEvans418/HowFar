@@ -9,19 +9,23 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            
-            <ListView ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" RowHeight="40">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding}"></Label>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout>
+                <Label Text="Choose your difficulty!" Style="{DynamicResource ListItemTextStyle}"></Label>
+                <ListView ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" RowHeight="40">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding}"></Label>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+           
             <StackLayout Grid.Row="1">
+                <Label Text="Set number of Questions" ></Label>
                 <Entry Placeholder="# of Questions" Text="{Binding QuestionNumber}"></Entry>
                 <Label Text="Object Packs"></Label>
                 <Picker ItemsSource="{Binding Packs}"></Picker>

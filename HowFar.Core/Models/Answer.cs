@@ -6,14 +6,31 @@ namespace HowFar.Core.Models
 {
     public class Answer : INotifyPropertyChanged
     {
-        private double? _userInput;
 
         public double? UserInput
         {
-            get => _userInput;
+            get
+            {
+                if (double.TryParse(_userInputString, out var s))
+                {
+                    return s;
+                }
+                return null;
+            }
             set
             {
-                _userInput = value;
+                _userInputString = value.ToString();
+                OnPropertyChanged();
+            }
+        }
+
+        private string _userInputString;
+        public string UserInputString
+        {
+            get => _userInputString;
+            set
+            {
+                _userInputString = value;
                 OnPropertyChanged();
             }
         }

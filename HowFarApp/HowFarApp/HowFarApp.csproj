@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.0.101" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="unity" Version="5.8.11" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.0" />
