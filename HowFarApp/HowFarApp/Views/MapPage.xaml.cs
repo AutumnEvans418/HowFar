@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace HowFarApp.Views
                 if (_selectedObject != null)
                 {
                     var calc = CalculateDistances(Map.Pins.First(), Map.Pins.Last(), SelectedObject);
-                    DistanceEntry.Text = calc.ToString();
+                    DistanceEntry.Text = calc.ToString(CultureInfo.InvariantCulture);
 
 
                 }
@@ -59,7 +60,9 @@ namespace HowFarApp.Views
 
                 if (status == PermissionStatus.Granted)
                 {
+                    
                     Map.MyLocationEnabled = true;
+                    
                 }
             }
         }
@@ -106,6 +109,15 @@ namespace HowFarApp.Views
             else if (Map.Pins.Count==2)
             {
                 EndEntry.Text = await GetLocationFromAddress(e.Point);
+                var polyLine = new Polyline();
+                foreach (var mapPin in Map.Pins)
+                {
+                    polyLine.Positions.Add(mapPin.Position);
+                }
+
+                polyLine.StrokeWidth = 2;
+                polyLine.StrokeColor = Color.LightGreen;
+                Map.Polylines.Add(polyLine);
             }
 
         }
@@ -122,11 +134,7 @@ namespace HowFarApp.Views
             try
             {
                 var address = await coder.GetAddressesForPositionAsync(position);
-                if (address == null)
-                {
-                    return null;
-                }
-                return address.FirstOrDefault();
+                return address?.FirstOrDefault();
             }
             catch
             {
@@ -137,9 +145,11 @@ namespace HowFarApp.Views
         private void Reset_Clicked(object sender, EventArgs e)
         {
             Map.Pins.Clear();
+            Map.Polylines.Clear();
             Top.IsVisible = true;
             Bottom.IsVisible = false;
-
+            this.StartEntry.Text = "";
+            this.EndEntry.Text = "";
         }
 
         private void Go_Clicked(object sender, EventArgs e)
