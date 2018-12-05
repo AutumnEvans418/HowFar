@@ -12,7 +12,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Row="1">
+                <StackLayout Grid.Row="0">
                     <Label Text="Place two pins by tap and hold"></Label>
                     <Button Text="Reset Pins" Clicked="Reset_Clicked"></Button>
                 </StackLayout>
