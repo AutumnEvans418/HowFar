@@ -17,18 +17,19 @@
                     <Button Text="Reset Pins" Clicked="Reset_Clicked"></Button>
                     
                 </StackLayout>
-                <maps:Map Grid.Row="1" 
+                <maps:Map Grid.Row="0" 
+                          Grid.RowSpan="3"
                           x:Name="Map"
                           MapLongClicked="Map_OnMapLongClicked"
                           MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True"/>
-                <StackLayout Grid.Row="2" x:Name="Top" IsVisible="True" VerticalOptions="End">
+                <StackLayout Opacity=".5" Grid.Row="2" x:Name="Top" IsVisible="True" VerticalOptions="End">
                     <Label Text="Start"></Label>
                     <Entry x:Name="StartEntry"></Entry>
                     <Label Text="End"></Label>
                     <Entry x:Name="EndEntry"></Entry>
                     <Button Text="Compare!" Clicked="Go_Clicked"></Button>
                 </StackLayout>
-                <StackLayout Grid.Row="2" x:Name="Bottom" IsVisible="False" VerticalOptions="End">
+                <StackLayout Opacity=".5" Grid.Row="2" x:Name="Bottom" IsVisible="False" VerticalOptions="End">
                     <Label Text="Distance"></Label>
                     <Entry x:Name="DistanceEntry"></Entry>
                     <Label Text="Units"></Label>
