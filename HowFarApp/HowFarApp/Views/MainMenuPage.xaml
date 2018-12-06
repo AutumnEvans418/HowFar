@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.MainMenuPage"
-             Title="Main Menu"
-             BackgroundColor="White">
+             Title="Main Menu">
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

@@ -7,5 +7,13 @@
         <Color x:Key="Yellow">#D8C231</Color>
         <Color x:Key="Blue">#3C31D8</Color>
         <Color x:Key="Green">#31D842</Color>
+        <Style x:Key="H1" TargetType="Label">
+            <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="FontAttributes" Value="Bold"></Setter>
+        </Style>
+        <Style x:Key="H2" TargetType="Label">
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontAttributes" Value="Bold"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

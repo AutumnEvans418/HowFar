@@ -6,7 +6,7 @@ namespace HowFar.Core.Models
 
     public enum QuizDifficulty : int
     {
-        Beginner = 10,
+        Beginner = 50,
         Novice = 100,
         Experienced = 1000,
         Expert = 100000,
@@ -57,10 +57,17 @@ namespace HowFar.Core.Models
             var quiz = new Quiz();
             for (int i = 0; i < size; i++)
             {
-                var question = t[i];
-                quiz.Questions.Add(question);
-                double correctAnswer = Convert(question);
-                quiz.Answers.Add(new Answer() { Question = question, CorrectAnswer = correctAnswer });
+                if (i < t.Count)
+                {
+                    var question = t[i];
+                    quiz.Questions.Add(question);
+                    double correctAnswer = Convert(question);
+                    quiz.Answers.Add(new Answer() { Question = question, CorrectAnswer = correctAnswer });
+                }
+                else
+                {
+                    break;
+                }
 
             }
 

@@ -61,8 +61,15 @@ namespace HowFarApp.Views
 
                 if (status == PermissionStatus.Granted)
                 {
-                    
-                    Map.MyLocationEnabled = true;
+                    try
+                    {
+                        Map.MyLocationEnabled = true;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
                     
                 }
             }
@@ -117,7 +124,7 @@ namespace HowFarApp.Views
                 }
 
                 polyLine.StrokeWidth = 2;
-                polyLine.StrokeColor = Color.LightGreen;
+                polyLine.StrokeColor = Color.Red;
                 Map.Polylines.Add(polyLine);
             }
 

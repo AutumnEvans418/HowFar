@@ -21,14 +21,25 @@ namespace HowFarApp.Views
         {
             public QuizesPageValidator()
             {
-                RuleFor(p => p.SelectedItem).NotEmpty().WithMessage("Must set difficulty");
+                RuleFor(p => p.SelectedDifficulty).NotEmpty().WithMessage("Must set difficulty");
                 RuleFor(p => p.QuestionNumber).GreaterThan(0);
+            }
+        }
+
+        public class QuizDifficultyModel
+        {
+            public QuizDifficulty QuizDifficulty { get; set; }
+            public string Result => $"{QuizDifficulty.ToString()}, Range: {(int)QuizDifficulty}";
+            public override string ToString()
+            {
+                return Result;
             }
         }
         private readonly IQuizGenerator _generator;
         private readonly IUnityContainer _container;
-        private ObservableCollection<string> _items = new ObservableCollection<string>(Enum.GetNames(typeof(QuizDifficulty)));
-        private string _selectedItem;
+        private ObservableCollection<QuizDifficultyModel> _difficulties = new ObservableCollection<QuizDifficultyModel>(Enum.GetNames(typeof(QuizDifficulty))
+            .Select(p=>new QuizDifficultyModel(){QuizDifficulty = (QuizDifficulty)(Enum.Parse(typeof(QuizDifficulty), p))}));
+        private QuizDifficultyModel _selectedDifficulty;
         private ObservableCollection<string> _packs;
         private string _selectedPack = AllPacks;
         private int _questionNumber;
@@ -67,22 +78,22 @@ namespace HowFarApp.Views
             }
         }
 
-        public string SelectedItem
+        public QuizDifficultyModel SelectedDifficulty
         {
-            get => _selectedItem;
+            get => _selectedDifficulty;
             set
             {
-                _selectedItem = value;
+                _selectedDifficulty = value;
                 OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<string> Items
+        public ObservableCollection<QuizDifficultyModel> Difficulties
         {
-            get => _items;
+            get => _difficulties;
             set
             {
-                _items = value;
+                _difficulties = value;
                 OnPropertyChanged();
             }
         }
@@ -103,8 +114,7 @@ namespace HowFarApp.Views
            var result =  validator.Validate(this);
             if (result.IsValid)
             {
-                var quiz = _generator.CreateQuiz(QuestionNumber,
-                    (QuizDifficulty)Enum.Parse(typeof(QuizDifficulty), SelectedItem));
+                var quiz = _generator.CreateQuiz(QuestionNumber, SelectedDifficulty.QuizDifficulty, 2);
                 await Navigation.PushAsync(_container.Resolve<QuizPage>(new DependencyOverride(typeof(Quiz), quiz)));
             }
             else

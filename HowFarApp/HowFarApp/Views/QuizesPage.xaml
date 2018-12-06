@@ -6,17 +6,18 @@
     <ContentPage.Content>
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
+            <Image Source="Assets/Pencil.png" Opacity=".5" Aspect="AspectFit" Grid.RowSpan="2"></Image>
             <StackLayout>
-                <Label Text="Choose your difficulty!" Style="{DynamicResource ListItemTextStyle}"></Label>
-                <ListView ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" RowHeight="40">
+                <Label Text="Choose your difficulty!" Style="{DynamicResource H1}"></Label>
+                <ListView Margin="10" ItemsSource="{Binding Difficulties}" SelectedItem="{Binding SelectedDifficulty}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout>
-                                    <Label Text="{Binding}"></Label>
+                                <StackLayout Margin="10">
+                                    <Label Text="{Binding Result}" Style="{DynamicResource TitleStyle}"></Label>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
@@ -24,12 +25,12 @@
                 </ListView>
             </StackLayout>
            
-            <StackLayout Grid.Row="1">
-                <Label Text="Set number of Questions" ></Label>
+            <StackLayout Grid.Row="1" VerticalOptions="EndAndExpand">
+                <Label Text="Set number of Questions" Style="{DynamicResource H2}" ></Label>
                 <Entry Placeholder="# of Questions" Text="{Binding QuestionNumber}"></Entry>
-                <Label Text="Object Packs"></Label>
-                <Picker ItemsSource="{Binding Packs}"></Picker>
-                <Button Text="Go!" HorizontalOptions="End" Clicked="GoClicked"></Button>
+                <!--<Label Text="Object Packs"></Label>
+                <Picker ItemsSource="{Binding Packs}"></Picker>-->
+                <Button Text="Go!" FontSize="24" HorizontalOptions="End" Clicked="GoClicked"></Button>
             </StackLayout>
         </Grid>
       

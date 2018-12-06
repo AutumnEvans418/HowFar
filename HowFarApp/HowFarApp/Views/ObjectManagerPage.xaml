@@ -8,10 +8,7 @@
                      Padding="20"
                      BackgroundColor="White" Margin="10">
             <Grid.Resources>
-                <Style x:Key="H1" TargetType="Label">
-                    <Setter Property="FontSize" Value="24"></Setter>
-                    <Setter Property="FontAttributes" Value="Bold"></Setter>
-                </Style>
+                
             </Grid.Resources>
             <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
