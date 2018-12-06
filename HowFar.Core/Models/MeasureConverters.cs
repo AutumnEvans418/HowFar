@@ -38,7 +38,12 @@ namespace HowFar.Core.Models
         {
             ObjectPacks = new ObservableCollection<ObjectPack>();
             Centimeter = new ObjectMeasurement("Centimeter", "Centimeters") {  Value = 1 };
-            UpdatePack(Imperial, Centimeter, "A default package for the US measurement system");
+
+            ObjectPacks.Add(new ObjectPack(Imperial,"A default package for the US measurement system"));
+            ObjectPacks.Add(new ObjectPack(Metric, "The metric system.  Used by everyone except the US"));
+            ObjectPacks.Add(new ObjectPack(Space, "Objects and Measurements in space"));
+
+            UpdatePack(Imperial, Centimeter);
             var inches = NewObject("Inches", "Inch", 2.54, Centimeter, Imperial);
             var feet = NewObject("Feet","Foot", 12, inches, Imperial);
             var mile = NewObject("Miles", "Mile", 5280, feet, Imperial);
@@ -182,7 +187,7 @@ namespace HowFar.Core.Models
         }
 
        
-        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string description, string pack = "Custom")
+        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string pack = "Custom")
         {
             var measure = Find(measurement);
             if (measure != null)
@@ -191,14 +196,14 @@ namespace HowFar.Core.Models
                 measure.Add(newObject);
                 UpdateList();
                 UpdateProperties();
-                UpdatePack(pack, newObject, description);
+                UpdatePack(pack, newObject);
 
                 return newObject;
             }
             return null;
         }
 
-        private void UpdatePack(string pack, ObjectMeasurement newObject, string description)
+        private void UpdatePack(string pack, ObjectMeasurement newObject)
         {
             var packs = ObjectPacks.FirstOrDefault(p => p.PackName == pack);
             if (packs != null)
@@ -207,7 +212,7 @@ namespace HowFar.Core.Models
             }
             else
             {
-                ObjectPacks.Add(new ObjectPack(description) { PackName = pack });
+                throw new InvalidOperationException($"package '{pack}' must exist first");
             }
         }
 
@@ -221,9 +226,9 @@ namespace HowFar.Core.Models
         }
 
         public ObjectMeasurement NewObject(string pluralName, string singleName,
-            double value, ObjectMeasurement measurement, string desc, string pack = "Custom")
+            double value, ObjectMeasurement measurement, string pack = "Custom")
         {
-            return NewObject(pluralName, singleName, value, measurement.PluralName, desc, pack);
+            return NewObject(pluralName, singleName, value, measurement.PluralName, pack);
         }
     }
 }

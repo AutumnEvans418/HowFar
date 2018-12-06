@@ -118,7 +118,7 @@ namespace HowFar.Tests
 
             foreach (var quizResultQuestion in quizResult.Questions)
             {
-                Assert.AreEqual($"How many {quizResultQuestion.To.PluralName} are in {quizResultQuestion.FromQuantity} {quizResultQuestion.From.PluralName}?", quizResultQuestion.QuestionText);
+                Assert.AreEqual($"How many '{quizResultQuestion.To.PluralName}' are in {quizResultQuestion.FromQuantity} '{quizResultQuestion.From.PluralName}'?", quizResultQuestion.QuestionText);
             }
             
         }

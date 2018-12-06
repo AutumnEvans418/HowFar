@@ -11,8 +11,9 @@ namespace HowFar.Core.Models
         public string ImageURL => PackImage;
         public string Description { get; set; }
         public string PackImage { get; set; }
-        public ObjectPack(string description)
+        public ObjectPack(string name,string description)
         {
+            PackName = name;
             Description = description;
             ObjectMeasurements = new ObservableCollection<ObjectMeasurement>();
             PackImage = "https://via.placeholder.com/150";
