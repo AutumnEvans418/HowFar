@@ -117,5 +117,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Pencil.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bensound-creativeminds.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
