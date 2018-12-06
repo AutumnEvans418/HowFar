@@ -8,6 +8,17 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+  <!-- Google Maps for Android v2 requires OpenGL ES v2 -->
+  <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+  <!-- Google Maps for Android v2 will cache map tiles on external storage -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <!-- Allow the application to access Google web-based services. -->
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+  <!-- Notice here that we have the package name of our application as a prefix on the permissions. -->
+  <uses-permission android:name="com.pittstate.howfar.permission.MAPS_RECEIVE" />
+  <permission android:name="com.pittstate.howfar.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+
+
 	<application android:label="HowFarApp.Android">
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC40Tpm1zyXPatlq0FO1I6qThA2KRsHVK4" />
 	</application>

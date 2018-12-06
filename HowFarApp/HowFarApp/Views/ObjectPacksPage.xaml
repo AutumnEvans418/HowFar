@@ -9,49 +9,43 @@
                      BackgroundColor="White">
 
             <ListView x:Name="ObjectPacksList"                     
-                      HasUnevenRows="True">
+                      RowHeight="30">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout >
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="45"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                            <StackLayout Margin="10" Orientation="Horizontal">
                                     <Image WidthRequest="50"                                          
                                            HeightRequest="50"                                          
                                            Source="{Binding ImageURL}"                                          
                                            Grid.Row="0"                                           
                                            Grid.RowSpan="2"
                                            Grid.Column="0" />
+                                <StackLayout Orientation="Vertical">
                                     <Label Text="{Binding Name}" 
                                            TextColor="Black"
                                            FontAttributes="Bold"                                           
                                            FontSize="14"                                          
                                            Grid.Row="0"                                           
                                            Grid.Column="1" />
-                                    <Button WidthRequest="45"
-                                            HeightRequest="10"
-                                            
-                                            MinimumHeightRequest="45"
-                                            MinimumWidthRequest="10"
-                                            Text="Buy"
-                                            Grid.RowSpan="2"
-                                            TextColor="Black"
-                                            BackgroundColor="LightGray"
-                                            Grid.Row="0"
-                                            Grid.Column="2" />
+
                                     <Label Text="{Binding Description}" 
                                            TextColor="Black"
                                            Grid.Row="1"                                           
                                            Grid.Column="1"/>
-                                </Grid>
+                                </StackLayout>
+                                   
+
+                                <Button WidthRequest="45"
+                                        HeightRequest="10"
+                                            
+                                        MinimumHeightRequest="45"
+                                        MinimumWidthRequest="10"
+                                        Text="Buy"
+                                        Grid.RowSpan="2"
+                                        TextColor="Black"
+                                        BackgroundColor="LightGray"
+                                        Grid.Row="0"
+                                        Grid.Column="2"  HorizontalOptions="End"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

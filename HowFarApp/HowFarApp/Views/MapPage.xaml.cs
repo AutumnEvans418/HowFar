@@ -28,10 +28,11 @@ namespace HowFarApp.Views
                 OnPropertyChanged();
                 if (_selectedObject != null)
                 {
-                    var calc = CalculateDistances(Map.Pins.First(), Map.Pins.Last(), SelectedObject);
-                    DistanceEntry.Text = calc.ToString(CultureInfo.InvariantCulture);
-
-
+                    if (Map.Pins.Count >= 2)
+                    {
+                        var calc = CalculateDistances(Map.Pins.First(), Map.Pins.Last(), SelectedObject);
+                        DistanceEntry.Text = calc.ToString(CultureInfo.InvariantCulture);
+                    }
                 }
             }
         }
