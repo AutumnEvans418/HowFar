@@ -39,6 +39,7 @@ namespace HowFar.Core.Models
             ObjectPacks = new ObservableCollection<ObjectPack>();
             Centimeter = new ObjectMeasurement("Centimeter", "Centimeters") {  Value = 1 };
 
+            ObjectPacks.Add(new ObjectPack("Custom", "Objects that are made in the app are placed here."){PackImage = "Assets/block.png"});
             ObjectPacks.Add(new ObjectPack(Imperial,"A default package for the US measurement system"){PackImage = "https://logoeps.com/wp-content/uploads/2013/06/flag-of-usa-vector-logo.png" });
             ObjectPacks.Add(new ObjectPack(Metric, "The metric system.  Used by everyone except the US"){PackImage = "http://www.knightstemplarorder.org/wp-content/uploads/2016/06/UN-SEAL-Stylized-500-Brown.png" });
             ObjectPacks.Add(new ObjectPack(Space, "Objects and Measurements in space"){PackImage = "https://sep.yimg.com/ay/skyimage/nasa-space-missions-9.jpg" });

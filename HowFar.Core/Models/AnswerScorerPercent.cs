@@ -6,8 +6,8 @@ namespace HowFar.Core.Models
     {
         public double GetScore(Answer answer)
         {
-            if (answer.UserInput == null) return 0;
-            var input = Math.Abs(answer.UserInput ?? 0);
+            if (answer.UserInput == default(int)) return 0;
+            var input = Math.Abs(answer.UserInput);
             var corranwer = Math.Abs(answer.CorrectAnswer);
 
             var difference = Math.Abs((double) input - corranwer);

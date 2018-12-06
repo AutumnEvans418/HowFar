@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HowFarApp.Views.ObjectPackDetail">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackLayout>
+            <Image Source="{Binding Pack.ImageURL}" HeightRequest="100"></Image>
+
+            <Label Text="{Binding Pack.Name}" Style="{DynamicResource H1}"></Label>
+            <Label Text="{Binding Pack.Description}" Style="{DynamicResource SubtitleStyle}"></Label>
+            <ImageButton Source="Assets/cart.png"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         Aspect="AspectFit"
+                         HorizontalOptions="EndAndExpand" 
+            />
+        </StackLayout>
+        <ListView x:Name="MyListView" Grid.Row="1"
+                  ItemsSource="{Binding Items}"
+                  ItemTapped="Handle_ItemTapped"
+                  CachingStrategy="RecycleElement">
+
+            <!--Built in Cells-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding PluralName}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <!--Custom View Cells-->
+            <!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Text}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Detail}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+        </ListView>
+
+    </Grid>
+</ContentPage>

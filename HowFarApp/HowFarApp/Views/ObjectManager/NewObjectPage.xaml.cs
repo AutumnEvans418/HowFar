@@ -80,7 +80,7 @@ namespace HowFarApp.Views
             var result = validator.Validate(this);
             if (result.IsValid)
             {
-                measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject, "");
+                measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject);
                 return true;
             }
             else

@@ -5,13 +5,13 @@
              x:Class="HowFarApp.Views.ObjectPacksPage">
     <ContentPage.Content>
         <Grid>
-            <Image Source="Assets/cart.png"></Image>
+            <Image Source="Assets/cart.png" Opacity=".5"></Image>
             
             <StackLayout Spacing="10"
                      Padding="20">
 
                 <ListView x:Name="ObjectPacksList"                     
-                      RowHeight="80">
+                      RowHeight="80" ItemsSource="{Binding Objects}" SelectedItem="{Binding SelectedObjectPack}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

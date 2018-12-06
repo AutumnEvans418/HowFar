@@ -14,6 +14,16 @@ using Xamarin.Forms.Xaml;
 
 namespace HowFarApp.Views
 {
+    public class QuizDifficultyModel
+    {
+        public QuizDifficulty QuizDifficulty { get; set; }
+        public string Result => $"{QuizDifficulty.ToString()}, Range: {((int)QuizDifficulty):N}";
+        public override string ToString()
+        {
+            return Result;
+        }
+    }
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class QuizesPage : ContentPage
     {
@@ -26,15 +36,7 @@ namespace HowFarApp.Views
             }
         }
 
-        public class QuizDifficultyModel
-        {
-            public QuizDifficulty QuizDifficulty { get; set; }
-            public string Result => $"{QuizDifficulty.ToString()}, Range: {(int)QuizDifficulty}";
-            public override string ToString()
-            {
-                return Result;
-            }
-        }
+        
         private readonly IQuizGenerator _generator;
         private readonly IUnityContainer _container;
         private ObservableCollection<QuizDifficultyModel> _difficulties = new ObservableCollection<QuizDifficultyModel>(Enum.GetNames(typeof(QuizDifficulty))

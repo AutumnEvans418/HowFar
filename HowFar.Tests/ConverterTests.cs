@@ -32,7 +32,7 @@ namespace HowFar.Tests
         {
             var mil = "Millimeters";
             var cent = "Centimeters";
-            model.NewObject(mil, "Millimeter", 0.01, cent, null);
+            model.NewObject(mil, "Millimeter", 0.01, cent);
             var result = model.Find(mil);
 
             Assert.AreEqual(mil, result.PluralName);
@@ -100,7 +100,7 @@ namespace HowFar.Tests
         [Test]
         public void PencilConvert()
         {
-            var result = model.NewObject("Pencils", "Pencil", 7.5, "Inches", "");
+            var result = model.NewObject("Pencils", "Pencil", 7.5, "Inches");
             Assert.AreEqual("Pencils", result.PluralName); ;
             Assert.AreEqual("Inches", result.Measurement.PluralName); ;
 

@@ -6,34 +6,36 @@ namespace HowFar.Core.Models
 {
     public class Answer : INotifyPropertyChanged
     {
-
-        public double? UserInput
+        private double _userinput;
+        public double UserInput
         {
             get
             {
-                if (double.TryParse(_userInputString, out var s))
-                {
-                    return s;
-                }
-                return null;
+                return _userinput;
+                //if (double.TryParse(_userInputString, out var s))
+                //{
+                //    return s;
+                //}
+                //return null;
             }
             set
             {
-                _userInputString = value.ToString();
+                _userinput = value;
+                //_userInputString = value.ToString();
                 OnPropertyChanged();
             }
         }
 
-        private string _userInputString;
-        public string UserInputString
-        {
-            get => _userInputString;
-            set
-            {
-                _userInputString = value;
-                OnPropertyChanged();
-            }
-        }
+        //private string _userInputString;
+        //public string UserInputString
+        //{
+        //    get => _userInputString;
+        //    set
+        //    {
+        //        _userInputString = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public Question Question { get; set; }
         public double CorrectAnswer { get; set; }

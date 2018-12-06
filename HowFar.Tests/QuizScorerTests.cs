@@ -159,7 +159,7 @@ namespace HowFar.Tests
         [Test, AutoDataCust]
         public void Answer0PercentTest(AnswerScorerPercent percent, Answer answer)
         {
-            answer.UserInput = null;
+            answer.UserInput = 0;
             answer.CorrectAnswer = 100;
             Assert.AreEqual(0, percent.GetScore(answer));
         }

@@ -19,7 +19,7 @@
                           x:Name="Map"
                           MapLongClicked="Map_OnMapLongClicked"
                           MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True"/>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" >
                     <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
                     <StackLayout  Margin="10">
                         <Label Text="Place two pins by tap and hold" FontAttributes="Bold"></Label>
@@ -27,7 +27,7 @@
                     </StackLayout>
                 </Grid>
 
-                <Grid Grid.Row="2" x:Name="Top" IsVisible="True" VerticalOptions="End">
+                <Grid Grid.Row="2" Margin="10,10,50,10" x:Name="Top" IsVisible="True" VerticalOptions="End">
                     <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
                     <StackLayout Margin="10"    VerticalOptions="End">
                         <Label Text="Start"></Label>
@@ -37,7 +37,7 @@
                         <Button  Text="Compare!" Clicked="Go_Clicked"></Button>
                     </StackLayout>
                 </Grid>
-                <Grid Grid.Row="2" x:Name="Bottom" IsVisible="False" VerticalOptions="End">
+                <Grid Grid.Row="2" Margin="10,10,50,10" x:Name="Bottom" IsVisible="False" VerticalOptions="End">
                    <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
                    <StackLayout Margin="10"   VerticalOptions="End">
                        <Label Text="Distance"></Label>

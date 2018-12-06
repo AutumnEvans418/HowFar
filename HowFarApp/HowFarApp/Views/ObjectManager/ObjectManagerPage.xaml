@@ -16,7 +16,7 @@
             <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-        <Image Source="Assets/block.png"></Image>
+        <Image Source="Assets/block.png" Opacity=".5"></Image>
         <StackLayout Grid.Row="0">
             <Label Text="Objects" Style="{DynamicResource H1}"></Label>
             <Label Text="Select at least two objects to compare" Style="{DynamicResource BodyStyle}"></Label>
