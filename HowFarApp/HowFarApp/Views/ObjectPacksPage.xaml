@@ -4,38 +4,43 @@
              Title="Object Packs"
              x:Class="HowFarApp.Views.ObjectPacksPage">
     <ContentPage.Content>
-        <StackLayout Spacing="10"
-                     Padding="20"
-                     BackgroundColor="White">
+        <Grid>
+            <Image Source="Assets/cart.png"></Image>
+            
+            <StackLayout Spacing="10"
+                     Padding="20">
 
-            <ListView x:Name="ObjectPacksList"                     
-                      RowHeight="30">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Margin="10" Orientation="Horizontal">
+                <ListView x:Name="ObjectPacksList"                     
+                      RowHeight="80">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="10" Orientation="Horizontal">
                                     <Image WidthRequest="50"                                          
                                            HeightRequest="50"                                          
                                            Source="{Binding ImageURL}"                                          
                                            Grid.Row="0"                                           
                                            Grid.RowSpan="2"
                                            Grid.Column="0" />
-                                <StackLayout Orientation="Vertical">
-                                    <Label Text="{Binding Name}" 
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding Name}" 
                                            TextColor="Black"
                                            FontAttributes="Bold"                                           
                                            FontSize="14"                                          
-                                           Grid.Row="0"                                           
                                            Grid.Column="1" />
 
-                                    <Label Text="{Binding Description}" 
+                                        <Label Text="{Binding Description}" 
                                            TextColor="Black"
-                                           Grid.Row="1"                                           
                                            Grid.Column="1"/>
-                                </StackLayout>
-                                   
+                                    </StackLayout>
 
-                                <Button WidthRequest="45"
+                                    <ImageButton Source="Assets/cart.png"
+                                                 WidthRequest="40"
+                                                  HeightRequest="40"
+                                                 Aspect="AspectFit"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 />
+                                    <!--<Button WidthRequest="45"
                                         HeightRequest="10"
                                             
                                         MinimumHeightRequest="45"
@@ -45,13 +50,15 @@
                                         TextColor="Black"
                                         BackgroundColor="LightGray"
                                         Grid.Row="0"
-                                        Grid.Column="2"  HorizontalOptions="End"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                        Grid.Column="2"  HorizontalOptions="EndAndExpand"/>-->
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        </StackLayout>
+            </StackLayout>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
