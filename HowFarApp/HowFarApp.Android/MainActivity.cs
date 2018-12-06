@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
+using Android.Media;
 
 namespace HowFarApp.Droid
 {
@@ -31,6 +32,22 @@ namespace HowFarApp.Droid
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             LoadApplication(new App());
+            StartPlayer("Assets/bensound-creativeminds.mp3");
+        }
+        protected MediaPlayer player;
+        public void StartPlayer(String filepath)
+        {
+            if (player == null)
+            {
+                player = new MediaPlayer();
+            }
+            else
+            {
+                player.Reset();
+                player.SetDataSource(filepath);
+                player.Prepare();
+                player.Start();
+            }
         }
     }
 }
