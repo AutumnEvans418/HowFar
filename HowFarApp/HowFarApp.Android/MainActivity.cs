@@ -32,22 +32,22 @@ namespace HowFarApp.Droid
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             LoadApplication(new App());
-            StartPlayer("Assets/bensound-creativeminds.mp3");
+            //StartPlayer("Assets/bensound-creativeminds.mp3");
         }
-        protected MediaPlayer player;
-        public void StartPlayer(String filepath)
-        {
-            if (player == null)
-            {
-                player = new MediaPlayer();
-            }
-            else
-            {
-                player.Reset();
-                player.SetDataSource(filepath);
-                player.Prepare();
-                player.Start();
-            }
-        }
+        //protected MediaPlayer player;
+        //public void StartPlayer(String filepath)
+        //{
+        //    if (player == null)
+        //    {
+        //        player = new MediaPlayer();
+        //    }
+        //    else
+        //    {
+        //        player.Reset();
+        //        player.SetDataSource(filepath);
+        //        player.Prepare();
+        //        player.Start();
+        //    }
+        //}
     }
 }

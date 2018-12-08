@@ -104,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\block.png" />
+    <Content Include="Assets\blockold.png" />
+    <Content Include="Assets\cartold1.png" />
     <Content Include="Assets\cart.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
