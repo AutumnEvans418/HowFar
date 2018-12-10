@@ -37,15 +37,17 @@ namespace HowFarApp.Views
         }
 
         private readonly IMeasureConverters measure;
+        private readonly IApp _app;
         private ObjectMeasurement _selectedObject;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
 
-        public NewObjectPage(IMeasureConverters measure)
+        public NewObjectPage(IMeasureConverters measure, IApp app)
         {
             InitializeComponent();
             BindingContext = this;
             ObjectMeasurements = measure.ObjectMeasurements;
             this.measure = measure;
+            _app = app;
             NewButton.IsEnabled = false;
         }
 
@@ -80,7 +82,8 @@ namespace HowFarApp.Views
             var result = validator.Validate(this);
             if (result.IsValid)
             {
-                measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject);
+               var measurement =  measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject);
+                
                 return true;
             }
             else

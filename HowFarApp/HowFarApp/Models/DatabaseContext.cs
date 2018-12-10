@@ -22,6 +22,10 @@ namespace HowFarApp.Models
 
         private readonly string _databasePath;
 
+        public DatabaseContext(DbContextOptions options) : base(options)
+        {
+
+        }
         public DatabaseContext(string databasePath)
         {
             _databasePath = databasePath;
@@ -29,7 +33,8 @@ namespace HowFarApp.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Filename={_databasePath}");
+            if (!optionsBuilder.IsConfigured)
+                optionsBuilder.UseSqlite($"Filename={_databasePath}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,7 +43,7 @@ namespace HowFarApp.Models
             {
                 e.HasKey(p => p.SingleName);
                 e.HasOne(p => p.Measurement).WithMany(p => p.ObjectMeasurements);
-                
+
 
             });
             base.OnModelCreating(modelBuilder);

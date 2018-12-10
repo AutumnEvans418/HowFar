@@ -19,9 +19,7 @@ namespace HowFar.Core.Models
                 if (db.ObjectMeasurements.Any())
                 {
                     Startup();
-
-                    ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(db.ObjectMeasurements);
-                    Centimeter = Find("Centimeter");
+                    ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(db.ObjectMeasurements.Union(ObjectMeasurements));
                     //if (app.Properties[PropertyKey] is ObjectMeasurement measure)
                     //{
                     //    Centimeter = measure;
@@ -228,11 +226,11 @@ namespace HowFar.Core.Models
         public const string PropertyKey = "Conversions";
         private void UpdateProperties(ObjectMeasurement newObject)
         {
-            using (var db = _app.Database())
-            {
-                db.Update(Centimeter);
-                db.SaveChanges();
-            }
+            //using (var db = _app.Database())
+            //{
+            //    db.Update(Centimeter);
+            //    db.SaveChanges();
+            //}
             //if (_app.Properties.ContainsKey(PropertyKey))
             //{
             //    _app.Properties[PropertyKey] = Centimeter;
