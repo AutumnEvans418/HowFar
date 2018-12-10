@@ -1,6 +1,8 @@
 ﻿using HowFar.Core.Models;
 using System;
+using HowFarApp.Models;
 using Unity;
+using Unity.Injection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,7 +11,7 @@ namespace HowFarApp
 {
     public partial class App : Application, IApp
     {
-        public App()
+        public App(string dbpath)
         {
 #if DEBUG
             LiveReload.Init();
@@ -23,13 +25,25 @@ namespace HowFarApp
             //var container = containerBuilder.Build();
             var container = new UnityContainer();
             container.RegisterInstance(typeof(IApp), this);
+            container.RegisterType<DatabaseContext>(new InjectionConstructor(dbpath));
+            container.RegisterType<IDatabase, DatabaseContext>();
+            Database = () => container.Resolve<IDatabase>();
+            using (var db = container.Resolve<DatabaseContext>())
+            {
+                db.Database.EnsureCreated();
+            }
             container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
             container.RegisterInstance(container.Resolve<MeasureConverters>());
             container.RegisterInstance(typeof(IQuizGenerator),
                 new QuizGenerator(container.Resolve<IMeasureConverters>(), DateTime.Now.GetHashCode()));
 
+           
             container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
+
+         
+
+
             MainPage = container.Resolve<SignInPage>(); ;
         }
 
@@ -47,5 +61,7 @@ namespace HowFarApp
         {
             // Handle when your app resumes
         }
+
+        public Func<IDatabase> Database { get; set; }
     }
 }

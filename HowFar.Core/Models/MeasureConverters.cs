@@ -14,17 +14,25 @@ namespace HowFar.Core.Models
         public MeasureConverters(IApp app)
         {
             _app = app;
-            if (app.Properties.ContainsKey(PropertyKey))
+            using (var db = app.Database())
             {
-                if (app.Properties[PropertyKey] is ObjectMeasurement measure)
+                if (db.ObjectMeasurements.Any())
                 {
-                    Centimeter = measure;
+                    Startup();
+
+                    ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(db.ObjectMeasurements);
+                    Centimeter = Find("Centimeter");
+                    //if (app.Properties[PropertyKey] is ObjectMeasurement measure)
+                    //{
+                    //    Centimeter = measure;
+                    //}
+                }
+                else
+                {
+                    Startup();
                 }
             }
-            else
-            {
-                Startup();
-            }
+           
 
         }
 
@@ -196,7 +204,7 @@ namespace HowFar.Core.Models
                 var newObject = new ObjectMeasurement(singleName, pluralName) { Value = value};
                 measure.Add(newObject);
                 UpdateList();
-                UpdateProperties();
+                UpdateProperties(newObject);
                 UpdatePack(pack, newObject);
 
                 return newObject;
@@ -218,12 +226,17 @@ namespace HowFar.Core.Models
         }
 
         public const string PropertyKey = "Conversions";
-        private void UpdateProperties()
+        private void UpdateProperties(ObjectMeasurement newObject)
         {
-            if (_app.Properties.ContainsKey(PropertyKey))
+            using (var db = _app.Database())
             {
-                _app.Properties[PropertyKey] = Centimeter;
+                db.Update(Centimeter);
+                db.SaveChanges();
             }
+            //if (_app.Properties.ContainsKey(PropertyKey))
+            //{
+            //    _app.Properties[PropertyKey] = Centimeter;
+            //}
         }
 
         public ObjectMeasurement NewObject(string pluralName, string singleName,

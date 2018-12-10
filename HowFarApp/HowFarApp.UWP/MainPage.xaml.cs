@@ -20,8 +20,9 @@ namespace HowFarApp.UWP
         public MainPage()
         {
             this.InitializeComponent();
+            var dbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "exrin.db");
 
-            LoadApplication(new HowFarApp.App());
+            LoadApplication(new HowFarApp.App(dbPath));
         }
     }
 }

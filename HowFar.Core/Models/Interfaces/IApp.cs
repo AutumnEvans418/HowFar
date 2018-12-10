@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HowFar.Core.Models
 {
     public interface IApp
     {
-        IDictionary<string,object> Properties { get; }
+        Func<IDatabase> Database { get; }
+        //IDictionary<string,object> Properties { get; }
     }
 }

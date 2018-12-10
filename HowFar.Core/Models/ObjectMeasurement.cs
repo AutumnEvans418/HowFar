@@ -14,8 +14,12 @@ namespace HowFar.Core.Models
 
         public string Image { get; set; }
 
-        public string PluralName { get;  }
+        public string PluralName { get; set; }
 
+        public ObjectMeasurement()
+        {
+            ObjectMeasurements = new List<ObjectMeasurement>();
+        }
         public ObjectMeasurement(string singleName, string pluralName)
         {
             SingleName = singleName;
@@ -32,7 +36,8 @@ namespace HowFar.Core.Models
             obj.Measurement = this;
             ObjectMeasurements.Add(obj);
         }
-        private List<ObjectMeasurement> ObjectMeasurements { get; set; }
-        public string SingleName { get;  }
+
+        public List<ObjectMeasurement> ObjectMeasurements { get; set; }
+        public string SingleName { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.IO;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using Android.Media;
+using Environment = System.Environment;
 
 namespace HowFarApp.Droid
 {
@@ -31,7 +32,8 @@ namespace HowFarApp.Droid
 
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
+            LoadApplication(new App(dbPath));
             //StartPlayer("Assets/bensound-creativeminds.mp3");
         }
         //protected MediaPlayer player;
