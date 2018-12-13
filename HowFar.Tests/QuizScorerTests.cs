@@ -128,10 +128,10 @@ namespace HowFar.Tests
                 Assert.AreEqual(1, result);
             }
             
-            Console.WriteLine(JsonConvert.SerializeObject(quiz.Answers, Formatting.Indented));
+           // Console.WriteLine(JsonConvert.SerializeObject(quiz.Answers, Formatting.Indented));
 
             var score = grader.CalculateScore(quiz.Answers);
-            Console.WriteLine(JsonConvert.SerializeObject(score, Formatting.Indented));
+           // Console.WriteLine(JsonConvert.SerializeObject(score, Formatting.Indented));
             Assert.AreEqual(10, score.TotalQuestions);
             return score;
         }
