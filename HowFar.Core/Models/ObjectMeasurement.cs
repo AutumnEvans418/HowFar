@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HowFar.Core.Models
 {
@@ -8,8 +10,10 @@ namespace HowFar.Core.Models
         {
             return Measurement != null ? $"{SingleName}: {Value} {Measurement.PluralName}" : $"{Value} {PluralName}";
         }
-
-        public ObjectMeasurement Measurement { get; set; }
+     
+        [ForeignKey(nameof(Measurement))]
+        public string ParentMeasurementSingleName { get; set; }
+        public virtual ObjectMeasurement Measurement { get; set; }
         public double Value { get; set; }
 
         public string Image { get; set; }
@@ -37,7 +41,9 @@ namespace HowFar.Core.Models
             ObjectMeasurements.Add(obj);
         }
 
-        public List<ObjectMeasurement> ObjectMeasurements { get; set; }
+        public virtual List<ObjectMeasurement> ObjectMeasurements { get; set; }
         public string SingleName { get; set; }
+        public ObjectPack ObjectPack { get; set; }
+        public string ObjectPackName { get; set; }
     }
 }

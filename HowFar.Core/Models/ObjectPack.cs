@@ -13,7 +13,7 @@ namespace HowFar.Core.Models
 
         public ObjectPack()
         {
-            
+            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>();
         }
         public ObjectPack(string name,string description)
         {

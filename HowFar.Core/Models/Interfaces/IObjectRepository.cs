@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HowFar.Core.Models
 {
-    public interface IObjectRepository
+    public interface IObjectRepository : IDisposable
     {
         ObjectMeasurement GetObjectMeasurement(string name);
         IEnumerable<ObjectMeasurement> GetObjectMeasurements();

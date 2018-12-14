@@ -7,24 +7,41 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using HowFar.Core.Models;
+using HowFarApp.Models;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
-using Xamarin.Forms;
 
 namespace HowFar.Tests
 {
 
     public class ConverterTests
     {
+        private Fixture fixture;
         private MeasureConverters model;
+        private DatabaseContext context;
+        private SqliteConnection connection;
         [SetUp]
         public void Setup()
         {
-            var fixture = new Fixture();
+            fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
+            connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
+            context = new DatabaseContext(options);
+            context.Database.EnsureCreated();
+            fixture.Inject(context);
+            fixture.Inject(fixture.Build<ObjectRepository>().OmitAutoProperties().Create() as IObjectRepository);
             model = fixture.Build<MeasureConverters>().OmitAutoProperties().Create();
         }
 
+        [TearDown]
+        public void Tear()
+        {
+            connection.Close();
+        }
 
 
         [Test]
@@ -95,7 +112,7 @@ namespace HowFar.Tests
             Assert.AreEqual(100000, model.Convert("Kilometers", "Centimeters"));
         }
 
-        
+
 
         [Test]
         public void PencilConvert()

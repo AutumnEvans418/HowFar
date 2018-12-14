@@ -5,7 +5,7 @@ namespace HowFar.Core.Models
 {
     public interface IApp
     {
-        Func<IDatabase> Database { get; }
+        //Func<IDatabase> Database { get; }
         //IDictionary<string,object> Properties { get; }
     }
 }

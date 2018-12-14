@@ -26,8 +26,8 @@ namespace HowFarApp
             var container = new UnityContainer();
             container.RegisterInstance(typeof(IApp), this);
             container.RegisterType<DatabaseContext>(new InjectionConstructor(dbpath));
-            container.RegisterType<IDatabase, DatabaseContext>();
-            Database = () => container.Resolve<IDatabase>();
+           // container.RegisterType<IDatabase, DatabaseContext>();
+           // Database = () => container.Resolve<IDatabase>();
             using (var db = container.Resolve<DatabaseContext>())
             {
                 db.Database.EnsureCreated();
@@ -62,6 +62,6 @@ namespace HowFarApp
             // Handle when your app resumes
         }
 
-        public Func<IDatabase> Database { get; set; }
+       // public Func<IDatabase> Database { get; set; }
     }
 }

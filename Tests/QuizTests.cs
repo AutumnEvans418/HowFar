@@ -5,6 +5,8 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.NUnit3;
 using HowFar.Core.Models;
+using HowFarApp.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -20,8 +22,10 @@ namespace HowFar.Tests
         {
             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
-
-            fixture.Inject(new MeasureConverters(fixture.Create<IApp>()) as IMeasureConverters);
+            var options = new DbContextOptionsBuilder<DatabaseContext>().UseInMemoryDatabase("test").Options;
+            fixture.Inject<Func<DatabaseContext>>(() => new DatabaseContext(options));
+            fixture.Inject(fixture.Build<ObjectRepository>().OmitAutoProperties().Create() as IObjectRepository);
+            fixture.Inject(fixture.Build<MeasureConverters>().OmitAutoProperties().Create() as IMeasureConverters);
             quiz = fixture.Create<QuizGenerator>();
         }
 
@@ -30,10 +34,10 @@ namespace HowFar.Tests
         public void CombinatorTest(List<string> data)
         {
             var random = data.Combinator();
-           
-           // Assert.True(random.All(p=>p.GroupBy(r=>r).Count() == 1));
+
+            // Assert.True(random.All(p=>p.GroupBy(r=>r).Count() == 1));
             Assert.AreEqual(data.Count, random.First().Count());
-            Assert.AreEqual(data.Count *2, random.Count() );
+            Assert.AreEqual(data.Count * 2, random.Count());
         }
 
 
@@ -44,7 +48,7 @@ namespace HowFar.Tests
             var random = data.Randomize(new Random(seed));
 
             Assert.AreEqual(data.Count, random.Count());
-            Assert.AreEqual(data.GroupBy(p=>p).Count(), random.GroupBy(p=>p).Count());
+            Assert.AreEqual(data.GroupBy(p => p).Count(), random.GroupBy(p => p).Count());
         }
 
         [Test]
@@ -54,15 +58,15 @@ namespace HowFar.Tests
             var converter = fixture.Create<IMeasureConverters>();
             foreach (var quizResultAnswer in quizResult.Answers)
             {
-               Assert.AreEqual(converter.Convert(quizResultAnswer.Question.From,quizResultAnswer.Question.To, quizResultAnswer.Question.FromQuantity), quizResultAnswer.CorrectAnswer);
+                Assert.AreEqual(converter.Convert(quizResultAnswer.Question.From, quizResultAnswer.Question.To, quizResultAnswer.Question.FromQuantity), quizResultAnswer.CorrectAnswer);
             }
         }
 
         [Test]
-        public void NoQuestionIsTheSame([Random(1,50, 20)]int size)
+        public void NoQuestionIsTheSame([Random(1, 50, 20)]int size)
         {
             var quizResult = quiz.CreateQuiz(size);
-            Assert.True(quizResult.Questions.GroupBy(p=>new {p.From.SingleName,To= p.To.SingleName, p.FromQuantity}).All(r=>r.Count() ==1));
+            Assert.True(quizResult.Questions.GroupBy(p => new { p.From.SingleName, To = p.To.SingleName, p.FromQuantity }).All(r => r.Count() == 1));
         }
 
 
@@ -73,7 +77,7 @@ namespace HowFar.Tests
 
             foreach (var resultAnswer in result.Answers)
             {
-               Assert.True( resultAnswer.CorrectAnswer > 1);
+                Assert.True(resultAnswer.CorrectAnswer > 1);
             }
         }
 
@@ -89,7 +93,7 @@ namespace HowFar.Tests
                 {
                     value = 1 / value;
                 }
-                Assert.True(value <= (int) Core.Models.QuizDifficulty.Beginner);
+                Assert.True(value <= (int)Core.Models.QuizDifficulty.Beginner);
             }
         }
 
@@ -120,14 +124,14 @@ namespace HowFar.Tests
             {
                 Assert.AreEqual($"How many '{quizResultQuestion.To.PluralName}' are in {quizResultQuestion.FromQuantity} '{quizResultQuestion.From.PluralName}'?", quizResultQuestion.QuestionText);
             }
-            
+
         }
 
         [Test, AutoData]
         public void QuizGeneratorTest()
         {
             var quizResult = quiz.CreateQuiz(20);
-            
+
             Assert.AreEqual(20, quizResult.Questions.Count);
         }
     }
