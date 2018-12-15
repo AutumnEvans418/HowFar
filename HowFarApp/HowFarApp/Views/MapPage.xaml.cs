@@ -37,12 +37,13 @@ namespace HowFarApp.Views
             }
         }
 
-        public MapPage(IMeasureConverters converters)
+        public MapPage(IMeasureConverters converters, ILocationService locationService)
         {
             Converters = converters;
             InitializeComponent();
             BindingContext = this;
-            GetPermissions();
+            if (locationService.LocationEnabled)
+                GetPermissions();
 
         }
 
@@ -70,7 +71,7 @@ namespace HowFarApp.Views
                         Console.WriteLine(e);
                         throw;
                     }
-                    
+
                 }
             }
         }
@@ -114,7 +115,7 @@ namespace HowFarApp.Views
                 StartEntry.Text = await GetLocationFromAddress(e.Point);
 
             }
-            else if (Map.Pins.Count==2)
+            else if (Map.Pins.Count == 2)
             {
                 EndEntry.Text = await GetLocationFromAddress(e.Point);
                 var polyLine = new Polyline();
@@ -165,7 +166,12 @@ namespace HowFarApp.Views
             Top.IsVisible = false;
             Bottom.IsVisible = true;
             SelectedObject = Converters.Find("Mile");
-       
+
         }
+    }
+
+    public interface ILocationService
+    {
+        bool LocationEnabled { get; }
     }
 }

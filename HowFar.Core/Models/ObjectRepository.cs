@@ -18,7 +18,8 @@ namespace HowFar.Core.Models
         }
         public ObjectMeasurement GetObjectMeasurement(string name)
         {
-            return db.ObjectMeasurements.Include(p => p.ObjectMeasurements).Include(p=>p.Measurement).FirstOrDefault(p => p.SingleName.ToLower() == name.ToLower() || p.PluralName.ToLower() == name.ToLower());
+
+            return db.ObjectMeasurements.Include(p => p.ObjectMeasurements).ThenInclude(p => p.ObjectMeasurements).Include(p => p.Measurement).ThenInclude(p => p.Measurement).FirstOrDefault(p => p.SingleName.ToLower() == name.ToLower() || p.PluralName.ToLower() == name.ToLower());
         }
 
         public const string Metric = "Metric";
@@ -45,11 +46,11 @@ namespace HowFar.Core.Models
 
         }
 
-        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string pack = "Custom")
+        public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurementStr, string pack = "Custom")
         {
-            if (!db.ObjectMeasurements.Any(p => p.SingleName == singleName))
+            if (measurementStr != null && !db.ObjectMeasurements.Any(p => p.SingleName == singleName))
             {
-                var measure = GetObjectMeasurement(measurement);
+                var measure = GetObjectMeasurement(measurementStr);
                 if (measure != null)
                 {
                     var newObject = new ObjectMeasurement(singleName, pluralName) { Value = value };
@@ -69,7 +70,7 @@ namespace HowFar.Core.Models
         public ObjectMeasurement NewObject(string pluralName, string singleName,
             double value, ObjectMeasurement measurement, string pack = "Custom")
         {
-            return NewObject(pluralName, singleName, value, measurement.PluralName, pack);
+            return NewObject(pluralName, singleName, value, measurement?.PluralName, pack);
         }
         private void Startup()
         {
@@ -88,7 +89,8 @@ namespace HowFar.Core.Models
             }
 
             db.SaveChanges();
-            UpdatePack(Imperial, centimeter);
+            if (!db.ObjectMeasurements.Any(p => p.SingleName == centimeter.SingleName))
+                UpdatePack(Imperial, centimeter);
             var inches = NewObject("Inches", "Inch", 2.54, centimeter, Imperial);
             var feet = NewObject("Feet", "Foot", 12, inches, Imperial);
             var mile = NewObject("Miles", "Mile", 5280, feet, Imperial);

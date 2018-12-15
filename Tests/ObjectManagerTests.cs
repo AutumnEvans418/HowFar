@@ -4,6 +4,10 @@ using AutoFixture.AutoMoq;
 using HowFar.Core;
 using HowFar.Core.Annotations;
 using HowFar.Core.Models;
+using HowFarApp.Models;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework;
 
 namespace HowFar.Tests
@@ -18,6 +22,13 @@ namespace HowFar.Tests
         {
             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
+
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
+            var db = new DatabaseContext(options);
+            db.Database.EnsureCreated();
+            fixture.Inject(new ObjectRepository(db) as IObjectRepository);
 
             fixture.Inject(fixture.Build<MeasureConverters>().OmitAutoProperties().Create() as IMeasureConverters);
             fixture.Inject(fixture.Build<ObjectManager>().OmitAutoProperties().Create());
@@ -47,8 +58,11 @@ namespace HowFar.Tests
         {
             ThreeSelected();
             var one = manager.ObjectMeasurementViewModels.FirstOrDefault();
-            one.Selected = false;
+
+            Assert.AreEqual(3, manager.ObjectMeasurementViewModels.Count(p=>p.Selected));
             Assert.AreEqual(2, manager.Comparisons.Count);
+            one.Selected = false;
+            Assert.AreEqual(1, manager.Comparisons.Count);
         }
 
         [Test]

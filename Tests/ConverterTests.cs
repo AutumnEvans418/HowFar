@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using HowFar.Core.Models;
 using HowFarApp.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 
-namespace HowFar.Tests
+namespace Tests
 {
 
     public class ConverterTests
@@ -80,13 +74,14 @@ namespace HowFar.Tests
         [Test]
         public void Order()
         {
-            var current = double.MinValue;
-            foreach (var modelObjectMeasurement in model.ObjectMeasurements)
-            {
-                var result = model.Convert(modelObjectMeasurement.PluralName, "Centimeters");
-                Assert.True(result > current);
-                current = result;
-            }
+            var first = model.ObjectMeasurements.First();
+            var last = model.ObjectMeasurements.Last();
+
+            var cent = model.Convert(first, model.Centimeter);
+            var cent2 = model.Convert(last, model.Centimeter);
+
+            Assert.Greater(cent2, cent);
+
         }
 
         [Test]

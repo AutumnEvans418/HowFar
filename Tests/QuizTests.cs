@@ -6,6 +6,7 @@ using AutoFixture.AutoMoq;
 using AutoFixture.NUnit3;
 using HowFar.Core.Models;
 using HowFarApp.Models;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -22,9 +23,13 @@ namespace HowFar.Tests
         {
             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
-            var options = new DbContextOptionsBuilder<DatabaseContext>().UseInMemoryDatabase("test").Options;
-            fixture.Inject<Func<DatabaseContext>>(() => new DatabaseContext(options));
-            fixture.Inject(fixture.Build<ObjectRepository>().OmitAutoProperties().Create() as IObjectRepository);
+
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
+            var db = new DatabaseContext(options);
+            db.Database.EnsureCreated();
+            fixture.Inject(new ObjectRepository(db) as IObjectRepository);
             fixture.Inject(fixture.Build<MeasureConverters>().OmitAutoProperties().Create() as IMeasureConverters);
             quiz = fixture.Create<QuizGenerator>();
         }

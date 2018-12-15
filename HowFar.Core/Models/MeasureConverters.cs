@@ -9,13 +9,14 @@ namespace HowFar.Core.Models
     {
         private readonly IObjectRepository _repository;
 
-        public ObjectMeasurement Centimeter { get; set; }
+        public ObjectMeasurement Centimeter => Find("Centimeter");
         //public List<ObjectMeasurement> ObjectMeasurements { get; set; }
         public MeasureConverters(IObjectRepository repository)
         {
             _repository = repository;
             //Startup();
-            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(repository.GetObjectMeasurements());
+            UpdateList();
+            //ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(repository.GetObjectMeasurements());
             ObjectPacks = new ObservableCollection<ObjectPack>(repository.GetObjectPacks());
             //if (app.Properties[PropertyKey] is ObjectMeasurement measure)
             //{
@@ -28,13 +29,15 @@ namespace HowFar.Core.Models
 
         private void UpdateList()
         {
-            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p => Convert(p.PluralName, "Picometer")));
+            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p => p, new MeasurementCompare(this)));
         }
 
         public ObservableCollection<ObjectPack> ObjectPacks { get; set; }
 
         public double Convert(ObjectMeasurement @from, ObjectMeasurement to, double valueFrom = 1)
         {
+            if(from == null) throw new ArgumentNullException("'from' cannot be null");
+            if (to == null) throw new ArgumentNullException("'to' cannot be null");
             return Convert(from.PluralName, to.PluralName, valueFrom);
         }
 
@@ -102,7 +105,7 @@ namespace HowFar.Core.Models
 
         public ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
 
-        private List<ObjectMeasurement> GetAll(ObjectMeasurement start = null, List<ObjectMeasurement> obj = null)
+        private List<ObjectMeasurement> GetAll()
         {
             return _repository.GetObjectMeasurements().ToList();
             //if (start == null) start = Centimeter;
@@ -202,6 +205,22 @@ namespace HowFar.Core.Models
             double value, ObjectMeasurement measurement, string pack = "Custom")
         {
             return NewObject(pluralName, singleName, value, measurement.PluralName, pack);
+        }
+    }
+
+    internal class MeasurementCompare : IComparer<ObjectMeasurement>
+    {
+        private readonly IMeasureConverters _converters;
+
+        public MeasurementCompare(IMeasureConverters converters)
+        {
+            _converters = converters;
+        }
+        public int Compare(ObjectMeasurement x, ObjectMeasurement y)
+        {
+            var xtoy = _converters.Convert(x, y);
+            if (xtoy > 1) return 1;
+            return -1;
         }
     }
 }

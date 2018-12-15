@@ -12,7 +12,7 @@ namespace HowFar.Core
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void SetProperty<T>(ref T property, T value, Action action = null, [CallerMemberName] string name =null)
+        public void SetProperty<T>(ref T property, T value, Action action = null, [CallerMemberName] string name = null)
         {
             if (property?.Equals(value) != true)
             {
@@ -20,7 +20,7 @@ namespace HowFar.Core
                 OnPropertyChanged(name);
                 action?.Invoke();
             }
-            
+
         }
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -42,10 +42,10 @@ namespace HowFar.Core
         public bool Selected
         {
             get => _selected;
-            set => SetProperty(ref _selected,value, ()=> _selectedChanged(this));
+            set => SetProperty(ref _selected, value, () => _selectedChanged(this));
         }
 
-       
+
     }
     public class ObjectCompare
     {
@@ -67,26 +67,26 @@ namespace HowFar.Core
         public ObservableCollection<ObjectMeasurementViewModel> ObjectMeasurementViewModels
         {
             get => _objectMeasurementViewModels;
-            set => SetProperty(ref _objectMeasurementViewModels,value);
+            set => SetProperty(ref _objectMeasurementViewModels, value);
         }
 
         public ObjectManager(IMeasureConverters measureConverters)
         {
             MeasureConverters = measureConverters;
-          Refresh();
+            Refresh();
         }
 
         public ObservableCollection<ObjectCompare> Comparisons
         {
             get => _comparisons;
-            set => SetProperty(ref _comparisons,value);
+            set => SetProperty(ref _comparisons, value);
         }
 
         private void SelectionChanged(ObjectMeasurementViewModel obj)
         {
             Comparisons.Clear();
             var centimeters = MeasureConverters.Centimeter;
-            var selected = ObjectMeasurementViewModels.Where(p => p.Selected).OrderBy(p=> MeasureConverters.Convert(p.ObjectMeasurement, centimeters)).ToList();
+            var selected = ObjectMeasurementViewModels.Where(p => p.Selected).OrderBy(p => MeasureConverters.Convert(p.ObjectMeasurement, centimeters)).ToList();
             if (selected.Count >= 2)
             {
                 for (var i = 0; i < selected.Count; i++)
@@ -95,7 +95,7 @@ namespace HowFar.Core
                     {
                         var from = selected[i + 1];
                         var to = selected[i];
-                        Comparisons.Add(new ObjectCompare(){From = from.ObjectMeasurement, To = to.ObjectMeasurement, ToQty = MeasureConverters.Convert(from.ObjectMeasurement, to.ObjectMeasurement)});
+                        Comparisons.Add(new ObjectCompare() { From = from.ObjectMeasurement, To = to.ObjectMeasurement, ToQty = MeasureConverters.Convert(from.ObjectMeasurement, to.ObjectMeasurement) });
                     }
                 }
             }

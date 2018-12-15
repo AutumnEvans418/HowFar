@@ -1,6 +1,10 @@
 ﻿using HowFar.Core.Models;
 using System;
+using System.Linq;
+using Dapper;
 using HowFarApp.Models;
+using HowFarApp.Views;
+using Microsoft.EntityFrameworkCore;
 using Unity;
 using Unity.Injection;
 using Xamarin.Forms;
@@ -11,7 +15,7 @@ namespace HowFarApp
 {
     public partial class App : Application, IApp
     {
-        public App(string dbpath)
+        public App(string dbpath, ILocationService locationService)
         {
 #if DEBUG
             LiveReload.Init();
@@ -23,15 +27,28 @@ namespace HowFarApp
             //containerBuilder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
             //var container = containerBuilder.Build();
+
             var container = new UnityContainer();
+            container.RegisterInstance(locationService);
             container.RegisterInstance(typeof(IApp), this);
             container.RegisterType<DatabaseContext>(new InjectionConstructor(dbpath));
            // container.RegisterType<IDatabase, DatabaseContext>();
            // Database = () => container.Resolve<IDatabase>();
+            
             using (var db = container.Resolve<DatabaseContext>())
             {
                 db.Database.EnsureCreated();
+                var connection = db.Database.GetDbConnection();
+                var names = connection.Query<string>(
+                    "SELECT name FROM sqlite_master WHERE type='table';");
+                if (names.Count() < 2)
+                {
+                    db.Database.EnsureDeleted();
+                    db.Database.EnsureCreated();
+                }
             }
+
+            container.RegisterType<IObjectRepository, ObjectRepository>();
             container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
             container.RegisterInstance(container.Resolve<MeasureConverters>());
             container.RegisterInstance(typeof(IQuizGenerator),

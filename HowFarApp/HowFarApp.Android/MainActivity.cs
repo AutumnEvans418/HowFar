@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using Android.Media;
+using HowFarApp.Views;
 using Environment = System.Environment;
 
 namespace HowFarApp.Droid
@@ -33,7 +34,7 @@ namespace HowFarApp.Droid
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
-            LoadApplication(new App(dbPath));
+            LoadApplication(new App(dbPath, new LocationService()));
             //StartPlayer("Assets/bensound-creativeminds.mp3");
         }
         //protected MediaPlayer player;
@@ -51,5 +52,9 @@ namespace HowFarApp.Droid
         //        player.Start();
         //    }
         //}
+    }
+    public class LocationService : ILocationService
+    {
+        public bool LocationEnabled => true;
     }
 }
