@@ -39,6 +39,21 @@ namespace Tests
 
 
         [Test]
+        public void AddPack()
+        {
+            var t = "test";
+            var count = model.ObjectPacks.Count;
+
+            var pack = new ObjectPack(t, "this is a test");
+
+            model.NewPack(pack);
+
+            Assert.AreEqual(count + 1, model.ObjectPacks.Count);
+
+
+        }
+
+        [Test]
         public void NewObject()
         {
             var mil = "Millimeters";

@@ -10,10 +10,12 @@ namespace HowFar.Core.Models
         double Convert(ObjectMeasurement from, ObjectMeasurement to, double valueFrom = 1);
         double Convert(string nameFrom, string nameTo, double valueFrom = 1);
 
+        void NewPack(ObjectPack pack);
         
         //  double ConvertEff(string nameFrom, string nameTo, double valueFrom = 1);
         ObjectMeasurement Find(string name);
         ObjectMeasurement NewObject(string pluralName, string singleName, double value, ObjectMeasurement measurement, string pack = "Custom");
         ObjectMeasurement NewObject(string pluralName, string  singleName, double value, string measurement, string pack = "Custom");
+        void DeletePack(ObjectPack pack);
     }
 }

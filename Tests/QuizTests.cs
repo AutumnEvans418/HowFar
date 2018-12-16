@@ -8,10 +8,9 @@ using HowFar.Core.Models;
 using HowFarApp.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace HowFar.Tests
+namespace Tests
 {
     [TestFixture]
     public class QuizTests
@@ -68,7 +67,7 @@ namespace HowFar.Tests
         }
 
         [Test]
-        public void NoQuestionIsTheSame([Random(1, 50, 20)]int size)
+        public void NoQuestionIsTheSame([Random(1, 50, 4)]int size)
         {
             var quizResult = quiz.CreateQuiz(size);
             Assert.True(quizResult.Questions.GroupBy(p => new { p.From.SingleName, To = p.To.SingleName, p.FromQuantity }).All(r => r.Count() == 1));
@@ -78,7 +77,7 @@ namespace HowFar.Tests
         [Test]
         public void QuizGreaterThan1()
         {
-            var result = quiz.CreateQuiz(10, Core.Models.QuizDifficulty.Beginner);
+            var result = quiz.CreateQuiz(10, HowFar.Core.Models.QuizDifficulty.Beginner);
 
             foreach (var resultAnswer in result.Answers)
             {
@@ -89,7 +88,7 @@ namespace HowFar.Tests
         [Test]
         public void QuizDifficulty()
         {
-            var result = quiz.CreateQuiz(10, Core.Models.QuizDifficulty.Beginner);
+            var result = quiz.CreateQuiz(10, HowFar.Core.Models.QuizDifficulty.Beginner);
 
             foreach (var resultAnswer in result.Answers)
             {
@@ -98,7 +97,7 @@ namespace HowFar.Tests
                 {
                     value = 1 / value;
                 }
-                Assert.True(value <= (int)Core.Models.QuizDifficulty.Beginner);
+                Assert.True(value <= (int)HowFar.Core.Models.QuizDifficulty.Beginner);
             }
         }
 

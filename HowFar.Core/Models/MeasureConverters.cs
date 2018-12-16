@@ -17,7 +17,6 @@ namespace HowFar.Core.Models
             //Startup();
             UpdateList();
             //ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(repository.GetObjectMeasurements());
-            ObjectPacks = new ObservableCollection<ObjectPack>(repository.GetObjectPacks());
             //if (app.Properties[PropertyKey] is ObjectMeasurement measure)
             //{
             //    Centimeter = measure;
@@ -30,6 +29,8 @@ namespace HowFar.Core.Models
         private void UpdateList()
         {
             ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p => p, new MeasurementCompare(this)));
+            ObjectPacks = new ObservableCollection<ObjectPack>(_repository.GetObjectPacks());
+
         }
 
         public ObservableCollection<ObjectPack> ObjectPacks { get; set; }
@@ -185,6 +186,12 @@ namespace HowFar.Core.Models
             //return null;
         }
 
+        public void DeletePack(ObjectPack pack)
+        {
+            _repository.RemovePack(pack);
+            UpdateList();
+        }
+
         private void UpdatePack(string pack, ObjectMeasurement newObject)
         {
             var packs = ObjectPacks.FirstOrDefault(p => p.PackName == pack);
@@ -205,6 +212,12 @@ namespace HowFar.Core.Models
             double value, ObjectMeasurement measurement, string pack = "Custom")
         {
             return NewObject(pluralName, singleName, value, measurement.PluralName, pack);
+        }
+
+        public void NewPack(ObjectPack pack)
+        {
+            this._repository.AddPack(pack);
+            this.UpdateList();
         }
     }
 

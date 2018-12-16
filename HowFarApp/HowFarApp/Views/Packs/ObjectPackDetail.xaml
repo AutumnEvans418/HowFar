@@ -11,7 +11,8 @@
             <Image Source="{Binding Pack.ImageURL}" HeightRequest="100"></Image>
 
             <Label Text="{Binding Pack.Name}" Style="{DynamicResource H1}"></Label>
-            <Label Text="{Binding Pack.Description}" Style="{DynamicResource SubtitleStyle}"></Label>
+            <Label Text="{Binding Pack.Description}" Style="{DynamicResource SubtitleStyle}"/>
+            <Button Text="Delete Pack" Clicked="ButtonDeletePack"></Button>
             <ImageButton Source="Assets/cart.png"
                          WidthRequest="50"
                          HeightRequest="50"

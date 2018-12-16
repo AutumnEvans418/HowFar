@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HowFarApp.Views.Packs.NewObjectPackPage">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <StackLayout BindingContext="{Binding ObjectPack}">
+                <Label Text="Pack Name"></Label>
+                <Entry Text="{Binding PackName}"></Entry>
+                <Label Text="Pack Description"></Label>
+                <Entry Text="{Binding Description}"></Entry>
+                <Label Text="Image"></Label>
+                <Image Source="{Binding PackImage}"></Image>
+                
+            </StackLayout>
+            <Button Text="Browse Image" Clicked="ButtonPackImage"></Button>
+            <Button Text="New" Clicked="ButtonNewObject"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,46 +1,14 @@
 ﻿using System;
-using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using AutoFixture.NUnit3;
 using HowFar.Core.Models;
 using HowFarApp.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace HowFar.Tests
+namespace Tests
 {
-
-    public class InlineAutoDataCustAttribute : InlineAutoDataAttribute
-    {
-        public InlineAutoDataCustAttribute(params object[] arguments) : base(AutoDataCustAttribute.GetFixture(), arguments)
-        {
-
-        }
-    }
-    public class AutoDataCustAttribute : AutoDataAttribute
-    {
-        public AutoDataCustAttribute() : base(GetFixture())
-        {
-
-        }
-
-        public static Func<IFixture> GetFixture()
-        {
-            return () =>
-            {
-                var fixture = new Fixture();
-                fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-                    .ForEach(b => fixture.Behaviors.Remove(b));
-                fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-
-                return fixture;
-            };
-        }
-    }
-
     [TestFixture]
     public class QuizScorerTests
     {

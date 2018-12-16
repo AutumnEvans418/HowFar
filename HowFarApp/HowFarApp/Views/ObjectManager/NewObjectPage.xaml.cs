@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using HowFarApp.Views.Packs;
+using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,7 +32,7 @@ namespace HowFarApp.Views
             public NewObjectValidator()
             {
                 RuleFor(p => p.NameEntry.Text).NotEmpty();
-                RuleFor(p => p.MeasurementEntry.Text).Must(p => int.TryParse(p, out var t));
+                RuleFor(p => p.MeasurementEntry.Text).Must(p => double.TryParse(p, out var t));
                 RuleFor(p => p.PluralEntry.Text).NotEmpty();
                 RuleFor(p => p.SelectedObject).NotNull();
                 RuleFor(p => p.SelectedObjectPack).NotNull();
@@ -39,6 +41,7 @@ namespace HowFarApp.Views
 
         private readonly IMeasureConverters measure;
         private readonly IApp _app;
+        private readonly IUnityContainer _container;
         private ObjectMeasurement _selectedObject;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
         private ObjectPack _selectedObjectPack;
@@ -55,7 +58,7 @@ namespace HowFarApp.Views
 
         }
 
-        public NewObjectPage(IMeasureConverters measure, IApp app)
+        public NewObjectPage(IMeasureConverters measure, IApp app, IUnityContainer container)
         {
             InitializeComponent();
             BindingContext = this;
@@ -65,6 +68,7 @@ namespace HowFarApp.Views
             SelectedObjectPack = ObjectPacks.FirstOrDefault(p => p.Name == "Custom");
             this.measure = measure;
             _app = app;
+            _container = container;
             NewButton.IsEnabled = false;
         }
 
@@ -99,8 +103,8 @@ namespace HowFarApp.Views
             var result = validator.Validate(this);
             if (result.IsValid)
             {
-               var measurement =  measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject, SelectedObjectPack.Name);
-                
+                var measurement = measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject, SelectedObjectPack.Name);
+
                 return true;
             }
             else
@@ -111,12 +115,22 @@ namespace HowFarApp.Views
 
         }
 
-       
+        protected override void OnAppearing()
+        {
+            ObjectPacks = measure.ObjectPacks;
+            ObjectMeasurements = measure.ObjectMeasurements;
+            base.OnAppearing();
+        }
 
         private async void NewButton_OnClicked(object sender, EventArgs e)
         {
             if (await NewObject())
-               await Navigation.PopAsync(true);
+                await Navigation.PopAsync(true);
+        }
+
+        private async void ButtonNewObjectPack(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(_container.Resolve<NewObjectPackPage>());
         }
     }
 }

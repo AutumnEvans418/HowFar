@@ -56,7 +56,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
+                <Button Text="New Object Pack" Clicked="ButtonNewObjectPack"></Button>
             </StackLayout>
 
         </Grid>
