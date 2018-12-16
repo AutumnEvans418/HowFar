@@ -28,6 +28,8 @@
                      
                 </Picker>
             </StackLayout>
+            <Label Text="Object Packs"></Label>
+            <Picker ItemsSource="{Binding ObjectPacks}" SelectedItem="{Binding SelectedObjectPack}" ItemDisplayBinding="{Binding Name}"/>
             <Button x:Name="ImageInsert"
                     WidthRequest="15"
                     HeightRequest="45"

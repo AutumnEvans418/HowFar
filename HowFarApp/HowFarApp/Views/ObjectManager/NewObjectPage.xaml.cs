@@ -33,6 +33,7 @@ namespace HowFarApp.Views
                 RuleFor(p => p.MeasurementEntry.Text).Must(p => int.TryParse(p, out var t));
                 RuleFor(p => p.PluralEntry.Text).NotEmpty();
                 RuleFor(p => p.SelectedObject).NotNull();
+                RuleFor(p => p.SelectedObjectPack).NotNull();
             }
         }
 
@@ -40,12 +41,28 @@ namespace HowFarApp.Views
         private readonly IApp _app;
         private ObjectMeasurement _selectedObject;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
+        private ObjectPack _selectedObjectPack;
+        public ObservableCollection<ObjectPack> ObjectPacks { get; set; }
+
+        public ObjectPack SelectedObjectPack
+        {
+            get => _selectedObjectPack;
+            set
+            {
+                _selectedObjectPack = value;
+                OnPropertyChanged();
+            }
+
+        }
 
         public NewObjectPage(IMeasureConverters measure, IApp app)
         {
             InitializeComponent();
             BindingContext = this;
+            ObjectPacks = measure.ObjectPacks;
             ObjectMeasurements = measure.ObjectMeasurements;
+
+            SelectedObjectPack = ObjectPacks.FirstOrDefault(p => p.Name == "Custom");
             this.measure = measure;
             _app = app;
             NewButton.IsEnabled = false;
@@ -82,7 +99,7 @@ namespace HowFarApp.Views
             var result = validator.Validate(this);
             if (result.IsValid)
             {
-               var measurement =  measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject);
+               var measurement =  measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject, SelectedObjectPack.Name);
                 
                 return true;
             }
