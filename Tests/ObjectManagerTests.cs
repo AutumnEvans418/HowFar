@@ -55,7 +55,7 @@ namespace Tests
         public void RemoveTest()
         {
             ThreeSelected();
-            var one = manager.ObjectMeasurementViewModels.FirstOrDefault();
+            var one = manager.ObjectMeasurementViewModels.FirstOrDefault(p => p.Selected);
 
             Assert.AreEqual(3, manager.ObjectMeasurementViewModels.Count(p=>p.Selected));
             Assert.AreEqual(2, manager.Comparisons.Count);

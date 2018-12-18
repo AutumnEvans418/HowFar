@@ -67,7 +67,7 @@ namespace Tests
         }
 
         [Test]
-        public void NoQuestionIsTheSame([Random(1, 50, 4)]int size)
+        public void NoQuestionIsTheSame([Random(1, 10, 4)]int size)
         {
             var quizResult = quiz.CreateQuiz(size);
             Assert.True(quizResult.Questions.GroupBy(p => new { p.From.SingleName, To = p.To.SingleName, p.FromQuantity }).All(r => r.Count() == 1));

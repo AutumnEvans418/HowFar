@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HowFarApp.ViewModels;
 using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,6 +19,7 @@ namespace HowFarApp.Views
 	    {
 	        _container = container;
 	        InitializeComponent ();
+	        BindingContext = _container.Resolve<MainMenuPageViewModel>();
 	    }
 
 	    private void ObjectManager(object sender, EventArgs e)

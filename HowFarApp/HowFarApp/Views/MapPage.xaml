@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Class="HowFarApp.Views.MapPage" Title="Map">
 
     <ContentPage.Content>
@@ -13,17 +14,22 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                
+
                 <maps:Map Grid.Row="0" 
                           Grid.RowSpan="3"
                           x:Name="Map"
-                          MapLongClicked="Map_OnMapLongClicked"
-                          MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True"/>
+                          
+                          MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True">
+                    <maps:Map.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="MapLongClicked" 
+                                                  Command="{Binding MapLongCommand}"/>
+                    </maps:Map.Behaviors>
+                </maps:Map>
                 <Grid Grid.Row="0" >
                     <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
                     <StackLayout  Margin="10">
                         <Label Text="Place two pins by tap and hold" FontAttributes="Bold"></Label>
-                        <Button Text="Reset Pins" Clicked="Reset_Clicked"></Button>
+                        <Button Text="Reset Pins" Command="{Binding ResetCommand}"></Button>
                     </StackLayout>
                 </Grid>
 
@@ -34,7 +40,7 @@
                         <Entry x:Name="StartEntry"></Entry>
                         <Label Text="End"></Label>
                         <Entry x:Name="EndEntry"></Entry>
-                        <Button  Text="Compare!" Clicked="Go_Clicked"></Button>
+                        <Button  Text="Compare!" Command="{Binding GoCommand}"></Button>
                     </StackLayout>
                 </Grid>
                 <Grid Grid.Row="2" Margin="10,10,50,10" x:Name="Bottom" IsVisible="False" VerticalOptions="End">
