@@ -25,7 +25,7 @@ namespace HowFarApp.ViewModels
             _mapPage = mapPage;
             ResetCommand = new DelegateCommand(Reset_Clicked);
             GoCommand = new DelegateCommand(Go_Clicked);
-            MapLongCommand = new DelegateCommand<MapLongClickedEventArgs>(Map_OnMapLongClicked);
+            //MapLongCommand = new DelegateCommand<object>(Map_OnMapLongClicked);
         }
         public IMeasureConverters Converters { get; set; }
         private double Distance(double lat1, double lon1, double lat2, double lon2, char unit)
@@ -122,36 +122,36 @@ namespace HowFarApp.ViewModels
         }
 
 
-
-        private async void Map_OnMapLongClicked( MapLongClickedEventArgs e)
+        public async void Map_OnMapLongClicked(MapLongClickedEventArgs e)
         {
-            if (_mapPage.Pins.Count == 2)
-            {
-                return;
-            }
-            _mapPage.Pins.Add(new Pin() { Position = e.Point, Label = $"Pin {_mapPage.Pins.Count + 1} ({e.Point.Longitude},{e.Point.Latitude})" });
-            if (_mapPage.Pins.Count == 1)
-            {
-                StartEntry = await GetLocationFromAddress(e.Point);
 
-            }
-            else if (_mapPage.Pins.Count == 2)
-            {
-                EndEntry = await GetLocationFromAddress(e.Point);
-                var polyLine = new Polyline();
-                foreach (var mapPin in _mapPage.Pins)
+                if (_mapPage.Pins.Count == 2)
                 {
-                    polyLine.Positions.Add(mapPin.Position);
+                    return;
                 }
+                _mapPage.Pins.Add(new Pin() { Position = e.Point, Label = $"Pin {_mapPage.Pins.Count + 1} ({e.Point.Longitude},{e.Point.Latitude})" });
+                if (_mapPage.Pins.Count == 1)
+                {
+                    StartEntry = await GetLocationFromAddress(e.Point);
 
-                polyLine.StrokeWidth = 2;
-                polyLine.StrokeColor = Color.Red;
-                _mapPage.Polylines.Add(polyLine);
-            }
+                }
+                else if (_mapPage.Pins.Count == 2)
+                {
+                    EndEntry = await GetLocationFromAddress(e.Point);
+                    var polyLine = new Polyline();
+                    foreach (var mapPin in _mapPage.Pins)
+                    {
+                        polyLine.Positions.Add(mapPin.Position);
+                    }
+
+                    polyLine.StrokeWidth = 2;
+                    polyLine.StrokeColor = Color.Red;
+                    _mapPage.Polylines.Add(polyLine);
+                }
 
         }
 
-        public DelegateCommand<MapLongClickedEventArgs> MapLongCommand { get; set; }
+       // public DelegateCommand<object> MapLongCommand { get; set; }
         public DelegateCommand ResetCommand { get; set; }
         public DelegateCommand GoCommand { get; set; }
 

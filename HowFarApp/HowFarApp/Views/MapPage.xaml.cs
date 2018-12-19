@@ -64,5 +64,13 @@ namespace HowFarApp.Views
 
         public IList<Pin> Pins => Map.Pins;
         public IList<Polyline> Polylines => Map.Polylines;
+
+        private void Map_OnMapLongClicked(object sender, MapLongClickedEventArgs e)
+        {
+            if (BindingContext is MapPageViewModel vm)
+            {
+                vm.Map_OnMapLongClicked(e);
+            }
+        }
     }
 }
