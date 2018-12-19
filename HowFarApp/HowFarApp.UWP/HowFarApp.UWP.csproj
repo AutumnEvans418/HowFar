@@ -151,10 +151,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Prism.Unity.Forms">
+      <Version>7.1.0.431</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.9" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\HowFar.Core\HowFar.Core.csproj">
+      <Project>{3388b70a-141d-443f-9ceb-88f3a9c09a97}</Project>
+      <Name>HowFar.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HowFarApp\HowFarApp.csproj">
       <Project>{7b9b32df-233b-44c9-b4fa-235a49b0bcf7}</Project>
       <Name>HowFarApp</Name>

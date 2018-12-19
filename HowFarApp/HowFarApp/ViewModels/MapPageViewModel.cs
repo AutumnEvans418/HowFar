@@ -25,6 +25,7 @@ namespace HowFarApp.ViewModels
             _mapPage = mapPage;
             ResetCommand = new DelegateCommand(Reset_Clicked);
             GoCommand = new DelegateCommand(Go_Clicked);
+            Top = true;
             //MapLongCommand = new DelegateCommand<object>(Map_OnMapLongClicked);
         }
         public IMeasureConverters Converters { get; set; }
