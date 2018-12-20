@@ -4,6 +4,8 @@
 
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
              xmlns:models="clr-namespace:HowFar.Core.Models;assembly=HowFar.Core"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
              xmlns:system="clr-namespace:System;assembly=netstandard"
              Title="Quiz"
              x:Class="HowFarApp.Views.QuizPage">

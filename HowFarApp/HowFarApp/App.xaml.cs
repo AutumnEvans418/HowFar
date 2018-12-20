@@ -3,38 +3,36 @@ using System;
 using System.Linq;
 using Dapper;
 using HowFarApp.Models;
+using HowFarApp.ViewModels;
 using HowFarApp.Views;
+using HowFarApp.Views.Packs;
 using Microsoft.EntityFrameworkCore;
+using Prism;
+using Prism.Ioc;
+using Prism.Unity;
 using Unity;
 using Unity.Injection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace HowFarApp
 {
-    public partial class App : Application, IApp
+    public delegate string GetDbPath();
+    public partial class App : IApp
     {
-        public App(string dbpath, ILocationService locationService)
+
+        public App(IPlatformInitializer platformInitializer):base(platformInitializer)
         {
-#if DEBUG
-            LiveReload.Init();
-#endif
-            InitializeComponent();
-            //var containerBuilder = new ContainerBuilder();
+        }
 
-            //containerBuilder.RegisterInstance(this).As<IApp>();
-            //containerBuilder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
-
-            //var container = containerBuilder.Build();
-
-            var container = new UnityContainer();
-            container.RegisterInstance(locationService);
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            var container = containerRegistry.GetContainer();
             container.RegisterInstance(typeof(IApp), this);
-            container.RegisterType<DatabaseContext>(new InjectionConstructor(dbpath));
-           // container.RegisterType<IDatabase, DatabaseContext>();
-           // Database = () => container.Resolve<IDatabase>();
-            
+            container.RegisterType<DatabaseContext>(new InjectionConstructor(container.Resolve<GetDbPath>()()));
+
             using (var db = container.Resolve<DatabaseContext>())
             {
                 db.Database.EnsureCreated();
@@ -54,31 +52,51 @@ namespace HowFarApp
             container.RegisterInstance(typeof(IQuizGenerator),
                 new QuizGenerator(container.Resolve<IMeasureConverters>(), DateTime.Now.GetHashCode()));
 
-           
+
             container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
 
-         
-
-
-            MainPage = container.Resolve<SignInPage>(); ;
+            containerRegistry.RegisterForNavigation<NewObjectPage,NewObjectPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignInPage>();
+            containerRegistry.RegisterForNavigation<MainMenuPage,MainMenuPageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPage,MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<NewObjectPackPage>();
+            containerRegistry.RegisterForNavigation<ObjectManagerPage>();
+            containerRegistry.RegisterForNavigation<ObjectPackDetail>();
+            containerRegistry.RegisterForNavigation<ObjectPacksPage>();
+            containerRegistry.RegisterForNavigation<QuizesPage>();
+            containerRegistry.RegisterForNavigation<QuizPage>();
+            containerRegistry.RegisterForNavigation<QuizResultPage>();
         }
 
-        protected override void OnStart()
+        protected override void OnInitialized()
         {
-            // Handle when your app starts
+
+#if DEBUG
+            LiveReload.Init();
+#endif
+            InitializeComponent();
+
+            NavigationService.NavigateAsync("SignInPage");
         }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+        //protected override void OnStart()
+        //{
+        //    // Handle when your app starts
+        //}
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+        //protected override void OnSleep()
+        //{
+        //    // Handle when your app sleeps
+        //}
 
-       // public Func<IDatabase> Database { get; set; }
+
+
+        //protected override void OnResume()
+        //{
+        //    // Handle when your app resumes
+        //}
+
+        // public Func<IDatabase> Database { get; set; }
     }
 }

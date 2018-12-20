@@ -4,6 +4,7 @@ using System.Linq;
 using FluentValidation;
 using HowFar.Core.Models;
 using HowFarApp.Views;
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using Unity;
@@ -43,10 +44,12 @@ namespace HowFarApp.ViewModels
             _dialog = dialog;
             Packs = new ObservableCollection<string>(converters.ObjectPacks.Select(p => p.PackName));
             Packs.Add(QuizesPageViewModel.AllPacks);
+            GoCommand = new DelegateCommand(GoClicked);
             QuestionNumber = 10;
         }
 
-        private async void GoClicked(object sender, EventArgs e)
+        public DelegateCommand GoCommand { get; set; }
+        private async void GoClicked()
         {
             var validator = new QuizesPageValidator();
             var result = validator.Validate(this);
@@ -58,7 +61,8 @@ namespace HowFarApp.ViewModels
             }
             else
             {
-                await Ext.DisplayError(result, this);
+                //await _dialog.DisplayAlertAsync("Error", result, "Ok");
+                await Ext.DisplayError(result, _dialog);
             }
 
         }

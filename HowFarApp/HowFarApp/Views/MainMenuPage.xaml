@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HowFarApp.Views.MainMenuPage"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
              Title="Main Menu">
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.ColumnDefinitions>

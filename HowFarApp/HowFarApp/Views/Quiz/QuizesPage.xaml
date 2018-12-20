@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:HowFar.Core;assembly=HowFar.Core"
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowFarApp.Views.QuizesPage"
              Title="Quizzes">
     <ContentPage.Content>
@@ -32,7 +34,7 @@
                 <Entry Placeholder="# of Questions" Text="{Binding QuestionNumber}"></Entry>
                 <!--<Label Text="Object Packs"></Label>
                 <Picker ItemsSource="{Binding Packs}"></Picker>-->
-                <Button Text="Go!" FontSize="24" HorizontalOptions="End" Clicked="GoClicked"></Button>
+                <Button Text="Go!" FontSize="24" HorizontalOptions="End" Command="{Binding GoCommand}"></Button>
             </StackLayout>
         </Grid>
       

@@ -7,71 +7,95 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using HowFarApp.ViewModels;
 using HowFarApp.Views.Packs;
+using Prism.Commands;
+using Prism.Navigation;
+using Prism.Services;
 using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HowFarApp.Views
 {
-    public static class Ext
+
+    public class NewObjectValidator : AbstractValidator<NewObjectPageViewModel>
     {
-        public static async Task DisplayError(FluentValidation.Results.ValidationResult result, Page page)
+        public NewObjectValidator()
         {
-            var errors = result.Errors.Select(p => p.ErrorMessage).Aggregate(String.Empty, (f, s) => f + Environment.NewLine + s);
-            await page.DisplayAlert("ERROR", errors, "Ok");
+            RuleFor(p => p.NameEntry).NotEmpty();
+            RuleFor(p => p.MeasurementEntry).NotEmpty();
+            RuleFor(p => p.PluralEntry).NotEmpty();
+            RuleFor(p => p.SelectedObject).NotNull();
+            RuleFor(p => p.SelectedObjectPack).NotNull();
         }
     }
-
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewObjectPage : ContentPage
+    public class NewObjectPageViewModel : ViewModelBase
     {
-
-        public class NewObjectValidator : AbstractValidator<NewObjectPage>
-        {
-            public NewObjectValidator()
-            {
-                RuleFor(p => p.NameEntry.Text).NotEmpty();
-                RuleFor(p => p.MeasurementEntry.Text).Must(p => double.TryParse(p, out var t));
-                RuleFor(p => p.PluralEntry.Text).NotEmpty();
-                RuleFor(p => p.SelectedObject).NotNull();
-                RuleFor(p => p.SelectedObjectPack).NotNull();
-            }
-        }
-
         private readonly IMeasureConverters measure;
-        private readonly IApp _app;
-        private readonly IUnityContainer _container;
+        private readonly IPageDialogService _dialog;
+        private readonly INavigationService _navigationService;
         private ObjectMeasurement _selectedObject;
         private ObservableCollection<ObjectMeasurement> _objectMeasurements;
         private ObjectPack _selectedObjectPack;
-        public ObservableCollection<ObjectPack> ObjectPacks { get; set; }
+        private bool _canCreateNew;
+        private ObservableCollection<ObjectPack> _objectPacks;
+        private string _nameEntry;
+        private double _measurementEntry;
+        private string _pluralEntry;
+
+        public ObservableCollection<ObjectPack> ObjectPacks
+        {
+            get => _objectPacks;
+            set => SetProperty(ref _objectPacks, value);
+        }
+
+        public string NameEntry
+        {
+            get => _nameEntry;
+            set => SetProperty(ref _nameEntry, value);
+        }
+
+        public double MeasurementEntry
+        {
+            get => _measurementEntry;
+            set => SetProperty(ref _measurementEntry, value);
+        }
+
+        public string PluralEntry
+        {
+            get => _pluralEntry;
+            set => SetProperty(ref _pluralEntry, value);
+        }
 
         public ObjectPack SelectedObjectPack
         {
             get => _selectedObjectPack;
-            set
-            {
-                _selectedObjectPack = value;
-                OnPropertyChanged();
-            }
-
+            set => SetProperty(ref _selectedObjectPack, value);
         }
 
-        public NewObjectPage(IMeasureConverters measure, IApp app, IUnityContainer container)
+        public bool CanCreateNew
         {
-            InitializeComponent();
-            BindingContext = this;
+            get => _canCreateNew;
+            set => SetProperty(ref _canCreateNew, value);
+        }
+
+        public DelegateCommand NewCommand { get; set; }
+        public NewObjectPageViewModel(IMeasureConverters measure, IPageDialogService dialog, INavigationService navigationService)
+        {
             ObjectPacks = measure.ObjectPacks;
             ObjectMeasurements = measure.ObjectMeasurements;
 
             SelectedObjectPack = ObjectPacks.FirstOrDefault(p => p.Name == "Custom");
             this.measure = measure;
-            _app = app;
-            _container = container;
-            NewButton.IsEnabled = false;
+            _dialog = dialog;
+            _navigationService = navigationService;
+            NewCommand = new DelegateCommand(NewButton_OnClicked).ObservesCanExecute(() => CanCreateNew);
+            NewObjectPackCommand = new DelegateCommand(ButtonNewObjectPack);
+            //NewButton.IsEnabled = false;
         }
 
+        public DelegateCommand NewObjectPackCommand { get; set; }
         public ObservableCollection<ObjectMeasurement> ObjectMeasurements
         {
             get => _objectMeasurements;
@@ -91,7 +115,7 @@ namespace HowFarApp.Views
                 OnPropertyChanged();
                 if (_selectedObject != null)
                 {
-                    NewButton.IsEnabled = true;
+                    CanCreateNew = true;
                 }
             }
         }
@@ -103,34 +127,51 @@ namespace HowFarApp.Views
             var result = validator.Validate(this);
             if (result.IsValid)
             {
-                var measurement = measure.NewObject(PluralEntry.Text, NameEntry.Text, double.Parse(MeasurementEntry.Text), SelectedObject, SelectedObjectPack.Name);
+                var measurement = measure.NewObject(PluralEntry, NameEntry, MeasurementEntry, SelectedObject, SelectedObjectPack.Name);
 
                 return true;
             }
             else
             {
-                await Ext.DisplayError(result, this);
+                await Ext.DisplayError(result, _dialog);
                 return false;
             }
 
         }
 
-        protected override void OnAppearing()
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             ObjectPacks = measure.ObjectPacks;
             ObjectMeasurements = measure.ObjectMeasurements;
-            base.OnAppearing();
+            base.OnNavigatedTo(parameters);
         }
 
-        private async void NewButton_OnClicked(object sender, EventArgs e)
+      
+
+        private async void NewButton_OnClicked()
         {
             if (await NewObject())
-                await Navigation.PopAsync(true);
+            {
+                //await Navigation.PopAsync(true);
+                await _navigationService.GoBackAsync();
+            }
         }
 
-        private async void ButtonNewObjectPack(object sender, EventArgs e)
+        private async void ButtonNewObjectPack()
         {
-            await Navigation.PushAsync(_container.Resolve<NewObjectPackPage>());
+            await _navigationService.NavigateAsync(nameof(NewObjectPackPage));
         }
+    }
+
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class NewObjectPage : ContentPage
+    {
+        public NewObjectPage()
+        {
+            InitializeComponent();
+            //BindingContext = container.Resolve<NewObjectPageViewModel>();
+        }
+
     }
 }

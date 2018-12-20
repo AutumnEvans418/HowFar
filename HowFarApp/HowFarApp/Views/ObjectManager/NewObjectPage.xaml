@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowFarApp.Views.NewObjectPage"
              Title="New Object"
              BackgroundColor="Black">
@@ -10,16 +12,16 @@
                      BackgroundColor="White"
                      VerticalOptions="FillAndExpand">
             <Label Text="Single Name"></Label>
-            <Entry x:Name="NameEntry"
+            <Entry x:Name="NameEntry" Text="{Binding NameEntry}"
                    Placeholder="Single Name: ie. Pencil"
                 />
             <Label Text="Plural Name"></Label>
-            <Entry x:Name="PluralEntry"
+            <Entry x:Name="PluralEntry" Text="{Binding PluralEntry}"
                    Placeholder="Plural Name: ie. Pencils"
                 />
             <Label Text="Units"></Label>
             <StackLayout Orientation="Horizontal">
-                <Entry x:Name="MeasurementEntry"
+                <Entry x:Name="MeasurementEntry" Text="{Binding MeasurementEntry}"
                        Placeholder="ex. 6.25"/>
 
                 <Picker x:Name="UnitsPicker" 
@@ -30,7 +32,7 @@
             </StackLayout>
             <Label Text="Object Packs"></Label>
             <Picker ItemsSource="{Binding ObjectPacks}" SelectedItem="{Binding SelectedObjectPack}" ItemDisplayBinding="{Binding PackName}"/>
-            <Button Text="New Object Pack" Clicked="ButtonNewObjectPack"></Button>
+            <Button Text="New Object Pack" Command="{Binding NewObjectPackCommand}"></Button>
             <Button x:Name="ImageInsert"
                     WidthRequest="15"
                     HeightRequest="45"
@@ -50,7 +52,7 @@
                     Text="New"
                     TextColor="White"
                     BackgroundColor="ForestGreen"
-                    VerticalOptions="End" Clicked="NewButton_OnClicked"/>
+                    VerticalOptions="End" Command="{Binding NewCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
