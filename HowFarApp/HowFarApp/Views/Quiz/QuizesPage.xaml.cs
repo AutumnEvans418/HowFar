@@ -18,13 +18,11 @@ namespace HowFarApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class QuizesPage : ContentPage
     {
-      
 
-
-        public QuizesPage(IUnityContainer container)
+        public QuizesPage()
         {
             InitializeComponent();
-            BindingContext = container.Resolve<QuizesPageViewModel>();
+            //BindingContext = container.Resolve<QuizesPageViewModel>();
         }
         
        

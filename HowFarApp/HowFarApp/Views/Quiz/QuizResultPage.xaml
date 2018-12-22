@@ -33,7 +33,7 @@
             </ListView>
 
             <Button Text="Share"></Button>
-            <Button Text="Done" Clicked="DoneClicked"></Button>
+            <Button Text="Done" Command="{Binding DoneCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

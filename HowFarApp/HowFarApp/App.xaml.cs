@@ -64,8 +64,8 @@ namespace HowFarApp
             containerRegistry.RegisterForNavigation<ObjectManagerPage>();
             containerRegistry.RegisterForNavigation<ObjectPackDetail>();
             containerRegistry.RegisterForNavigation<ObjectPacksPage>();
-            containerRegistry.RegisterForNavigation<QuizesPage>();
-            containerRegistry.RegisterForNavigation<QuizPage>();
+            containerRegistry.RegisterForNavigation<QuizesPage, QuizesPageViewModel>();
+            containerRegistry.RegisterForNavigation<QuizPage, QuizPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizResultPage>();
         }
 

@@ -23,7 +23,6 @@ namespace HowFarApp.ViewModels
     public class QuizesPageViewModel : ViewModelBase
     {
         private readonly IQuizGenerator _generator;
-        private readonly IUnityContainer _container;
         private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialog;
 
@@ -35,11 +34,10 @@ namespace HowFarApp.ViewModels
         private int _questionNumber;
 
         public QuizesPageViewModel(IMeasureConverters converters, IQuizGenerator generator,
-            IUnityContainer container, INavigationService navigationService, Prism.Services.IPageDialogService dialog)
+             INavigationService navigationService, Prism.Services.IPageDialogService dialog)
         {
 
             _generator = generator;
-            _container = container;
             _navigationService = navigationService;
             _dialog = dialog;
             Packs = new ObservableCollection<string>(converters.ObjectPacks.Select(p => p.PackName));

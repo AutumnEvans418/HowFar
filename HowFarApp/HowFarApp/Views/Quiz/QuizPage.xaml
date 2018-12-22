@@ -23,7 +23,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Finish Quiz" HorizontalOptions="End" Clicked="FinishQuizClick"></Button>
+            <Button Text="Finish Quiz" HorizontalOptions="End" Command="{Binding FinishCommand}"></Button>
         </StackLayout>
        
     </ContentPage.Content>
