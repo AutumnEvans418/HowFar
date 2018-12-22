@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
 using Prism.Commands;
+using Prism.Navigation;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
@@ -19,7 +20,7 @@ namespace HowFarApp.ViewModels
         private string _startEntry;
         private string _distanceEntry;
 
-        public MapPageViewModel(IMapPage mapPage, IMeasureConverters converters)
+        public MapPageViewModel(IMapPage mapPage, IMeasureConverters converters, INavigationService navigationService) : base(navigationService)
         {
             Converters = converters;
             _mapPage = mapPage;

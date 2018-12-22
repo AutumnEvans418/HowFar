@@ -34,7 +34,7 @@ namespace HowFarApp.ViewModels
         private int _questionNumber;
 
         public QuizesPageViewModel(IMeasureConverters converters, IQuizGenerator generator,
-             INavigationService navigationService, Prism.Services.IPageDialogService dialog)
+             INavigationService navigationService, Prism.Services.IPageDialogService dialog) : base(navigationService)
         {
 
             _generator = generator;

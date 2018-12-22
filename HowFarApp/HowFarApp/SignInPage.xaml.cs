@@ -4,11 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HowFarApp.ViewModels;
+using Prism.Navigation;
 using Unity;
 using Xamarin.Forms;
 
 namespace HowFarApp
 {
+    public class SignInPageViewModel : ViewModelBase
+    {
+        public SignInPageViewModel(INavigationService navigationService) : base(navigationService)
+        {
+        }
+    }
     public partial class SignInPage : ContentPage
     {
         private readonly IUnityContainer _container;

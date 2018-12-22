@@ -17,7 +17,7 @@ namespace HowFarApp.Views
         private readonly INavigationService _navigationService;
         private Quiz _quiz;
 
-        public QuizPageViewModel(IQuizScorer scorer, INavigationService navigationService)
+        public QuizPageViewModel(IQuizScorer scorer, INavigationService navigationService) : base(navigationService)
         {
             _scorer = scorer;
             _navigationService = navigationService;

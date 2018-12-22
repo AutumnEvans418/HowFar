@@ -61,7 +61,7 @@ namespace HowFarApp.Views
         }
 
         public DelegateCommand NewCommand { get; set; }
-        public NewObjectPageViewModel(IMeasureConverters measure, IPageDialogService dialog, INavigationService navigationService)
+        public NewObjectPageViewModel(IMeasureConverters measure, IPageDialogService dialog, INavigationService navigationService) : base(navigationService)
         {
             ObjectPacks = measure.ObjectPacks;
             ObjectMeasurements = measure.ObjectMeasurements;

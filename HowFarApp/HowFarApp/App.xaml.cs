@@ -66,7 +66,7 @@ namespace HowFarApp
             containerRegistry.RegisterForNavigation<ObjectPacksPage>();
             containerRegistry.RegisterForNavigation<QuizesPage, QuizesPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizPage, QuizPageViewModel>();
-            containerRegistry.RegisterForNavigation<QuizResultPage>();
+            containerRegistry.RegisterForNavigation<QuizResultPage, QuizResultPageViewModel>();
         }
 
         protected override void OnInitialized()
