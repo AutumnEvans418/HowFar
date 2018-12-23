@@ -79,8 +79,12 @@ namespace HowFarApp.Views
                 {
                     await GetPermissions();
                     var location = await Geolocation.GetLastKnownLocationAsync();
-                    Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude),
-                        Distance.FromMiles(1)));
+                    if (location != null)
+                    {
+                        Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude),
+                            Distance.FromMiles(1)));
+                    }
+                  
                 }
             }
             //catch (FeatureNotSupportedException fnsEx)

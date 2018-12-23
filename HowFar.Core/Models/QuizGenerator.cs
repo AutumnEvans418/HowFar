@@ -27,12 +27,12 @@ namespace HowFar.Core.Models
 
         public int MaxQuizSize => _converters.ObjectMeasurements.Count * _converters.ObjectMeasurements.Count;
 
-        public Quiz CreateQuiz(int size, QuizDifficulty difficulty, int maximumQty = 30)
+        public Quiz CreateQuiz(int size, QuizDifficulty difficulty, int maximumQty = 3)
         {
             return CreateQuiz(size, maximumQty, (int) difficulty);
         }
 
-        public Quiz CreateQuiz(int size, int maximumQty = 30, int maximumRange = int.MaxValue)
+        public Quiz CreateQuiz(int size, int maximumQty = 3, int maximumRange = int.MaxValue)
         {
             if (size > MaxQuizSize)
             {

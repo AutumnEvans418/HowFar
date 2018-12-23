@@ -56,6 +56,25 @@ namespace Tests
         }
 
         [Test]
+        public void Quiz50RightIs50()
+        {
+            var quizResult = quiz.CreateQuiz(10);
+
+            var count = quizResult.Answers.Count;
+            var half = count / 2;
+
+             foreach (var answer in quizResult.Answers.Take(half))
+             {
+                 answer.UserInput = answer.CorrectAnswer;
+             }
+
+            var score = new QuizScorer(new AnswerScorerPercent());
+            var result = score.CalculateScore(quizResult.Answers);
+            Assert.AreEqual(0.5,result.Percent);
+        }
+
+
+        [Test]
         public void CorrectAnswerMatchesConverter()
         {
             var quizResult = quiz.CreateQuiz(20);
