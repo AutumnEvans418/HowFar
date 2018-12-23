@@ -15,8 +15,8 @@
                 <Image Source="{Binding PackImage}"></Image>
                 
             </StackLayout>
-            <Button Text="Browse Image" Clicked="ButtonPackImage"></Button>
-            <Button Text="New" Clicked="ButtonNewObject"></Button>
+            <Button Text="Browse Image" Command="{Binding BuyCommand}"></Button>
+            <Button Text="New" Command="{Binding NewCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

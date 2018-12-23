@@ -79,7 +79,7 @@ namespace HowFarApp
 #endif
             InitializeComponent();
 
-            NavigationService.NavigateAsync("SignInPage");
+            NavigationService.NavigateAsync("NavigationPage/MainMenuPage");
         }
 
         //protected override void OnStart()

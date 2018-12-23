@@ -4,25 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
+using HowFarApp.ViewModels;
+using Prism.Commands;
+using Prism.Navigation;
+using Prism.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HowFarApp.Views.Packs
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewObjectPackPage : ContentPage
+    public class NewObjectPackPageViewModel : ViewModelBase
     {
-        private readonly IMeasureConverters _measureConverters;
-        private ObjectPack _objectPack;
 
-        public NewObjectPackPage(IMeasureConverters measureConverters)
+        private readonly IMeasureConverters _measureConverters;
+        private readonly IPageDialogService _dialogService;
+        private ObjectPack _objectPack;
+        public NewObjectPackPageViewModel(INavigationService navigationService, 
+            IMeasureConverters measureConverters, IPageDialogService dialogService) : base(navigationService)
         {
             _measureConverters = measureConverters;
-            BindingContext = this;
+            _dialogService = dialogService;
             ObjectPack = new ObjectPack();
-            InitializeComponent();
+            NewCommand = new DelegateCommand(ButtonNewObject);
+            BuyCommand = new DelegateCommand(ButtonPackImage);
         }
 
+        public DelegateCommand NewCommand { get; set; }
+        public DelegateCommand BuyCommand { get; set; }
         public ObjectPack ObjectPack
         {
             get => _objectPack;
@@ -33,24 +41,38 @@ namespace HowFarApp.Views.Packs
             }
         }
 
-        private async void ButtonNewObject(object sender, EventArgs e)
+        private async void ButtonNewObject()
         {
             try
             {
                 _measureConverters.NewPack(ObjectPack);
-                await Navigation.PopAsync(true);
+                await NavigationService.GoBackAsync();
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await DisplayAlert("ERROR", exception.Message, "OK");
+                await _dialogService.DisplayAlertAsync ("ERROR", exception.Message, "OK");
                 throw;
             }
         }
 
-        private void ButtonPackImage(object sender, EventArgs e)
+        private async void ButtonPackImage()
         {
-            
+            await _dialogService.DisplayAlertAsync("Congrats!", "You now have a new package!", "Ok");
         }
+    }
+
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class NewObjectPackPage : ContentPage
+    {
+      
+
+        public NewObjectPackPage()
+        {
+            InitializeComponent();
+        }
+
+       
     }
 }

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SignInPage.xaml.cs">
+    <Compile Update="Views\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MapPage.xaml.cs">

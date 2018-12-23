@@ -33,7 +33,8 @@ namespace HowFarApp.Views
             _converters = converters;
             _dialogService = dialogService;
             this.Objects = new ObservableCollection<ObjectPack>(converters.ObjectPacks);
-
+            BuyPackCommand = new DelegateCommand(ImageButton_OnClicked);
+            NewPackCommand = new DelegateCommand(ButtonNewObjectPack);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -60,12 +61,12 @@ namespace HowFarApp.Views
 
         public DelegateCommand BuyPackCommand { get; set; }
         public DelegateCommand NewPackCommand { get; set; }
-        private async void ImageButton_OnClicked(object sender, EventArgs e)
+        private async void ImageButton_OnClicked()
         {
             await _dialogService.DisplayAlertAsync ("Congrats!", "You now have a new package!", "Ok");
         }
 
-        private async void ButtonNewObjectPack(object sender, EventArgs e)
+        private async void ButtonNewObjectPack()
         {
             await NavigationService.NavigateAsync(nameof(NewObjectPackPage));
         }

@@ -5,27 +5,29 @@
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:prism="clr-namespace:Prism;assembly=Prism.Forms"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
              mvvm:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowFarApp.Views.MapPage" Title="Map">
 
     <ContentPage.Content>
-        <ScrollView>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition x:Name="ColumnDefinition" Width="0"/>
+                </Grid.ColumnDefinitions>
                 <maps:Map Grid.Row="0" 
-                          Grid.RowSpan="3"
+                          Grid.RowSpan="2"
+                          Grid.ColumnSpan="2"
                           x:Name="Map"
                           MapLongClicked="Map_OnMapLongClicked"
                           MapType="Street"  HasZoomEnabled="True" HasScrollEnabled="True">
-                   
+
                 </maps:Map>
-                <Grid Grid.Row="0" >
+                <Grid Grid.Row="0" VerticalOptions="Start">
                     <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
                     <StackLayout  Margin="10">
                         <Label Text="Place two pins by tap and hold" FontAttributes="Bold"></Label>
@@ -33,7 +35,7 @@
                     </StackLayout>
                 </Grid>
 
-                <Grid Grid.Row="2" Margin="10,10,50,10" x:Name="Top" IsVisible="{Binding Top}" VerticalOptions="End">
+                <Grid Grid.Row="1" Margin="10,10,50,10" x:Name="Top" IsVisible="{Binding Top}" VerticalOptions="End">
                     <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
                     <StackLayout Margin="10"    VerticalOptions="End">
                         <Label Text="Start"></Label>
@@ -43,17 +45,16 @@
                         <Button  Text="Compare!" Command="{Binding GoCommand}"></Button>
                     </StackLayout>
                 </Grid>
-                <Grid Grid.Row="2" Margin="10,10,50,10" x:Name="Bottom" IsVisible="{Binding Bottom}" VerticalOptions="End">
-                   <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
-                   <StackLayout Margin="10"   VerticalOptions="End">
-                       <Label Text="Distance"></Label>
-                       <Entry x:Name="DistanceEntry" Text="{Binding DistanceEntry}"></Entry>
-                       <Label Text="Units"></Label>
-                       <Picker x:Name="UnitsPicker" ItemsSource="{Binding Converters.ObjectMeasurements}" ItemDisplayBinding="{Binding PluralName}" SelectedItem="{Binding SelectedObject}" ></Picker>
-                   </StackLayout>
+                <Grid Grid.Row="1" Margin="10,10,50,10" x:Name="Bottom" IsVisible="{Binding Bottom}" VerticalOptions="End">
+                    <BoxView Margin="5" BackgroundColor="LightGray" Opacity="0.5"></BoxView>
+                    <StackLayout Margin="10"   VerticalOptions="End">
+                        <Label Text="Distance"></Label>
+                        <Entry x:Name="DistanceEntry" Text="{Binding DistanceEntry}"></Entry>
+                        <Label Text="Units"></Label>
+                        <Picker x:Name="UnitsPicker" ItemsSource="{Binding Converters.ObjectMeasurements}" ItemDisplayBinding="{Binding PluralName}" SelectedItem="{Binding SelectedObject}" ></Picker>
+                    </StackLayout>
                 </Grid>
-                
+
             </Grid>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -17,7 +17,7 @@
 	<!-- Notice here that we have the package name of our application as a prefix on the permissions. -->
 	<uses-permission android:name="com.pittstate.howfar.permission.MAPS_RECEIVE" />
 	<permission android:name="com.pittstate.howfar.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
-	<application android:label="HowFarApp.Android" android:icon="@drawable/block">
+	<application android:label="HowFar" android:icon="@drawable/block">
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC40Tpm1zyXPatlq0FO1I6qThA2KRsHVK4" />
 	</application>
 </manifest>
