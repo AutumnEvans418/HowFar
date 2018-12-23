@@ -7,6 +7,7 @@ using HowFarApp.ViewModels;
 using HowFarApp.Views;
 using HowFarApp.Views.Packs;
 using Microsoft.EntityFrameworkCore;
+
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
@@ -52,7 +53,7 @@ namespace HowFarApp
             container.RegisterInstance(typeof(IQuizGenerator),
                 new QuizGenerator(container.Resolve<IMeasureConverters>(), DateTime.Now.GetHashCode()));
 
-
+            //container.RegisterInstance<IPermissions>(CrossPermissions.Current);
             container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
 
@@ -67,6 +68,7 @@ namespace HowFarApp
             containerRegistry.RegisterForNavigation<QuizesPage, QuizesPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizPage, QuizPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizResultPage, QuizResultPageViewModel>();
+            containerRegistry.RegisterForNavigation<NavigationPage>();
         }
 
         protected override void OnInitialized()

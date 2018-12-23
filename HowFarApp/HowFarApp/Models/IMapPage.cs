@@ -7,5 +7,6 @@ namespace HowFarApp.ViewModels
     {
         IList<Pin> Pins { get; }
         IList<Polyline> Polylines { get; }
+        void MoveCamera();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FluentValidation;
 using FluentValidation.Results;
+using HowFarApp.ViewModels;
 using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

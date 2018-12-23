@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using HowFar.Core.Models;
 using Prism.Commands;
 using Prism.Navigation;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 namespace HowFarApp.ViewModels
 {
-    public class MapPageViewModel : ViewModelBase
+    public class MapPageViewModel : ViewModelBase, IMapPageViewModel
     {
-        private readonly IMapPage _mapPage;
         private ObjectMeasurement _selectedObject;
         private bool _top;
         private bool _bottom;
@@ -21,20 +21,29 @@ namespace HowFarApp.ViewModels
         private string _distanceEntry;
         private IMeasureConverters _converters;
 
-        public MapPageViewModel(IMapPage mapPage, IMeasureConverters converters, INavigationService navigationService) : base(navigationService)
+        public MapPageViewModel(IMeasureConverters converters,
+            INavigationService navigationService) : base(navigationService)
         {
             Converters = converters;
-            _mapPage = mapPage;
             ResetCommand = new DelegateCommand(Reset_Clicked);
             GoCommand = new DelegateCommand(Go_Clicked);
             Top = true;
             //MapLongCommand = new DelegateCommand<object>(Map_OnMapLongClicked);
         }
 
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (MapPage != null)
+            {
+                MapPage.MoveCamera();
+            }
+            base.OnNavigatedTo(parameters);
+        }
+
         public IMeasureConverters Converters
         {
             get => _converters;
-            set => SetProperty(ref _converters,value);
+            set => SetProperty(ref _converters, value);
         }
 
         private double Distance(double lat1, double lon1, double lat2, double lon2, char unit)
@@ -109,7 +118,7 @@ namespace HowFarApp.ViewModels
         public string DistanceEntry
         {
             get => _distanceEntry;
-            set => SetProperty(ref _distanceEntry,value);
+            set => SetProperty(ref _distanceEntry, value);
         }
 
         public ObjectMeasurement SelectedObject
@@ -121,9 +130,9 @@ namespace HowFarApp.ViewModels
                 OnPropertyChanged();
                 if (_selectedObject != null)
                 {
-                    if (_mapPage.Pins.Count >= 2)
+                    if (MapPage.Pins.Count >= 2)
                     {
-                        var calc = CalculateDistances(_mapPage.Pins.First(), _mapPage.Pins.Last(), SelectedObject);
+                        var calc = CalculateDistances(MapPage.Pins.First(), MapPage.Pins.Last(), SelectedObject);
                         DistanceEntry = calc.ToString(CultureInfo.InvariantCulture);
                     }
                 }
@@ -134,40 +143,40 @@ namespace HowFarApp.ViewModels
         public async void Map_OnMapLongClicked(MapLongClickedEventArgs e)
         {
 
-                if (_mapPage.Pins.Count == 2)
-                {
-                    return;
-                }
-                _mapPage.Pins.Add(new Pin() { Position = e.Point, Label = $"Pin {_mapPage.Pins.Count + 1} ({e.Point.Longitude},{e.Point.Latitude})" });
-                if (_mapPage.Pins.Count == 1)
-                {
-                    StartEntry = await GetLocationFromAddress(e.Point);
+            if (MapPage.Pins.Count == 2)
+            {
+                return;
+            }
+            MapPage.Pins.Add(new Pin() { Position = e.Point, Label = $"Pin {MapPage.Pins.Count + 1} ({e.Point.Longitude},{e.Point.Latitude})" });
+            if (MapPage.Pins.Count == 1)
+            {
+                StartEntry = await GetLocationFromAddress(e.Point);
 
-                }
-                else if (_mapPage.Pins.Count == 2)
+            }
+            else if (MapPage.Pins.Count == 2)
+            {
+                EndEntry = await GetLocationFromAddress(e.Point);
+                var polyLine = new Polyline();
+                foreach (var mapPin in MapPage.Pins)
                 {
-                    EndEntry = await GetLocationFromAddress(e.Point);
-                    var polyLine = new Polyline();
-                    foreach (var mapPin in _mapPage.Pins)
-                    {
-                        polyLine.Positions.Add(mapPin.Position);
-                    }
-
-                    polyLine.StrokeWidth = 2;
-                    polyLine.StrokeColor = Color.Red;
-                    _mapPage.Polylines.Add(polyLine);
+                    polyLine.Positions.Add(mapPin.Position);
                 }
+
+                polyLine.StrokeWidth = 2;
+                polyLine.StrokeColor = Color.Red;
+                MapPage.Polylines.Add(polyLine);
+            }
 
         }
 
-       // public DelegateCommand<object> MapLongCommand { get; set; }
+        // public DelegateCommand<object> MapLongCommand { get; set; }
         public DelegateCommand ResetCommand { get; set; }
         public DelegateCommand GoCommand { get; set; }
 
         private void Reset_Clicked()
         {
-            _mapPage.Pins.Clear();
-            _mapPage.Polylines.Clear();
+            MapPage.Pins.Clear();
+            MapPage.Polylines.Clear();
             Top = true;
             Bottom = false;
             this.StartEntry = "";
@@ -182,5 +191,7 @@ namespace HowFarApp.ViewModels
             SelectedObject = Converters.Find("Mile");
 
         }
+
+        public IMapPage MapPage { get; set; }
     }
 }

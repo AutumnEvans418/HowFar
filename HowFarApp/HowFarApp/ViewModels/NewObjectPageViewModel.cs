@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
-using HowFarApp.ViewModels;
+using HowFarApp.Views;
 using HowFarApp.Views.Packs;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 
-namespace HowFarApp.Views
+namespace HowFarApp.ViewModels
 {
     public class NewObjectPageViewModel : ViewModelBase
     {

@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using HowFar.Core.Models;
-using HowFarApp.ViewModels;
 using Prism.Commands;
 using Prism.Navigation;
 
-namespace HowFarApp.Views
+namespace HowFarApp.ViewModels
 {
     public class ObjectPackDetailPageViewModel : ViewModelBase
     {
@@ -31,11 +30,10 @@ namespace HowFarApp.Views
             set => SetProperty(ref _selectedItem,value, () => SelectedItem = null);
         }
 
-        public ObjectPackDetailPageViewModel(INavigationService navigationService, ObjectPack pack, IMeasureConverters converters) : base(navigationService)
+        public ObjectPackDetailPageViewModel(INavigationService navigationService, IMeasureConverters converters) : base(navigationService)
         {
             _converters = converters;
-            Pack = pack;
-            Items = new ObservableCollection<ObjectMeasurement>(pack.ObjectMeasurements);
+            Items = new ObservableCollection<ObjectMeasurement>();
             DeleteCommand = new DelegateCommand(ButtonDeletePack);
         }
 
@@ -62,6 +60,8 @@ namespace HowFarApp.Views
             if (parameters["Pack"] is ObjectPack pack)
             {
                 Pack = pack;
+                Items = new ObservableCollection<ObjectMeasurement>(pack.ObjectMeasurements);
+
             }
             base.OnNavigatedTo(parameters);
         }

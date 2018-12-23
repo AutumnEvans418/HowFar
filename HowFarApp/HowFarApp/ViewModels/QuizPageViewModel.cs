@@ -1,9 +1,9 @@
 ﻿using HowFar.Core.Models;
-using HowFarApp.ViewModels;
+using HowFarApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
 
-namespace HowFarApp.Views
+namespace HowFarApp.ViewModels
 {
     public class QuizPageViewModel : ViewModelBase
     {

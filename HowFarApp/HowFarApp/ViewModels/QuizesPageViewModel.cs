@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using FluentValidation;
 using HowFar.Core.Models;
 using HowFarApp.Views;
 using Prism.Commands;
@@ -12,14 +11,6 @@ using Unity.Resolution;
 
 namespace HowFarApp.ViewModels
 {
-    public class QuizesPageValidator : AbstractValidator<QuizesPageViewModel>
-    {
-        public QuizesPageValidator()
-        {
-            RuleFor(p => p.SelectedDifficulty).NotEmpty().WithMessage("Must set difficulty");
-            RuleFor(p => p.QuestionNumber).GreaterThan(0);
-        }
-    }
     public class QuizesPageViewModel : ViewModelBase
     {
         private readonly IQuizGenerator _generator;

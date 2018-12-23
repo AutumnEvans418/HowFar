@@ -1,12 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using HowFar.Core;
 using HowFar.Core.Models;
-using HowFarApp.ViewModels;
+using HowFarApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
 
-namespace HowFarApp.Views
+namespace HowFarApp.ViewModels
 {
     public class ObjectManagerPageViewModel : ViewModelBase
     {
@@ -22,7 +22,12 @@ namespace HowFarApp.Views
             NewCommand = new DelegateCommand(Button_OnClicked);
         }
 
-        public ObjectManager Manager { get; }
+        public ObjectManager Manager
+        {
+            get => _manager;
+            set => SetProperty(ref _manager,value);
+        }
+
         private readonly IMeasureConverters _converter;
         private readonly IUnityContainer _container;
         private ObjectMeasurement _toObject;
@@ -30,6 +35,7 @@ namespace HowFarApp.Views
         private double _convertResult;
         private double _fromQty;
         private ObservableCollection<ObjectMeasurement> _objects;
+        private ObjectManager _manager;
 
         public ObservableCollection<ObjectMeasurement> Objects
         {
