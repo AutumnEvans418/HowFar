@@ -12,9 +12,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using HowFarApp.Views;
-using Prism;
-using Prism.Ioc;
 
 namespace HowFarApp.UWP
 {
@@ -26,22 +23,6 @@ namespace HowFarApp.UWP
             var dbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "exrin.db");
 
             LoadApplication(new HowFarApp.App(new Initializer(dbPath)));
-        }
-    }
-
-    public class Initializer : IPlatformInitializer
-    {
-        private readonly string _path;
-
-        public Initializer(string path)
-        {
-            _path = path;
-        }
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterInstance<ILocationService>(new LocationService());
-            containerRegistry.RegisterInstance<GetDbPath>(() => _path);
-
         }
     }
 }
