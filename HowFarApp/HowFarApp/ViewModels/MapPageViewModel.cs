@@ -19,6 +19,7 @@ namespace HowFarApp.ViewModels
         private string _endEntry;
         private string _startEntry;
         private string _distanceEntry;
+        private IMeasureConverters _converters;
 
         public MapPageViewModel(IMapPage mapPage, IMeasureConverters converters, INavigationService navigationService) : base(navigationService)
         {
@@ -29,7 +30,13 @@ namespace HowFarApp.ViewModels
             Top = true;
             //MapLongCommand = new DelegateCommand<object>(Map_OnMapLongClicked);
         }
-        public IMeasureConverters Converters { get; set; }
+
+        public IMeasureConverters Converters
+        {
+            get => _converters;
+            set => SetProperty(ref _converters,value);
+        }
+
         private double Distance(double lat1, double lon1, double lat2, double lon2, char unit)
         {
             double theta = lon1 - lon2;

@@ -57,13 +57,13 @@ namespace HowFarApp
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
 
             containerRegistry.RegisterForNavigation<NewObjectPage,NewObjectPageViewModel>();
-            containerRegistry.RegisterForNavigation<SignInPage>();
+            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<MainMenuPage,MainMenuPageViewModel>();
             containerRegistry.RegisterForNavigation<MapPage,MapPageViewModel>();
-            containerRegistry.RegisterForNavigation<NewObjectPackPage>();
-            containerRegistry.RegisterForNavigation<ObjectManagerPage>();
-            containerRegistry.RegisterForNavigation<ObjectPackDetail>();
-            containerRegistry.RegisterForNavigation<ObjectPacksPage>();
+            containerRegistry.RegisterForNavigation<NewObjectPackPage, NewObjectPageViewModel>();
+            containerRegistry.RegisterForNavigation<ObjectManagerPage, ObjectManagerPageViewModel>();
+            containerRegistry.RegisterForNavigation<ObjectPackDetailPage, ObjectPackDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<ObjectPacksPage, ObjectPacksPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizesPage, QuizesPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizPage, QuizPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizResultPage, QuizResultPageViewModel>();

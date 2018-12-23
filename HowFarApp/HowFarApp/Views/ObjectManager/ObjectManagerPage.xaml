@@ -23,8 +23,8 @@
             <Label Text="Objects" Style="{DynamicResource H1}"></Label>
             <Label Text="Select at least two objects to compare" Style="{DynamicResource BodyStyle}"></Label>
             <StackLayout Orientation="Horizontal">
-                <Button Text="Select All" Clicked="SelectAll"></Button>
-                <Button Text="Deselect All" Clicked="DeselectAll"></Button>
+                <Button Text="Select All" Command="{Binding SelectAllCommand}"></Button>
+                <Button Text="Deselect All" Command="{Binding DeselectAllCommand}"></Button>
             </StackLayout >
             <ListView    ItemsSource="{Binding Manager.ObjectMeasurementViewModels}" WidthRequest="150"             
                       HasUnevenRows="True">
@@ -97,6 +97,6 @@
                     WidthRequest="40" 
                     HeightRequest="40" 
                     CornerRadius="20" VerticalOptions="End" Grid.RowSpan="3"
-                    HorizontalOptions="End" Clicked="Button_OnClicked"/>
+                    HorizontalOptions="End" Command="{Binding NewCommand}"/>
     </Grid>
 </ContentPage>

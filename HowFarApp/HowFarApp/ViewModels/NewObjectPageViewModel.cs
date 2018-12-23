@@ -60,7 +60,7 @@ namespace HowFarApp.Views
             set => SetProperty(ref _canCreateNew, value);
         }
 
-        public DelegateCommand NewCommand { get; set; }
+        public DelegateCommand NewCommand { get; }
         public NewObjectPageViewModel(IMeasureConverters measure, IPageDialogService dialog, INavigationService navigationService) : base(navigationService)
         {
             ObjectPacks = measure.ObjectPacks;
@@ -79,11 +79,7 @@ namespace HowFarApp.Views
         public ObservableCollection<ObjectMeasurement> ObjectMeasurements
         {
             get => _objectMeasurements;
-            set
-            {
-                _objectMeasurements = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _objectMeasurements, value);
         }
 
         public ObjectMeasurement SelectedObject

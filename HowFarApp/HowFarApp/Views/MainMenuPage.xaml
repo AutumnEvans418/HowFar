@@ -31,7 +31,7 @@
         <Grid Grid.Row="0"
               Grid.Column="0" RowSpacing="0" ColumnSpacing="0">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="ObjectManager"></TapGestureRecognizer>
+                <TapGestureRecognizer Command="{Binding ObjectManagerCommand}"></TapGestureRecognizer>
             </Grid.GestureRecognizers>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
@@ -50,7 +50,7 @@
         <Grid Grid.Row="0"
               Grid.Column="1">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="ObjectPacks"></TapGestureRecognizer>
+                <TapGestureRecognizer Command="{Binding ObjectPacksCommand}"></TapGestureRecognizer>
             </Grid.GestureRecognizers>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
@@ -70,7 +70,7 @@
         <Grid Grid.Row="1"
               Grid.Column="0">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Map"></TapGestureRecognizer>
+                <TapGestureRecognizer Command="{Binding MapCommand}"></TapGestureRecognizer>
             </Grid.GestureRecognizers>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
@@ -89,7 +89,7 @@
         <Grid Grid.Row="1"
               Grid.Column="1">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Quizes"></TapGestureRecognizer>
+                <TapGestureRecognizer Command="{Binding QuizzesCommand}"></TapGestureRecognizer>
             </Grid.GestureRecognizers>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>

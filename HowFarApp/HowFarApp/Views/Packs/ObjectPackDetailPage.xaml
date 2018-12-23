@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              mvvm:ViewModelLocator.AutowireViewModel="True"
-             x:Class="HowFarApp.Views.ObjectPackDetail">
+             x:Class="HowFarApp.Views.ObjectPackDetailPage">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -14,7 +14,7 @@
 
             <Label Text="{Binding Pack.Name}" Style="{DynamicResource H1}"></Label>
             <Label Text="{Binding Pack.Description}" Style="{DynamicResource SubtitleStyle}"/>
-            <Button Text="Delete Pack" Clicked="ButtonDeletePack"></Button>
+            <Button Text="Delete Pack" Command="{Binding DeleteCommand}"></Button>
             <ImageButton Source="Assets/cart.png"
                          WidthRequest="50"
                          HeightRequest="50"
@@ -24,7 +24,6 @@
         </StackLayout>
         <ListView x:Name="MyListView" Grid.Row="1"
                   ItemsSource="{Binding Items}"
-                  ItemTapped="Handle_ItemTapped"
                   CachingStrategy="RecycleElement">
 
             <!--Built in Cells-->

@@ -40,7 +40,7 @@
                                                  WidthRequest="40"
                                                   HeightRequest="40"
                                                  Aspect="AspectFit"
-                                                 HorizontalOptions="EndAndExpand" Clicked="ImageButton_OnClicked"
+                                                 HorizontalOptions="EndAndExpand" Command="{Binding BuyPackCommand}"
                                                  />
                                     <!--<Button WidthRequest="45"
                                         HeightRequest="10"
@@ -58,7 +58,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="New Object Pack" Clicked="ButtonNewObjectPack"></Button>
+                <Button Text="New Object Pack" Command="{Binding NewPackCommand}"></Button>
             </StackLayout>
 
         </Grid>

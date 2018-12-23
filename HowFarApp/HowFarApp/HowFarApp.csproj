@@ -32,6 +32,9 @@
     <Compile Update="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Packs\ObjectPackDetailPage.xaml.cs">
+      <DependentUpon>ObjectPackDetailPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -50,7 +53,7 @@
     <EmbeddedResource Update="Views\Packs\NewObjectPackPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Packs\ObjectPackDetail.xaml">
+    <EmbeddedResource Update="Views\Packs\ObjectPackDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Packs\ObjectPacksPage.xaml">

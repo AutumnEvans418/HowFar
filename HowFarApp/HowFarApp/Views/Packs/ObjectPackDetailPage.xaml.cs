@@ -1,31 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Unity.Resolution;
+using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HowFarApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ObjectPacksPage : ContentPage
+    public partial class ObjectPackDetailPage
     {
-        
+       
 
-     
-
-        public ObjectPacksPage()
+        public ObjectPackDetailPage()
         {
             
             InitializeComponent();
             //BindingContext = this;
-
-
-          //  this.ObjectPacksList.ItemsSource = this.Objects;
+			
+			//MyListView.ItemsSource = Items;
         }
 
-     
+       
 
        
     }
