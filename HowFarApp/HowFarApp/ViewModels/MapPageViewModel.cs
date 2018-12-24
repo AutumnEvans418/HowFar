@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
+using HowFarApp.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using Xamarin.Essentials;

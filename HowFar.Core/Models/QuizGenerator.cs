@@ -64,11 +64,6 @@ namespace HowFar.Core.Models
                     double correctAnswer = Convert(question);
                     quiz.Answers.Add(new Answer() { Question = question, CorrectAnswer = correctAnswer });
                 }
-                else
-                {
-                    break;
-                }
-
             }
 
             return quiz;

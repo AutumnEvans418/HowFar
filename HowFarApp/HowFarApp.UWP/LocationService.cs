@@ -1,4 +1,5 @@
 ﻿using Windows.Devices.Geolocation;
+using HowFarApp.Models;
 using HowFarApp.Views;
 
 namespace HowFarApp.UWP

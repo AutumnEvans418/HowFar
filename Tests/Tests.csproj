@@ -26,4 +26,8 @@
     <ProjectReference Include="..\HowFar.Core\HowFar.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

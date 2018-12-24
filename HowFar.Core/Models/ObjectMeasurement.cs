@@ -31,10 +31,10 @@ namespace HowFar.Core.Models
             ObjectMeasurements = new List<ObjectMeasurement>();
         }
 
-        public IEnumerable<ObjectMeasurement> GetChildren()
-        {
-            return ObjectMeasurements;
-        }
+        //public IEnumerable<ObjectMeasurement> GetChildren()
+        //{
+        //    return ObjectMeasurements;
+        //}
         public void Add(ObjectMeasurement obj)
         {
             obj.Measurement = this;

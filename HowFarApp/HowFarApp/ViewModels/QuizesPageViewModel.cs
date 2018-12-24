@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using HowFar.Core.Models;
+using HowFarApp.Models;
 using HowFarApp.Views;
 using Prism.Commands;
 using Prism.Navigation;

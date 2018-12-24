@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using HowFar.Core.Models;
@@ -77,12 +78,39 @@ namespace Tests
 
 
         [Test]
-        public void Quiz100PercentTest()
+        [TestCase(0.9, GradeLetter.A)]
+        [TestCase(0.8, GradeLetter.B)]
+        [TestCase(0.7, GradeLetter.C)]
+        [TestCase(0.6, GradeLetter.D)]
+        [TestCase(0.5, GradeLetter.F)]
+        public void Quiz100PercentTest(double per, GradeLetter letter)
         {
-            IGrade score = Grade();
-            Assert.AreEqual(10, score.TotalQuestions);
+            var answer = new Answer(){CorrectAnswer = 1, UserInput = per};
+            var gradeScore = new QuizScorer(new AnswerScorerPercent());
+            var grade = gradeScore.CalculateScore(new []{answer});
 
+            Assert.AreEqual(letter, grade.GradeLetter);
         }
+
+
+        [Test]
+        public void LetterAreCorrect()
+        {
+            var grade = Grade();
+            
+            Assert.AreEqual(GradeLetter.A, grade.GradeLetter);
+
+            
+        }
+
+        [Test]
+        public void RightQuestions()
+        {
+            var grade = Grade();
+
+            Assert.AreEqual(10, grade.RightQuestions);
+        }
+      
 
         private IGrade Grade()
         {
@@ -107,6 +135,8 @@ namespace Tests
            // Console.WriteLine(JsonConvert.SerializeObject(quiz.Answers, Formatting.Indented));
 
             var score = grader.CalculateScore(quiz.Answers);
+
+            Assert.AreEqual(quiz.Answers, score.Answers);
            // Console.WriteLine(JsonConvert.SerializeObject(score, Formatting.Indented));
             Assert.AreEqual(10, score.TotalQuestions);
             return score;

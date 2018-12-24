@@ -4,6 +4,7 @@
              xmlns:core="clr-namespace:HowFar.Core;assembly=HowFar.Core"
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:models="clr-namespace:HowFarApp.Models;assembly=HowFarApp"
              mvvm:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowFarApp.Views.QuizesPage"
              Title="Quizzes">
@@ -18,7 +19,7 @@
                 <Label Text="Choose your difficulty!" Style="{DynamicResource H1}"></Label>
                 <ListView Margin="10" ItemsSource="{Binding Difficulties}" SelectedItem="{Binding SelectedDifficulty}">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Type views:QuizDifficultyModel}">
+                        <DataTemplate x:DataType="{x:Type models:QuizDifficultyModel}">
                             <ViewCell>
                                 <StackLayout Margin="10">
                                     <Label Text="{Binding Result}" Style="{DynamicResource SubtitleStyle}"></Label>

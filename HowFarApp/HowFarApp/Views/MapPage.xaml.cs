@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
+using HowFarApp.Models;
 using HowFarApp.ViewModels;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;

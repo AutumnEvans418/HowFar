@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using Android.Media;
+using HowFarApp.Models;
 using HowFarApp.Views;
 using Prism;
 using Prism.Ioc;

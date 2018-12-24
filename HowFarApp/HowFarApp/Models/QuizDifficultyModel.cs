@@ -1,6 +1,6 @@
 ﻿using HowFar.Core.Models;
 
-namespace HowFarApp.Views
+namespace HowFarApp.Models
 {
     public class QuizDifficultyModel
     {

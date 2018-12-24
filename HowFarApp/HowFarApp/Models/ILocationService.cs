@@ -1,4 +1,4 @@
-﻿namespace HowFarApp.Views
+﻿namespace HowFarApp.Models
 {
     public interface ILocationService
     {

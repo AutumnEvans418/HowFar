@@ -73,7 +73,19 @@ namespace Tests
             Assert.AreEqual(0.5,result.Percent);
         }
 
+        [Test]
+        public void QuizDifficutly()
+        {
+            var quizs = quiz.CreateQuiz(5, HowFar.Core.Models.QuizDifficulty.Beginner);
 
+           Assert.True( quizs.Answers.All(p => p.CorrectAnswer <= 100));
+        }
+
+        [Test]
+        public void MaxQuizTest()
+        {
+            Assert.Throws<InvalidOperationException>(() => this.quiz.CreateQuiz(1000));
+        }
         [Test]
         public void CorrectAnswerMatchesConverter()
         {

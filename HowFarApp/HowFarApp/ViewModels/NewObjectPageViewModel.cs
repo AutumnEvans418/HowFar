@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using HowFar.Core.Models;
+using HowFarApp.Models;
 using HowFarApp.Views;
 using HowFarApp.Views.Packs;
 using Prism.Commands;

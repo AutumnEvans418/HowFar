@@ -1,4 +1,4 @@
-﻿namespace HowFarApp.ViewModels
+﻿namespace HowFarApp.Models
 {
     public interface IMapPageViewModel
     {

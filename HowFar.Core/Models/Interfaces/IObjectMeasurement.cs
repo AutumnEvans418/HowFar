@@ -11,7 +11,7 @@ namespace HowFar.Core.Models
         double Value { get; set; }
 
         void Add(ObjectMeasurement obj);
-        IEnumerable<ObjectMeasurement> GetChildren();
+        //IEnumerable<ObjectMeasurement> GetChildren();
         string ToString();
     }
 }

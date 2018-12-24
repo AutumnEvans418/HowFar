@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using HowFar.Core.Models;
-using HowFarApp.ViewModels;
+using HowFarApp.Views;
 using HowFarApp.Views.Packs;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using Unity;
 
-namespace HowFarApp.Views
+namespace HowFarApp.ViewModels
 {
     public class ObjectPacksPageViewModel : ViewModelBase
     {

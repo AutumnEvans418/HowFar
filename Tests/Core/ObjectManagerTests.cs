@@ -52,6 +52,26 @@ namespace Tests
         }
 
         [Test]
+        public void SelectAll()
+        {
+            manager.SelectAll();
+
+            Assert.True(manager.ObjectMeasurementViewModels.All(p => p.Selected));
+
+            manager.DeSelectAll();
+            Assert.False(manager.ObjectMeasurementViewModels.All(p => p.Selected));
+
+        }
+
+        [Test]
+        public void ToStringIsResult()
+        {
+            TwoSelected();
+            var t = manager.Comparisons.First();
+             Assert.AreEqual(t.Result, t.ToString());
+        }
+
+        [Test]
         public void RemoveTest()
         {
             ThreeSelected();

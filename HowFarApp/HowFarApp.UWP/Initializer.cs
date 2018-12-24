@@ -1,4 +1,5 @@
-﻿using HowFarApp.Views;
+﻿using HowFarApp.Models;
+using HowFarApp.Views;
 using Prism;
 using Prism.Ioc;
 

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Prism.Services;
 
-namespace HowFarApp.Views
+namespace HowFarApp.Models
 {
     public static class Ext
     {

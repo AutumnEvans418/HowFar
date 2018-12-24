@@ -37,6 +37,26 @@ namespace Tests
             connection.Close();
         }
 
+        [Test]
+        public void NewObjectOverride()
+        {
+            var count = model.ObjectMeasurements.Count;
+            var cen = "Centimeter";
+            var centimeter = model.Find(cen);
+            model.NewObject("Millimeters", "Millimeter", .001, centimeter);
+
+            Assert.AreEqual(count +1, model.ObjectMeasurements.Count);
+        }
+
+        [Test]
+        public void PackName()
+        {
+            var pack = model.ObjectPacks.First();
+            
+            Assert.AreEqual(pack.Name, pack.PackName);
+            Assert.AreEqual(pack.ImageURL, pack.PackImage);
+        }
+
 
         [Test]
         public void AddPack()
@@ -63,6 +83,7 @@ namespace Tests
 
             Assert.AreEqual(mil, result.PluralName);
             Assert.AreEqual(cent, result.Measurement.PluralName);
+            Assert.AreEqual("Millimeter: 0.01 Centimeters", result.ToString());
         }
 
         [Test]
