@@ -280,7 +280,7 @@ namespace HowFarApp.Views
         {
             if (BindingContext is MapPageViewModel vm)
             {
-                vm.Map_OnMapLongClicked(e);
+                vm.Map_OnMapLongClicked(e.Point);
             }
         }
     }

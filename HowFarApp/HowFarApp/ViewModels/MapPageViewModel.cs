@@ -14,6 +14,7 @@ namespace HowFarApp.ViewModels
 {
     public class MapPageViewModel : ViewModelBase, IMapPageViewModel
     {
+        private readonly IGeocoder _geocoder;
         private ObjectMeasurement _selectedObject;
         private bool _top;
         private bool _bottom;
@@ -23,8 +24,9 @@ namespace HowFarApp.ViewModels
         private IMeasureConverters _converters;
 
         public MapPageViewModel(IMeasureConverters converters,
-            INavigationService navigationService) : base(navigationService)
+            INavigationService navigationService, IGeocoder geocoder) : base(navigationService)
         {
+            _geocoder = geocoder;
             Converters = converters;
             ResetCommand = new DelegateCommand(Reset_Clicked);
             GoCommand = new DelegateCommand(Go_Clicked);
@@ -81,10 +83,10 @@ namespace HowFarApp.ViewModels
         }
         public async Task<string> GetLocationFromAddress(Position position)
         {
-            Geocoder coder = new Geocoder();
+            //Geocoder coder = new Geocoder();
             try
             {
-                var address = await coder.GetAddressesForPositionAsync(position);
+                var address = await _geocoder.GetAddressesForPositionAsync(position);
                 return address?.FirstOrDefault();
             }
             catch
@@ -141,22 +143,22 @@ namespace HowFarApp.ViewModels
         }
 
 
-        public async void Map_OnMapLongClicked(MapLongClickedEventArgs e)
+        public async void Map_OnMapLongClicked(Position e)
         {
 
             if (MapPage.Pins.Count == 2)
             {
                 return;
             }
-            MapPage.Pins.Add(new Pin() { Position = e.Point, Label = $"Pin {MapPage.Pins.Count + 1} ({e.Point.Longitude},{e.Point.Latitude})" });
+            MapPage.Pins.Add(new Pin() { Position = e, Label = $"Pin {MapPage.Pins.Count + 1} ({e.Longitude},{e.Latitude})" });
             if (MapPage.Pins.Count == 1)
             {
-                StartEntry = await GetLocationFromAddress(e.Point);
+                StartEntry = await GetLocationFromAddress(e);
 
             }
             else if (MapPage.Pins.Count == 2)
             {
-                EndEntry = await GetLocationFromAddress(e.Point);
+                EndEntry = await GetLocationFromAddress(e);
                 var polyLine = new Polyline();
                 foreach (var mapPin in MapPage.Pins)
                 {
