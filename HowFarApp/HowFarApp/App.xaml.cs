@@ -34,18 +34,27 @@ namespace HowFarApp
             container.RegisterInstance(typeof(IApp), this);
             container.RegisterType<DatabaseContext>(new InjectionConstructor(container.Resolve<GetDbPath>()()));
 
-            using (var db = container.Resolve<DatabaseContext>())
+            try
             {
-                db.Database.EnsureCreated();
-                var connection = db.Database.GetDbConnection();
-                var names = connection.Query<string>(
-                    "SELECT name FROM sqlite_master WHERE type='table';");
-                if (names.Count() < 2)
+                using (var db = container.Resolve<DatabaseContext>())
                 {
-                    db.Database.EnsureDeleted();
                     db.Database.EnsureCreated();
+                    var connection = db.Database.GetDbConnection();
+                    var names = connection.Query<string>(
+                        "SELECT name FROM sqlite_master WHERE type='table';");
+                    if (names.Count() < 2)
+                    {
+                        db.Database.EnsureDeleted();
+                        db.Database.EnsureCreated();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception("There was a problem building the database",e);
+            }
+
 
             container.RegisterType<IObjectRepository, ObjectRepository>();
             container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
@@ -56,7 +65,7 @@ namespace HowFarApp
             //container.RegisterInstance<IPermissions>(CrossPermissions.Current);
             container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
-
+            container.RegisterType<IGeocoder, GeocoderModel>();
             containerRegistry.RegisterForNavigation<NewObjectPage,NewObjectPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<MainMenuPage,MainMenuPageViewModel>();

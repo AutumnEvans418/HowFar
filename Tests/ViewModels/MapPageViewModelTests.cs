@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Collections.Generic;
+using AutoFixture;
 using AutoFixture.AutoMoq;
 using HowFarApp.Models;
 using NUnit.Framework;
@@ -19,7 +20,12 @@ namespace Tests.ViewModels
             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
-            fixture.Freeze<Mock<IMapPage>>();
+            var map = fixture.Freeze<Mock<IMapPage>>();
+
+            var pins = new List<Pin>();
+            var lines = new List<Polyline>();
+            map.Setup(p => p.Pins).Returns(pins);
+            map.Setup(p => p.Polylines).Returns(lines);
             model = fixture.Build<MapPageViewModel>().OmitAutoProperties().Create();
         }
 
