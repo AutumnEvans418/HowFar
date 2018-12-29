@@ -16,11 +16,7 @@ namespace HowFar.Core.Models
             db = dbcontext;
             Startup();
         }
-        public ObjectMeasurement GetObjectMeasurement(string name)
-        {
-
-            return db.ObjectMeasurements.Include(p => p.ObjectMeasurements).ThenInclude(p => p.ObjectMeasurements).Include(p => p.Measurement).ThenInclude(p => p.Measurement).FirstOrDefault(p => p.SingleName.ToLower() == name.ToLower() || p.PluralName.ToLower() == name.ToLower());
-        }
+      
 
         public const string Metric = "Metric";
         public const string Imperial = "Imperial";
@@ -108,10 +104,33 @@ namespace HowFar.Core.Models
             var pico = NewObject("Picometers", "Picometer", 0.001, nanoMeter, Metric);
         }
 
+        public ObjectMeasurement GetObjectMeasurement(string name)
+        {
+            var data = GetObjectMeasurements();
+            return data.FirstOrDefault(p => p.SingleName.ToLower() == name.ToLower() || p.PluralName.ToLower() == name.ToLower());
+        }
 
+
+        public IList<ObjectMeasurement> SetupTree(IList<ObjectMeasurement> data)
+        {
+            foreach (var objectMeasurement in data)
+            {
+                if (objectMeasurement.ParentMeasurementSingleName != null)
+                {
+                    objectMeasurement.Measurement =
+                        data.First(p => p.SingleName == objectMeasurement.ParentMeasurementSingleName);
+                }
+
+                var t = data.Where(p => p.ParentMeasurementSingleName == objectMeasurement.SingleName);
+                objectMeasurement.ObjectMeasurements = t.ToList();
+            }
+
+            return data;
+        }
         public IEnumerable<ObjectMeasurement> GetObjectMeasurements()
         {
-            return db.ObjectMeasurements;
+            var data = db.ObjectMeasurements.ToList();
+            return SetupTree(data);
         }
 
         public void AddObject(ObjectMeasurement measurement)

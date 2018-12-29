@@ -10,17 +10,10 @@ namespace HowFar.Core.Models
         private readonly IObjectRepository _repository;
 
         public ObjectMeasurement Centimeter => Find("Centimeter");
-        //public List<ObjectMeasurement> ObjectMeasurements { get; set; }
         public MeasureConverters(IObjectRepository repository)
         {
             _repository = repository;
-            //Startup();
             UpdateList();
-            //ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(repository.GetObjectMeasurements());
-            //if (app.Properties[PropertyKey] is ObjectMeasurement measure)
-            //{
-            //    Centimeter = measure;
-            //}
         }
 
        
@@ -64,7 +57,7 @@ namespace HowFar.Core.Models
                 }
                 else
                 {
-                    var up = Calculate(from.Measurement ?? Find(from.ParentMeasurementSingleName), to, from.Value * value);
+                    var up = Calculate(from.Measurement, to, from.Value * value);
                     if (up != null)
                     {
                         return up;
@@ -81,10 +74,10 @@ namespace HowFar.Core.Models
         private double? GoDown(ObjectMeasurement from, ObjectMeasurement to, double value)
         {
             var children = from.ObjectMeasurements;
-            if (children.Any() != true)
-            {
-                children = Find(from.SingleName).ObjectMeasurements;
-            }
+            //if (children.Any() != true)
+            //{
+            //    children = Find(from.SingleName).ObjectMeasurements;
+            //}
             foreach (var objectMeasurement in children)
             {
                 if (objectMeasurement == to)
@@ -109,17 +102,6 @@ namespace HowFar.Core.Models
         private List<ObjectMeasurement> GetAll()
         {
             return _repository.GetObjectMeasurements().ToList();
-            //if (start == null) start = Centimeter;
-            //if (obj == null) obj = new List<ObjectMeasurement>();
-            //obj.Add(start);
-            //if (start.GetChildren().Any())
-            //{
-            //    foreach (var objectMeasurement in start.GetChildren())
-            //    {
-            //        GetAll(objectMeasurement, obj);
-            //    }
-            //}
-            //return obj;
         }
 
         public ObjectMeasurement Find(string name)
@@ -127,33 +109,7 @@ namespace HowFar.Core.Models
             return _repository.GetObjectMeasurement(name);
             //return Find(Centimeter, name);
         }
-
-        //private ObjectMeasurement Find(ObjectMeasurement start, string name)
-        //{
-        //    //return 
-        //    //if (start.PluralName.ToLower() == name.ToLower() || start.SingleName.ToLower() == name.ToLower())
-        //    //{
-        //    //    return start;
-        //    //}
-        //    //foreach (var startObjectMeasurement in start.GetChildren())
-        //    //{
-        //    //    if (startObjectMeasurement.PluralName.ToLower() == name.ToLower() || startObjectMeasurement.SingleName.ToLower() == name.ToLower())
-        //    //    {
-        //    //        return startObjectMeasurement;
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        var result = Find(startObjectMeasurement, name);
-        //    //        if (result != null)
-        //    //        {
-        //    //            return result;
-        //    //        }
-        //    //    }
-        //    //}
-
-        //    //return null;
-        //}
-
+        
 
         public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string pack = "Custom")
         {
@@ -173,17 +129,6 @@ namespace HowFar.Core.Models
             }
 
             return null;
-            //var measure = Find(measurement);
-            //if (measure != null)
-            //{
-            //    var newObject = new ObjectMeasurement(singleName, pluralName) { Value = value };
-            //    measure.Add(newObject);
-            //    UpdateList();
-            //    UpdatePack(pack, newObject);
-
-            //    return newObject;
-            //}
-            //return null;
         }
 
         public void DeletePack(ObjectPack pack)
@@ -218,22 +163,6 @@ namespace HowFar.Core.Models
         {
             this._repository.AddPack(pack);
             this.UpdateList();
-        }
-    }
-
-    internal class MeasurementCompare : IComparer<ObjectMeasurement>
-    {
-        private readonly IMeasureConverters _converters;
-
-        public MeasurementCompare(IMeasureConverters converters)
-        {
-            _converters = converters;
-        }
-        public int Compare(ObjectMeasurement x, ObjectMeasurement y)
-        {
-            var xtoy = _converters.Convert(x, y);
-            if (xtoy > 1) return 1;
-            return -1;
         }
     }
 }
