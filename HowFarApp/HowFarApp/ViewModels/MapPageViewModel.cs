@@ -86,6 +86,7 @@ namespace HowFarApp.ViewModels
             //Geocoder coder = new Geocoder();
             try
             {
+                IsBusy = true;
                 var address = await _geocoder.GetAddressesForPositionAsync(position);
                 return address?.FirstOrDefault();
             }
@@ -93,6 +94,11 @@ namespace HowFarApp.ViewModels
             {
                 return null;
             }
+            finally
+            {
+                IsBusy = false;
+            }
+
         }
 
         public string StartEntry

@@ -20,6 +20,10 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition x:Name="ColumnDefinition" Width="0"/>
                 </Grid.ColumnDefinitions>
+                <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+                                   Grid.RowSpan="2"
+                                   Grid.ColumnSpan="2" 
+                                   ></ActivityIndicator>
                 <maps:Map Grid.Row="0" 
                           Grid.RowSpan="2"
                           Grid.ColumnSpan="2"
