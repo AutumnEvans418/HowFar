@@ -10,7 +10,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Core
 {
     [TestFixture]
     public class QuizTests

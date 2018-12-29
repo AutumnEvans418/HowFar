@@ -6,7 +6,7 @@ using HowFar.Core.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Core
 {
     [TestFixture]
     public class CombinatorTests

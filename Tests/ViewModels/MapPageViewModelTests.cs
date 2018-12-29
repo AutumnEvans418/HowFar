@@ -14,19 +14,41 @@ namespace Tests.ViewModels
     {
         private MapPageViewModel model;
         private Fixture fixture;
+        private Mock<IMapPage> map;
         [SetUp]
         public void Setup()
         {
             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
-            var map = fixture.Freeze<Mock<IMapPage>>();
+            map = fixture.Freeze<Mock<IMapPage>>();
 
             var pins = new List<Pin>();
             var lines = new List<Polyline>();
             map.Setup(p => p.Pins).Returns(pins);
             map.Setup(p => p.Polylines).Returns(lines);
             model = fixture.Build<MapPageViewModel>().OmitAutoProperties().Create();
+            model.MapPage = map.Object;
+        }
+
+        [Test]
+        public void Add3()
+        {
+            AddTwoPins();
+            model.Map_OnMapLongClicked(new Position(10, 10));
+
+            Assert.AreEqual(2, map.Object.Pins.Count);
+        }
+
+        [Test]
+        public void AddTwoPins()
+        {
+            model.Map_OnMapLongClicked(new Position(10, 10));
+            model.Map_OnMapLongClicked(new Position(10, 10));
+
+
+            Assert.AreEqual(1, map.Object.Polylines.Count);
+            Assert.AreEqual(2, map.Object.Pins.Count);
         }
 
         [Test]
@@ -34,10 +56,9 @@ namespace Tests.ViewModels
         {
             model.Map_OnMapLongClicked(new Position(10,10));
 
-            var map = fixture.Create<Mock<IMapPage>>();
+            
 
-            map.Verify(p=>p.Pins.Add(It.IsAny<Pin>()));
-
+           Assert.AreEqual(1, map.Object.Pins.Count);  
         }
 
     }

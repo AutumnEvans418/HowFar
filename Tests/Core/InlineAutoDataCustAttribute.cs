@@ -1,6 +1,6 @@
 ﻿using AutoFixture.NUnit3;
 
-namespace Tests
+namespace Tests.Core
 {
     public class InlineAutoDataCustAttribute : InlineAutoDataAttribute
     {

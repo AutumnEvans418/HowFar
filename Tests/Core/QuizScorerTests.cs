@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using HowFar.Core.Models;
@@ -8,7 +7,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Core
 {
     [TestFixture]
     public class QuizScorerTests

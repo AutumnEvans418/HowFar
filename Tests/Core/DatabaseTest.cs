@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using HowFar.Core.Models;
 using HowFarApp.Models;
@@ -6,7 +5,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Core
 {
     [TestFixture]
     public class DatabaseTest
