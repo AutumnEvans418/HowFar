@@ -6,10 +6,14 @@ namespace HowFarApp.ViewModels
 {
     public class GeocoderModel : IGeocoder
     {
-        private Geocoder geocoder;
+        public GeocoderModel()
+        {
+            _geocoder = new Geocoder();
+        }
+        private readonly Geocoder _geocoder;
         public Task<IEnumerable<string>> GetAddressesForPositionAsync(Position position)
         {
-            return geocoder.GetAddressesForPositionAsync(position);
+            return _geocoder.GetAddressesForPositionAsync(position);
         }
     }
     public interface IGeocoder

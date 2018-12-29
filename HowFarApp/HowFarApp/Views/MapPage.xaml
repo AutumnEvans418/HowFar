@@ -6,7 +6,8 @@
              xmlns:prism="clr-namespace:Prism;assembly=Prism.Forms"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
-             mvvm:ViewModelLocator.AutowireViewModel="True"
+             xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
+             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="{x:Type viewModels:MapPageViewModel}"
              x:Class="HowFarApp.Views.MapPage" Title="Map">
 
     <ContentPage.Content>

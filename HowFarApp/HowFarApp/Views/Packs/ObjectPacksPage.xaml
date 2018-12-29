@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
              mvvm:ViewModelLocator.AutowireViewModel="True"
              Title="Object Packs"
-             x:Class="HowFarApp.Views.ObjectPacksPage">
+             x:Class="HowFarApp.Views.ObjectPacksPage" x:DataType="{x:Type viewModels:ObjectPacksPageViewModel}">
     <ContentPage.Content>
         <Grid>
             <Image Source="Assets/cart.png" Opacity=".5"></Image>

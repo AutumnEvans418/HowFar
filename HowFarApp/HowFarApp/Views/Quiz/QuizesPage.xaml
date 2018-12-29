@@ -5,8 +5,9 @@
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:models="clr-namespace:HowFarApp.Models;assembly=HowFarApp"
+             xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
              mvvm:ViewModelLocator.AutowireViewModel="True"
-             x:Class="HowFarApp.Views.QuizesPage"
+             x:Class="HowFarApp.Views.QuizesPage" x:DataType="{x:Type viewModels:QuizesPageViewModel}"
              Title="Quizzes">
     <ContentPage.Content>
         <Grid Margin="10">
