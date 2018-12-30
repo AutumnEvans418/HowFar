@@ -7,7 +7,7 @@
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
-             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="{x:Type viewModels:MapPageViewModel}"
+             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="viewModels:MapPageViewModel"
              x:Class="HowFarApp.Views.MapPage" Title="Map">
 
     <ContentPage.Content>
@@ -56,7 +56,7 @@
                         <Label Text="Distance"></Label>
                         <Entry x:Name="DistanceEntry" Text="{Binding DistanceEntry}"></Entry>
                         <Label Text="Units"></Label>
-                        <Picker x:Name="UnitsPicker" ItemsSource="{Binding Converters.ObjectMeasurements}" ItemDisplayBinding="{Binding PluralName}" SelectedItem="{Binding SelectedObject}" ></Picker>
+                        <Picker x:Name="UnitsPicker" ItemsSource="{Binding Converters.ObjectMeasurements}" x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" SelectedItem="{Binding SelectedObject}" ></Picker>
                     </StackLayout>
                 </Grid>
 

@@ -9,7 +9,7 @@
              xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
              Title="Quiz"
-             x:Class="HowFarApp.Views.QuizPage" x:DataType="{x:Type viewModels:QuizPageViewModel}">
+             x:Class="HowFarApp.Views.QuizPage" x:DataType="viewModels:QuizPageViewModel">
     <ContentPage.Content>
         <StackLayout Margin="10">
             <ListView ItemsSource="{Binding Quiz.Answers}" BackgroundColor="AliceBlue" HasUnevenRows="True">

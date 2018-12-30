@@ -8,6 +8,10 @@ namespace HowFar.Core.Models
         private string _description;
         private string _packImage;
         public virtual ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
+        public override string ToString()
+        {
+            return PackName;
+        }
 
         public string PackName
         {

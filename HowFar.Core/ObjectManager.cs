@@ -62,12 +62,19 @@ namespace HowFar.Core
     {
         private ObservableCollection<ObjectMeasurementViewModel> _objectMeasurementViewModels;
         private ObservableCollection<ObjectCompare> _comparisons;
+        private ObjectMeasurementViewModel _selectedObject;
         public IMeasureConverters MeasureConverters { get; }
 
         public ObservableCollection<ObjectMeasurementViewModel> ObjectMeasurementViewModels
         {
             get => _objectMeasurementViewModels;
             set => SetProperty(ref _objectMeasurementViewModels, value);
+        }
+
+        public ObjectMeasurementViewModel SelectedObject
+        {
+            get => _selectedObject;
+            set => SetProperty(ref _selectedObject,value);
         }
 
         public ObjectManager(IMeasureConverters measureConverters)

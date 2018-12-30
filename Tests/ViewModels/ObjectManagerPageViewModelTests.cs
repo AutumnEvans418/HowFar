@@ -35,7 +35,7 @@ namespace Tests.ViewModels
         [Test]
         public void DeleteObject()
         {
-            model.SelectedObject = model.Objects.First();
+            model.Manager.SelectedObject = model.Manager.ObjectMeasurementViewModels.First();
             model.DeleteObjectCommand.Execute();
 
             conv.Verify(p=>p.DeleteObject(It.IsAny<ObjectMeasurement>()));
@@ -44,7 +44,7 @@ namespace Tests.ViewModels
         [Test]
         public void EditObject()
         {
-            model.SelectedObject = model.Objects.First();
+            model.Manager.SelectedObject = model.Manager.ObjectMeasurementViewModels.First();
             model.EditObjectCommand.Execute();
             nav.Verify(p=>p.NavigateAsync(It.IsAny<string>(), It.IsAny<INavigationParameters>()));
         }

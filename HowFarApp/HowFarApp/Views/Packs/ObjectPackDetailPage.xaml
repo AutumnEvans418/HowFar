@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
+             xmlns:models="clr-namespace:HowFar.Core.Models;assembly=HowFar.Core"
              mvvm:ViewModelLocator.AutowireViewModel="True"
-             x:Class="HowFarApp.Views.ObjectPackDetailPage" x:DataType="{x:Type viewModels:ObjectPackDetailPageViewModel}">
+             x:Class="HowFarApp.Views.ObjectPackDetailPage" x:DataType="viewModels:ObjectPackDetailPageViewModel">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -23,13 +24,13 @@
                          HorizontalOptions="EndAndExpand" 
             />
         </StackLayout>
-        <ListView x:Name="MyListView" Grid.Row="1"
+        <ListView  Grid.Row="1"
                   ItemsSource="{Binding Items}"
                   CachingStrategy="RecycleElement">
 
             <!--Built in Cells-->
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:ObjectMeasurement">
                     <TextCell Text="{Binding PluralName}" />
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -7,7 +7,7 @@
              mvvm:ViewModelLocator.AutowireViewModel="True"
              xmlns:models="clr-namespace:HowFar.Core.Models;assembly=HowFar.Core"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
-             x:DataType="{x:Type viewModels:QuizResultPageViewModel}">
+             x:DataType="viewModels:QuizResultPageViewModel">
     <ContentPage.Content>
         <StackLayout Margin="50">
             <StackLayout  HorizontalOptions="CenterAndExpand">

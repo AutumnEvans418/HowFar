@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
+             xmlns:models="clr-namespace:HowFar.Core.Models;assembly=HowFar.Core"
              mvvm:ViewModelLocator.AutowireViewModel="True"
              Title="Object Packs"
-             x:Class="HowFarApp.Views.ObjectPacksPage" x:DataType="{x:Type viewModels:ObjectPacksPageViewModel}">
+             x:Class="HowFarApp.Views.ObjectPacksPage" x:DataType="viewModels:ObjectPacksPageViewModel">
     <ContentPage.Content>
         <Grid>
             <Image Source="Assets/cart.png" Opacity=".5"></Image>
@@ -16,17 +17,17 @@
                 <ListView x:Name="ObjectPacksList"                     
                       RowHeight="80" ItemsSource="{Binding Objects}" SelectedItem="{Binding SelectedObjectPack}">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:ObjectPack">
                             <ViewCell>
                                 <StackLayout Margin="10" Orientation="Horizontal">
                                     <Image WidthRequest="50"                                          
                                            HeightRequest="50"                                          
-                                           Source="{Binding ImageURL}"                                          
+                                           Source="{Binding PackImage}"                                          
                                            Grid.Row="0"                                           
                                            Grid.RowSpan="2"
                                            Grid.Column="0" />
                                     <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding Name}" 
+                                        <Label Text="{Binding PackName}" 
                                            TextColor="Black"
                                            FontAttributes="Bold"                                           
                                            FontSize="14"                                          
@@ -37,12 +38,7 @@
                                            Grid.Column="1"/>
                                     </StackLayout>
 
-                                    <ImageButton Source="Assets/cart.png"
-                                                 WidthRequest="40"
-                                                  HeightRequest="40"
-                                                 Aspect="AspectFit"
-                                                 HorizontalOptions="EndAndExpand" Command="{Binding BuyPackCommand}"
-                                                 />
+                                   
                                     <!--<Button WidthRequest="45"
                                         HeightRequest="10"
                                             
@@ -59,7 +55,13 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="New Object Pack" Command="{Binding NewPackCommand}"></Button>
+                <Button Text="New Object Pack" Command="{Binding NewPackCommand}"/>
+                <ImageButton Source="Assets/cart.png"
+                             WidthRequest="40"
+                             HeightRequest="40"
+                             Aspect="AspectFit"
+                             HorizontalOptions="EndAndExpand" Command="{Binding BuyPackCommand}"
+                />
             </StackLayout>
 
         </Grid>

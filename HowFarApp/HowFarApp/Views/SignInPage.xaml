@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
-             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="{x:Type viewModels:SignInPageViewModel}"
+             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="viewModels:SignInPageViewModel"
              x:Class="HowFarApp.SignInPage" >
 
     <Grid>

@@ -33,10 +33,10 @@ namespace Tests.ViewModels
         public void UpdateObject()
         {
             model.OnNavigatedTo(new NavigationParameters(){{"Object", fixture.Create<ObjectMeasurement>()}});
-
+            model.SelectedObject = model.ObjectMeasurements.First();
             model.NewCommand.Execute();
 
-            navigation.Verify(p => p.NavigateAsync(It.IsAny<string>()));
+            navigation.Verify(p => p.GoBackAsync());
             converters.Verify(p => p.UpdateObject(It.IsAny<ObjectMeasurement>()));
 
         }
@@ -51,7 +51,7 @@ namespace Tests.ViewModels
             model.SelectedObjectPack = model.ObjectPacks.First();
             model.NewCommand.Execute();
 
-            navigation.Verify(p=>p.NavigateAsync(It.IsAny<string>()));
+            navigation.Verify(p=>p.GoBackAsync());
             converters.Verify(p=>p.NewObject(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<double>(), It.IsAny<ObjectMeasurement>(), It.IsAny<string>()));
         }
     }

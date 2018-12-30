@@ -4,16 +4,16 @@
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
              mvvm:ViewModelLocator.AutowireViewModel="True"
-             x:Class="HowFarApp.Views.Packs.NewObjectPackPage" x:DataType="{x:Type viewModels:NewObjectPackPageViewModel}">
+             x:Class="HowFarApp.Views.Packs.NewObjectPackPage" x:DataType="viewModels:NewObjectPackPageViewModel">
     <ContentPage.Content>
         <StackLayout Margin="20">
-            <StackLayout BindingContext="{Binding ObjectPack}">
+            <StackLayout>
                 <Label Text="Pack Name"></Label>
-                <Entry Text="{Binding PackName}"></Entry>
+                <Entry Text="{Binding ObjectPack.PackName}"></Entry>
                 <Label Text="Pack Description"></Label>
-                <Entry Text="{Binding Description}"></Entry>
+                <Entry Text="{Binding ObjectPack.Description}"></Entry>
                 <Label Text="Image"></Label>
-                <Image Source="{Binding PackImage}"></Image>
+                <Image Source="{Binding ObjectPack.PackImage}"></Image>
                 
             </StackLayout>
             <Button Text="Browse Image" Command="{Binding BuyCommand}"></Button>

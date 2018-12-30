@@ -19,11 +19,11 @@ namespace HowFarApp.ViewModels
             SelectAllCommand = new DelegateCommand(SelectAll);
             DeselectAllCommand = new DelegateCommand(DeselectAll);
             NewCommand = new DelegateCommand(Button_OnClicked);
-            DeleteObjectCommand = new DelegateCommand(()=> manager.MeasureConverters.DeleteObject(SelectedObject), () => SelectedObject != null)
-                .ObservesProperty(()=> SelectedObject);
+            DeleteObjectCommand = new DelegateCommand(()=> manager.MeasureConverters.DeleteObject(manager.SelectedObject.ObjectMeasurement), () => Manager. SelectedObject != null)
+                .ObservesProperty(()=>Manager.SelectedObject);
 
-            EditObjectCommand = new DelegateCommand(()=> navigationService.NavigateAsync(nameof(NewObjectPage), new NavigationParameters(){{"Object", SelectedObject}}), () => SelectedObject != null)
-                .ObservesProperty(()=> SelectedObject);
+            EditObjectCommand = new DelegateCommand(()=> navigationService.NavigateAsync(nameof(NewObjectPage), new NavigationParameters(){{"Object", Manager. SelectedObject.ObjectMeasurement}}), () => Manager. SelectedObject != null)
+                .ObservesProperty(()=> Manager. SelectedObject);
         }
 
         public IObjectManager Manager
@@ -39,7 +39,7 @@ namespace HowFarApp.ViewModels
         private double _fromQty;
         private ObservableCollection<ObjectMeasurement> _objects;
         private IObjectManager _manager;
-        private ObjectMeasurement _selectedObject;
+        //private ObjectMeasurementViewModel _selectedObject;
 
         public ObservableCollection<ObjectMeasurement> Objects
         {
@@ -113,11 +113,11 @@ namespace HowFarApp.ViewModels
         public DelegateCommand DeselectAllCommand { get; set; }
         public DelegateCommand NewCommand { get; set; }
 
-        public ObjectMeasurement SelectedObject
-        {
-            get => _selectedObject;
-            set => SetProperty(ref _selectedObject,value);
-        }
+        //public ObjectMeasurementViewModel SelectedObject
+        //{
+        //    get => _selectedObject;
+        //    set => SetProperty(ref _selectedObject,value);
+        //}
 
         public DelegateCommand DeleteObjectCommand { get; set; }
         public DelegateCommand EditObjectCommand { get; set; }

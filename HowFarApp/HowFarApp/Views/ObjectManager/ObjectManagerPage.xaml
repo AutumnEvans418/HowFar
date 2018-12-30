@@ -4,9 +4,10 @@
              xmlns:views="clr-namespace:HowFarApp.Views;assembly=HowFarApp"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
+             xmlns:core="clr-namespace:HowFar.Core;assembly=HowFar.Core"
              mvvm:ViewModelLocator.AutowireViewModel="True"
             Title="Object Manager"
-             x:Class="HowFarApp.Views.ObjectManagerPage" x:DataType="{x:Type viewModels:ObjectManagerPageViewModel}">
+             x:Class="HowFarApp.Views.ObjectManagerPage" x:DataType="viewModels:ObjectManagerPageViewModel">
         <Grid  RowSpacing="10"
                      Padding="20"
                      BackgroundColor="White" Margin="10">
@@ -26,11 +27,13 @@
             <StackLayout Orientation="Horizontal">
                 <Button Text="Select All" Command="{Binding SelectAllCommand}"></Button>
                 <Button Text="Deselect All" Command="{Binding DeselectAllCommand}"></Button>
+                <Button Text="Edit" Command="{Binding EditObjectCommand}"></Button>
+                <Button Text="Delete" Command="{Binding DeleteObjectCommand}"></Button>
             </StackLayout >
             <ListView    ItemsSource="{Binding Manager.ObjectMeasurementViewModels}" WidthRequest="150"             
-                      HasUnevenRows="True">
+                      HasUnevenRows="True" SelectedItem="{Binding Manager.SelectedObject}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="core:ObjectMeasurementViewModel">
                         <ViewCell>
                             <StackLayout>
                                 <Grid>
@@ -65,7 +68,7 @@
                 <Label Text="Comparisons" Style="{DynamicResource H1}"></Label>
                 <ListView  WidthRequest="100" SelectionMode="None" ItemsSource="{Binding Manager.Comparisons}" HasUnevenRows="True">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="core:ObjectCompare">
                             <ViewCell>
                                 <Label Text="{Binding Result}"></Label>
                             </ViewCell>
@@ -80,11 +83,11 @@
                     <StackLayout Orientation="Horizontal">
                         <Label Text="From:" WidthRequest="40" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
                         <Entry Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
-                    <Picker ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
+                    <Picker x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
                     </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="To:" VerticalOptions="Center" VerticalTextAlignment="Center" WidthRequest="35"></Label>
-                    <Picker ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
+                    <Picker x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
                     <Label VerticalTextAlignment="Center" VerticalOptions="Center" Text="{Binding ConvertResult}" WidthRequest="150"></Label>
                     <Label Text="{Binding ToObject.PluralName}" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
                    

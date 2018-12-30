@@ -6,7 +6,7 @@
              mvvm:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowFarApp.Views.NewObjectPage"
              Title="New Object"
-             BackgroundColor="Black" x:DataType="{x:Type viewModels:NewObjectPageViewModel}">
+             BackgroundColor="Black" x:DataType="viewModels:NewObjectPageViewModel">
     <ContentPage.Content>
         <StackLayout Padding="45"
                      Spacing="10"
@@ -32,7 +32,7 @@
                 </Picker>
             </StackLayout>
             <Label Text="Object Packs"></Label>
-            <Picker ItemsSource="{Binding ObjectPacks}" SelectedItem="{Binding SelectedObjectPack}" ItemDisplayBinding="{Binding PackName}"/>
+            <Picker ItemsSource="{Binding ObjectPacks}" SelectedItem="{Binding SelectedObjectPack}" x:DataType="{x:Null}" ItemDisplayBinding="{Binding PackName}"/>
             <Button Text="New Object Pack" Command="{Binding NewObjectPackCommand}"></Button>
             <Button x:Name="ImageInsert"
                     WidthRequest="15"

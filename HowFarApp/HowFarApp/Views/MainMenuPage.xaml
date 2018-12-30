@@ -4,7 +4,7 @@
              x:Class="HowFarApp.Views.MainMenuPage"
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
-             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="{x:Type viewModels:MainMenuPageViewModel}"
+             mvvm:ViewModelLocator.AutowireViewModel="True" x:DataType="viewModels:MainMenuPageViewModel"
              Title="Main Menu">
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.ColumnDefinitions>
