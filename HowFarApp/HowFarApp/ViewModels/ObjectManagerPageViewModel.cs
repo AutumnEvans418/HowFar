@@ -19,11 +19,18 @@ namespace HowFarApp.ViewModels
             SelectAllCommand = new DelegateCommand(SelectAll);
             DeselectAllCommand = new DelegateCommand(DeselectAll);
             NewCommand = new DelegateCommand(Button_OnClicked);
-            DeleteObjectCommand = new DelegateCommand(()=> manager.MeasureConverters.DeleteObject(manager.SelectedObject.ObjectMeasurement), () => Manager. SelectedObject != null)
-                .ObservesProperty(()=>Manager.SelectedObject);
+            DeleteObjectCommand = new DelegateCommand(() => DeleteObject(manager), () => Manager.SelectedObject != null)
+                .ObservesProperty(() => Manager.SelectedObject);
 
-            EditObjectCommand = new DelegateCommand(()=> navigationService.NavigateAsync(nameof(NewObjectPage), new NavigationParameters(){{"Object", Manager. SelectedObject.ObjectMeasurement}}), () => Manager. SelectedObject != null)
-                .ObservesProperty(()=> Manager. SelectedObject);
+            EditObjectCommand = new DelegateCommand(() => navigationService.NavigateAsync(nameof(NewObjectPage), new NavigationParameters() { { "Object", Manager.SelectedObject.ObjectMeasurement } }), () => Manager.SelectedObject != null)
+                .ObservesProperty(() => Manager.SelectedObject);
+        }
+
+        private void DeleteObject(IObjectManager manager)
+        {
+            manager.MeasureConverters.DeleteObject(manager.SelectedObject.ObjectMeasurement);
+            Objects = new ObservableCollection<ObjectMeasurement>(manager.MeasureConverters.ObjectMeasurements);
+            Manager.Refresh();
         }
 
         public IObjectManager Manager

@@ -140,6 +140,7 @@ namespace HowFar.Core.Models
         public void DeleteObject(ObjectMeasurement selectedObject)
         {
             _repository.RemoveObject(selectedObject);
+            this.UpdateList();
         }
 
         public void UpdateObject(ObjectMeasurement selectedObject)

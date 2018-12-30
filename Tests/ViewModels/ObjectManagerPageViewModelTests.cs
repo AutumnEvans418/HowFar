@@ -39,6 +39,8 @@ namespace Tests.ViewModels
             model.DeleteObjectCommand.Execute();
 
             conv.Verify(p=>p.DeleteObject(It.IsAny<ObjectMeasurement>()));
+
+            
         }
 
         [Test]
