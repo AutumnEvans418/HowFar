@@ -4,21 +4,53 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HowFar.Core.Models
 {
-    public class ObjectMeasurement : IObjectMeasurement
+    public class ObjectMeasurement : BindableBase, IObjectMeasurement
     {
+        private double _value;
+        private string _image;
+        private string _pluralName;
+        private List<ObjectMeasurement> _objectMeasurements;
+        private string _singleName;
+        private ObjectPack _objectPack;
+        private string _objectPackName;
+        private ObjectMeasurement _measurement;
+        private string _parentMeasurementSingleName;
+
         public override string ToString()
         {
             return Measurement != null ? $"{SingleName}: {Value} {Measurement.PluralName}" : $"{Value} {PluralName}";
         }
-     
+
         [ForeignKey(nameof(Measurement))]
-        public string ParentMeasurementSingleName { get; set; }
-        public virtual ObjectMeasurement Measurement { get; set; }
-        public double Value { get; set; }
+        public string ParentMeasurementSingleName
+        {
+            get => _parentMeasurementSingleName;
+            set => SetProperty(ref _parentMeasurementSingleName,value);
+        }
 
-        public string Image { get; set; }
+        public virtual ObjectMeasurement Measurement
+        {
+            get => _measurement;
+            set => SetProperty(ref _measurement,value);
+        }
 
-        public string PluralName { get; set; }
+        public double Value
+        {
+            get => _value;
+            set => SetProperty(ref _value,value);
+        }
+
+        public string Image
+        {
+            get => _image;
+            set => SetProperty(ref _image,value);
+        }
+
+        public string PluralName
+        {
+            get => _pluralName;
+            set => SetProperty(ref _pluralName,value);
+        }
 
         public ObjectMeasurement()
         {
@@ -41,9 +73,28 @@ namespace HowFar.Core.Models
             ObjectMeasurements.Add(obj);
         }
 
-        public virtual List<ObjectMeasurement> ObjectMeasurements { get; set; }
-        public string SingleName { get; set; }
-        public ObjectPack ObjectPack { get; set; }
-        public string ObjectPackName { get; set; }
+        public virtual List<ObjectMeasurement> ObjectMeasurements
+        {
+            get => _objectMeasurements;
+            set => SetProperty(ref _objectMeasurements,value);
+        }
+
+        public string SingleName
+        {
+            get => _singleName;
+            set => SetProperty(ref _singleName,value);
+        }
+
+        public ObjectPack ObjectPack
+        {
+            get => _objectPack;
+            set => SetProperty(ref _objectPack,value);
+        }
+
+        public string ObjectPackName
+        {
+            get => _objectPackName;
+            set => SetProperty(ref _objectPackName,value);
+        }
     }
 }

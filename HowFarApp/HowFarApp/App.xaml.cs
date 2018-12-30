@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Dapper;
+using HowFar.Core;
 using HowFarApp.Models;
 using HowFarApp.ViewModels;
 using HowFarApp.Views;
@@ -66,6 +67,7 @@ namespace HowFarApp
             container.RegisterSingleton<IAnswerScorer, AnswerScorerPercent>();
             container.RegisterSingleton<IQuizScorer, QuizScorer>();
             container.RegisterType<IGeocoder, GeocoderModel>();
+            container.RegisterType<IObjectManager, ObjectManager>();
             containerRegistry.RegisterForNavigation<NewObjectPage,NewObjectPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<MainMenuPage,MainMenuPageViewModel>();

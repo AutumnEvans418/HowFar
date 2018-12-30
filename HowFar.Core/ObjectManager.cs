@@ -58,7 +58,7 @@ namespace HowFar.Core
             return Result;
         }
     }
-    public class ObjectManager : BindableBase
+    public class ObjectManager : BindableBase, IObjectManager
     {
         private ObservableCollection<ObjectMeasurementViewModel> _objectMeasurementViewModels;
         private ObservableCollection<ObjectCompare> _comparisons;

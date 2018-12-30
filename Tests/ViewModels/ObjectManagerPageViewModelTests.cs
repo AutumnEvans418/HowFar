@@ -21,12 +21,13 @@ namespace Tests.ViewModels
         public void Setup()
         {
             fixture = new Fixture();
-            fixture.Customize(new AutoMoqCustomization());
+            fixture.Customize(new AutoMoqCustomization(){GenerateDelegates = true, ConfigureMembers = true});
             fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => fixture.Behaviors.Remove(b));
             fixture.Behaviors.Add(new OmitOnRecursionBehavior());
             nav = fixture.Freeze<Mock<INavigationService>>();
             conv = fixture.Freeze<Mock<IMeasureConverters>>();
+            
             model = fixture.Build<ObjectManagerPageViewModel>().OmitAutoProperties().Create();
             model.OnNavigatedTo(new NavigationParameters());
         }

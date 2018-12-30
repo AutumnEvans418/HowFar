@@ -10,7 +10,7 @@ namespace HowFarApp.ViewModels
 {
     public class ObjectManagerPageViewModel : ViewModelBase
     {
-        public ObjectManagerPageViewModel(INavigationService navigationService,ObjectManager manager) : base(navigationService)
+        public ObjectManagerPageViewModel(INavigationService navigationService,IObjectManager manager) : base(navigationService)
         {
             Manager = manager;
             _converter = manager.MeasureConverters;
@@ -26,7 +26,7 @@ namespace HowFarApp.ViewModels
                 .ObservesProperty(()=> SelectedObject);
         }
 
-        public ObjectManager Manager
+        public IObjectManager Manager
         {
             get => _manager;
             set => SetProperty(ref _manager,value);
@@ -38,7 +38,7 @@ namespace HowFarApp.ViewModels
         private double _convertResult;
         private double _fromQty;
         private ObservableCollection<ObjectMeasurement> _objects;
-        private ObjectManager _manager;
+        private IObjectManager _manager;
         private ObjectMeasurement _selectedObject;
 
         public ObservableCollection<ObjectMeasurement> Objects

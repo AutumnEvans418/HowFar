@@ -24,6 +24,7 @@ namespace HowFarApp.ViewModels
         private string _singleName;
         private double _measurementValue;
         private string _pluralName;
+        private ObjectMeasurement _objectMeasurement;
 
         public ObservableCollection<ObjectPack> ObjectPacks
         {
@@ -104,7 +105,21 @@ namespace HowFarApp.ViewModels
             var result = validator.Validate(this);
             if (result.IsValid)
             {
+                if (updating)
+                {
+                    ObjectMeasurement.Measurement = SelectedObject;
+                    ObjectMeasurement.ObjectPack = SelectedObjectPack;
+                    ObjectMeasurement.ObjectPackName = SelectedObjectPack.PackName;
+                    ObjectMeasurement.ParentMeasurementSingleName = ObjectMeasurement.Measurement.SingleName;
+                    ObjectMeasurement.SingleName = SingleName;
+                    ObjectMeasurement.PluralName = PluralName;
+                    ObjectMeasurement.Value = MeasurementValue;
+                    measure.UpdateObject(ObjectMeasurement);
+                }
+                else
+                {
                 var measurement = measure.NewObject(PluralName, SingleName, MeasurementValue, SelectedObject, SelectedObjectPack.Name);
+                }
 
                 return true;
             }
@@ -116,8 +131,34 @@ namespace HowFarApp.ViewModels
 
         }
 
+        public ObjectMeasurement ObjectMeasurement
+        {
+            get => _objectMeasurement;
+            set => SetProperty(ref _objectMeasurement,value);
+        }
+
+        private bool updating;
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
+            if (parameters["Object"] is ObjectMeasurement data)
+            {
+                ObjectMeasurement = data;
+
+                SelectedObject = ObjectMeasurement.Measurement;
+                SelectedObjectPack = ObjectMeasurement.ObjectPack;
+                SelectedObjectPack.PackName = ObjectMeasurement.ObjectPackName;
+                SingleName = ObjectMeasurement.SingleName;
+                PluralName = ObjectMeasurement.PluralName;
+                MeasurementValue = ObjectMeasurement.Value;
+
+
+
+                updating = true;
+            }
+            else
+            {
+                updating = false;
+            }
             ObjectPacks = measure.ObjectPacks;
             ObjectMeasurements = measure.ObjectMeasurements;
             base.OnNavigatedTo(parameters);

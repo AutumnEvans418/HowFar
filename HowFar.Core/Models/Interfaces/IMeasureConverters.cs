@@ -18,5 +18,6 @@ namespace HowFar.Core.Models
         ObjectMeasurement NewObject(string pluralName, string  singleName, double value, string measurement, string pack = "Custom");
         void DeletePack(ObjectPack pack);
         void DeleteObject(ObjectMeasurement selectedObject);
+        void UpdateObject(ObjectMeasurement selectedObject);
     }
 }

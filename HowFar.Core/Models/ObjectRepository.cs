@@ -164,6 +164,12 @@ namespace HowFar.Core.Models
             db.SaveChanges();
         }
 
+        public void UpdateObject(ObjectMeasurement selectedObject)
+        {
+            db.ObjectMeasurements.Update(selectedObject);
+            db.SaveChanges();
+        }
+
         public void Dispose()
         {
             db?.Dispose();

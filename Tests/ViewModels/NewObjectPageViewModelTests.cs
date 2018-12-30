@@ -15,10 +15,11 @@ namespace Tests.ViewModels
         private NewObjectPageViewModel model;
         private Mock<IMeasureConverters> converters;
         private Mock<INavigationService> navigation;
+        private Fixture fixture;
         [SetUp]
         public void Setup()
         {
-            var fixture = new Fixture();
+             fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization(){GenerateDelegates = true, ConfigureMembers = true});
             fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => fixture.Behaviors.Remove(b));
@@ -28,7 +29,17 @@ namespace Tests.ViewModels
             model = fixture.Build<NewObjectPageViewModel>().OmitAutoProperties().Create();
         }
 
+        [Test]
+        public void UpdateObject()
+        {
+            model.OnNavigatedTo(new NavigationParameters(){{"Object", fixture.Create<ObjectMeasurement>()}});
 
+            model.NewCommand.Execute();
+
+            navigation.Verify(p => p.NavigateAsync(It.IsAny<string>()));
+            converters.Verify(p => p.UpdateObject(It.IsAny<ObjectMeasurement>()));
+
+        }
 
         [Test]
         public void CreateObject()

@@ -142,6 +142,11 @@ namespace HowFar.Core.Models
             _repository.RemoveObject(selectedObject);
         }
 
+        public void UpdateObject(ObjectMeasurement selectedObject)
+        {
+            _repository.UpdateObject(selectedObject);
+        }
+
         private void UpdatePack(string pack, ObjectMeasurement newObject)
         {
             var packs = ObjectPacks.FirstOrDefault(p => p.PackName == pack);

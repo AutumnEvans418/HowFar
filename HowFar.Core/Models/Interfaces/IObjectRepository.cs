@@ -12,5 +12,6 @@ namespace HowFar.Core.Models
         IEnumerable<ObjectPack> GetObjectPacks();
         void AddPack(ObjectPack pack);
         void RemovePack(ObjectPack pack);
+        void UpdateObject(ObjectMeasurement selectedObject);
     }
 }
