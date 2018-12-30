@@ -21,9 +21,9 @@ namespace HowFarApp.ViewModels
         private ObjectPack _selectedObjectPack;
         private bool _canCreateNew;
         private ObservableCollection<ObjectPack> _objectPacks;
-        private string _nameEntry;
-        private double _measurementEntry;
-        private string _pluralEntry;
+        private string _singleName;
+        private double _measurementValue;
+        private string _pluralName;
 
         public ObservableCollection<ObjectPack> ObjectPacks
         {
@@ -31,22 +31,22 @@ namespace HowFarApp.ViewModels
             set => SetProperty(ref _objectPacks, value);
         }
 
-        public string NameEntry
+        public string SingleName
         {
-            get => _nameEntry;
-            set => SetProperty(ref _nameEntry, value);
+            get => _singleName;
+            set => SetProperty(ref _singleName, value);
         }
 
-        public double MeasurementEntry
+        public double MeasurementValue
         {
-            get => _measurementEntry;
-            set => SetProperty(ref _measurementEntry, value);
+            get => _measurementValue;
+            set => SetProperty(ref _measurementValue, value);
         }
 
-        public string PluralEntry
+        public string PluralName
         {
-            get => _pluralEntry;
-            set => SetProperty(ref _pluralEntry, value);
+            get => _pluralName;
+            set => SetProperty(ref _pluralName, value);
         }
 
         public ObjectPack SelectedObjectPack
@@ -104,7 +104,7 @@ namespace HowFarApp.ViewModels
             var result = validator.Validate(this);
             if (result.IsValid)
             {
-                var measurement = measure.NewObject(PluralEntry, NameEntry, MeasurementEntry, SelectedObject, SelectedObjectPack.Name);
+                var measurement = measure.NewObject(PluralName, SingleName, MeasurementValue, SelectedObject, SelectedObjectPack.Name);
 
                 return true;
             }

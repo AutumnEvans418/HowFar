@@ -9,6 +9,28 @@ using Xamarin.Forms.GoogleMaps;
 
 namespace Tests.ViewModels
 {
+
+    [TestFixture]
+    public class ObjectManagerPageViewModelTests
+    {
+        private Fixture fixture;
+
+        private ObjectManagerPageViewModel model;
+        [SetUp]
+        public void Setup()
+        {
+            fixture = new Fixture();
+            fixture.Customize(new AutoMoqCustomization());
+            model = fixture.Build<ObjectManagerPageViewModel>().OmitAutoProperties().Create();
+        }
+
+        [Test]
+        public void Do()
+        {
+           
+        }
+    }
+
     [TestFixture]
     public class MapPageViewModelTests
     {

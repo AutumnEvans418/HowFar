@@ -10,13 +10,12 @@ namespace HowFarApp.ViewModels
 {
     public class ObjectManagerPageViewModel : ViewModelBase
     {
-        public ObjectManagerPageViewModel(INavigationService navigationService, IMeasureConverters converter, IUnityContainer container, ObjectManager manager) : base(navigationService)
+        public ObjectManagerPageViewModel(INavigationService navigationService,ObjectManager manager) : base(navigationService)
         {
             Manager = manager;
-            _converter = converter;
-            _container = container;
+            _converter = manager.MeasureConverters;
             FromQty = 1;
-            this.Objects = new ObservableCollection<ObjectMeasurement>(converter.ObjectMeasurements);
+            this.Objects = new ObservableCollection<ObjectMeasurement>(manager.MeasureConverters.ObjectMeasurements);
             SelectAllCommand = new DelegateCommand(SelectAll);
             DeselectAllCommand = new DelegateCommand(DeselectAll);
             NewCommand = new DelegateCommand(Button_OnClicked);
@@ -29,7 +28,6 @@ namespace HowFarApp.ViewModels
         }
 
         private readonly IMeasureConverters _converter;
-        private readonly IUnityContainer _container;
         private ObjectMeasurement _toObject;
         private ObjectMeasurement _fromObject;
         private double _convertResult;

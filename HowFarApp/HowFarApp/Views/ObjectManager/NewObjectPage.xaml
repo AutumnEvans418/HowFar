@@ -13,16 +13,16 @@
                      BackgroundColor="White"
                      VerticalOptions="FillAndExpand">
             <Label Text="Single Name"></Label>
-            <Entry x:Name="NameEntry" Text="{Binding NameEntry}"
+            <Entry x:Name="NameEntry" Text="{Binding SingleName}"
                    Placeholder="Single Name: ie. Pencil"
                 />
             <Label Text="Plural Name"></Label>
-            <Entry x:Name="PluralEntry" Text="{Binding PluralEntry}"
+            <Entry x:Name="PluralEntry" Text="{Binding PluralName}"
                    Placeholder="Plural Name: ie. Pencils"
                 />
             <Label Text="Units"></Label>
             <StackLayout Orientation="Horizontal">
-                <Entry x:Name="MeasurementEntry" Text="{Binding MeasurementEntry}"
+                <Entry x:Name="MeasurementEntry" Text="{Binding MeasurementValue}"
                        Placeholder="ex. 6.25"/>
 
                 <Picker x:Name="UnitsPicker" 

@@ -7,9 +7,9 @@ namespace HowFarApp.Models
     {
         public NewObjectValidator()
         {
-            RuleFor(p => p.NameEntry).NotEmpty();
-            RuleFor(p => p.MeasurementEntry).NotEmpty();
-            RuleFor(p => p.PluralEntry).NotEmpty();
+            RuleFor(p => p.SingleName).NotEmpty();
+            RuleFor(p => p.MeasurementValue).NotEmpty();
+            RuleFor(p => p.PluralName).NotEmpty();
             RuleFor(p => p.SelectedObject).NotNull();
             RuleFor(p => p.SelectedObjectPack).NotNull();
         }
