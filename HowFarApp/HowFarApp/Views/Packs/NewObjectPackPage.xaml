@@ -4,7 +4,7 @@
              xmlns:mvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:viewModels="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
              mvvm:ViewModelLocator.AutowireViewModel="True"
-             x:Class="HowFarApp.Views.Packs.NewObjectPackPage" x:DataType="viewModels:NewObjectPackPageViewModel">
+             x:Class="HowFarApp.Views.NewObjectPackPage" x:DataType="viewModels:NewObjectPackPageViewModel" Title="New Object Pack">
     <ContentPage.Content>
         <StackLayout Margin="20">
             <StackLayout>

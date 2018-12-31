@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using HowFar.Core.Models;
 using HowFarApp.Models;
 using HowFarApp.Views;
-using HowFarApp.Views.Packs;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;

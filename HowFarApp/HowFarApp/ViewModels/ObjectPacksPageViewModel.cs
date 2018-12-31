@@ -1,23 +1,35 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using HowFar.Core.Models;
 using HowFarApp.Views;
-using HowFarApp.Views.Packs;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using Unity;
 
 namespace HowFarApp.ViewModels
 {
+    public class ObjectPackViewModel : BindableBase
+    {
+        public ObjectPack ObjectPack { get; set; }
+        public DelegateCommand BuyPackCommand { get; set; }
+
+        public static implicit operator ObjectPack(ObjectPackViewModel vm)
+        {
+            return vm.ObjectPack;
+        }
+    }
+
     public class ObjectPacksPageViewModel : ViewModelBase
     {
 
         private readonly IMeasureConverters _converters;
         private readonly IPageDialogService _dialogService;
-        private ObjectPack _selectedObjectPack;
-        private ObservableCollection<ObjectPack> _objects;
+        private ObjectPackViewModel _selectedObjectPack;
+        private ObservableCollection<ObjectPackViewModel> _objects;
 
-        public ObservableCollection<ObjectPack> Objects
+        public ObservableCollection<ObjectPackViewModel> Objects
         {
             get => _objects;
             set
@@ -31,19 +43,21 @@ namespace HowFarApp.ViewModels
         {
             _converters = converters;
             _dialogService = dialogService;
-            this.Objects = new ObservableCollection<ObjectPack>(converters.ObjectPacks);
             BuyPackCommand = new DelegateCommand(ImageButton_OnClicked);
             NewPackCommand = new DelegateCommand(ButtonNewObjectPack);
+            this.Objects = new ObservableCollection<ObjectPackViewModel>(converters.ObjectPacks.Select(p=>new ObjectPackViewModel(){ObjectPack = p, BuyPackCommand = BuyPackCommand}));
+           
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            this.Objects = new ObservableCollection<ObjectPack>(_converters.ObjectPacks);
+            //this.Objects = new ObservableCollection<ObjectPackViewModel>(_converters.ObjectPacks);
+            this.Objects = new ObservableCollection<ObjectPackViewModel>(_converters.ObjectPacks.Select(p => new ObjectPackViewModel() { ObjectPack = p, BuyPackCommand = BuyPackCommand }));
 
             base.OnNavigatedTo(parameters);
         }
 
-        public ObjectPack SelectedObjectPack
+        public ObjectPackViewModel SelectedObjectPack
         {
             get => _selectedObjectPack;
             set
@@ -53,7 +67,7 @@ namespace HowFarApp.ViewModels
 
                 if (_selectedObjectPack != null)
                 {
-                    NavigationService.NavigateAsync(nameof(ObjectPackDetailPage), new NavigationParameters(){{"Pack", SelectedObjectPack}});
+                    NavigationService.NavigateAsync(nameof(ObjectPackDetailPage), new NavigationParameters(){{"Pack", SelectedObjectPack.ObjectPack}});
                 }
             }
         }

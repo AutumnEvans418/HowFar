@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace HowFarApp.Views.Packs
+namespace HowFarApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewObjectPackPage : ContentPage
@@ -15,6 +15,10 @@ namespace HowFarApp.Views.Packs
         public NewObjectPackPage()
         {
             InitializeComponent();
+            if (BindingContext == null)
+            {
+
+            }
         }
 
        

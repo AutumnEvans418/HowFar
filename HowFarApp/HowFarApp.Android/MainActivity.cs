@@ -37,7 +37,11 @@ namespace HowFarApp.Droid
 
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
+
+            string dbPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                "ormdemo.db3");
+          //  var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
             LoadApplication(new App(new Initializer(dbPath)));
             //StartPlayer("Assets/bensound-creativeminds.mp3");
         }

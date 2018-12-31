@@ -17,26 +17,32 @@
                 <ListView x:Name="ObjectPacksList"                     
                       RowHeight="80" ItemsSource="{Binding Objects}" SelectedItem="{Binding SelectedObjectPack}">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:ObjectPack">
+                        <DataTemplate x:DataType="viewModels:ObjectPackViewModel">
                             <ViewCell>
                                 <StackLayout Margin="10" Orientation="Horizontal">
                                     <Image WidthRequest="50"                                          
                                            HeightRequest="50"                                          
-                                           Source="{Binding PackImage}"                                          
+                                           Source="{Binding ObjectPack.PackImage}"                                          
                                            Grid.Row="0"                                           
                                            Grid.RowSpan="2"
                                            Grid.Column="0" />
                                     <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding PackName}" 
+                                        <Label Text="{Binding ObjectPack.PackName}" 
                                            TextColor="Black"
                                            FontAttributes="Bold"                                           
                                            FontSize="14"                                          
                                            Grid.Column="1" />
 
-                                        <Label Text="{Binding Description}" 
+                                        <Label Text="{Binding ObjectPack.Description}" 
                                            TextColor="Black"
                                            Grid.Column="1"/>
                                     </StackLayout>
+                                    <ImageButton Source="Assets/cart.png"
+                                                 WidthRequest="40"
+                                                 HeightRequest="40"
+                                                 Aspect="AspectFit"
+                                                 HorizontalOptions="EndAndExpand" Command="{Binding BuyPackCommand}"
+                                    />
 
                                    
                                     <!--<Button WidthRequest="45"
@@ -56,12 +62,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Button Text="New Object Pack" Command="{Binding NewPackCommand}"/>
-                <ImageButton Source="Assets/cart.png"
-                             WidthRequest="40"
-                             HeightRequest="40"
-                             Aspect="AspectFit"
-                             HorizontalOptions="EndAndExpand" Command="{Binding BuyPackCommand}"
-                />
+                
             </StackLayout>
 
         </Grid>

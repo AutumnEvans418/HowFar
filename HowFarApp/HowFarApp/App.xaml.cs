@@ -6,7 +6,7 @@ using HowFar.Core;
 using HowFarApp.Models;
 using HowFarApp.ViewModels;
 using HowFarApp.Views;
-using HowFarApp.Views.Packs;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 using Prism;
@@ -39,6 +39,7 @@ namespace HowFarApp
             {
                 using (var db = container.Resolve<DatabaseContext>())
                 {
+                    
                     db.Database.EnsureCreated();
                     var connection = db.Database.GetDbConnection();
                     var names = connection.Query<string>(
@@ -72,7 +73,7 @@ namespace HowFarApp
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<MainMenuPage,MainMenuPageViewModel>();
             containerRegistry.RegisterForNavigation<MapPage,MapPageViewModel>();
-            containerRegistry.RegisterForNavigation<NewObjectPackPage, NewObjectPageViewModel>();
+            containerRegistry.RegisterForNavigation<NewObjectPackPage, NewObjectPackPageViewModel>();
             containerRegistry.RegisterForNavigation<ObjectManagerPage, ObjectManagerPageViewModel>();
             containerRegistry.RegisterForNavigation<ObjectPackDetailPage, ObjectPackDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<ObjectPacksPage, ObjectPacksPageViewModel>();
