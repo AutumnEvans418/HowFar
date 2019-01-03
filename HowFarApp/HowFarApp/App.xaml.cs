@@ -37,19 +37,15 @@ namespace HowFarApp
 
             try
             {
-                using (var db = container.Resolve<DatabaseContext>())
-                {
-                    
-                    db.Database.EnsureCreated();
-                    var connection = db.Database.GetDbConnection();
-                    var names = connection.Query<string>(
-                        "SELECT name FROM sqlite_master WHERE type='table';");
-                    if (names.Count() < 2)
-                    {
-                        db.Database.EnsureDeleted();
-                        db.Database.EnsureCreated();
-                    }
-                }
+                SetupDb(container);
+            }
+            catch (System.TypeInitializationException e)
+            {
+               var connection = new SqliteConnection("DataSource=:memory:");
+                connection.Open();
+                var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
+                container.RegisterType<DatabaseContext>(new InjectionConstructor(options));
+                SetupDb(container);
             }
             catch (Exception e)
             {
@@ -81,6 +77,23 @@ namespace HowFarApp
             containerRegistry.RegisterForNavigation<QuizPage, QuizPageViewModel>();
             containerRegistry.RegisterForNavigation<QuizResultPage, QuizResultPageViewModel>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
+        }
+
+        private static void SetupDb(IUnityContainer container)
+        {
+            using (var db = container.Resolve<DatabaseContext>())
+            {
+
+                db.Database.EnsureCreated();
+                var connection = db.Database.GetDbConnection();
+                var names = connection.Query<string>(
+                    "SELECT name FROM sqlite_master WHERE type='table';");
+                if (names.Count() < 2)
+                {
+                    db.Database.EnsureDeleted();
+                    db.Database.EnsureCreated();
+                }
+            }
         }
 
         protected override void OnInitialized()
