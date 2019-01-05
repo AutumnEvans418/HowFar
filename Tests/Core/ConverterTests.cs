@@ -25,7 +25,8 @@ namespace Tests.Core
             connection.Open();
             var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
             context = new DatabaseContext(options);
-            context.Database.EnsureCreated();
+            Ext.CreateDatabase(context.Database.GetDbConnection());
+            //context.Database.EnsureCreated();
             fixture.Inject(context);
             fixture.Inject(fixture.Build<ObjectRepository>().OmitAutoProperties().Create() as IObjectRepository);
             model = fixture.Build<MeasureConverters>().OmitAutoProperties().Create();

@@ -2462,26 +2462,8 @@ namespace HowFarApp.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f02014b
-			public const int avd_hide_password_1 = 2130837835;
-			
-			// aapt resource value: 0x7f02014c
-			public const int avd_hide_password_2 = 2130837836;
-			
-			// aapt resource value: 0x7f02014d
-			public const int avd_hide_password_3 = 2130837837;
-			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
-			
-			// aapt resource value: 0x7f02014e
-			public const int avd_show_password_1 = 2130837838;
-			
-			// aapt resource value: 0x7f02014f
-			public const int avd_show_password_2 = 2130837839;
-			
-			// aapt resource value: 0x7f020150
-			public const int avd_show_password_3 = 2130837840;
 			
 			// aapt resource value: 0x7f020055
 			public const int block = 2130837589;

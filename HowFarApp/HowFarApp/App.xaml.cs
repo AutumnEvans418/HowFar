@@ -37,14 +37,10 @@ namespace HowFarApp
 
             try
             {
-                SetupDb(container);
-            }
-            catch (System.TypeInitializationException e)
-            {
-               var connection = new SqliteConnection("DataSource=:memory:");
-                connection.Open();
-                var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
-                container.RegisterType<DatabaseContext>(new InjectionConstructor(options));
+                //var connection = new SqliteConnection("DataSource=:memory:");
+                //connection.Open();
+                //var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
+                //container.RegisterType<DatabaseContext>(new InjectionConstructor(options));
                 SetupDb(container);
             }
             catch (Exception e)
@@ -81,18 +77,33 @@ namespace HowFarApp
 
         private static void SetupDb(IUnityContainer container)
         {
+           
             using (var db = container.Resolve<DatabaseContext>())
             {
+                try
+                {
+                    // db.Database.EnsureCreated();
+                    var connection = db.Database.GetDbConnection();
 
-                db.Database.EnsureCreated();
-                var connection = db.Database.GetDbConnection();
-                var names = connection.Query<string>(
-                    "SELECT name FROM sqlite_master WHERE type='table';");
-                if (names.Count() < 2)
+                    Ext.CreateDatabase(connection);
+
+                    db.ObjectMeasurements.FirstOrDefault();
+                    db.ObjectPacks.FirstOrDefault();
+                }
+                catch (Exception e)
                 {
                     db.Database.EnsureDeleted();
-                    db.Database.EnsureCreated();
+                    Console.WriteLine(e);
+                    throw;
                 }
+                //var connection = db.Database.GetDbConnection();
+                //var names = connection.Query<string>(
+                //    "SELECT name FROM sqlite_master WHERE type='table';");
+                //if (names.Count() < 2)
+                //{
+                //    db.Database.EnsureDeleted();
+                //    db.Database.EnsureCreated();
+                //}
             }
         }
 
