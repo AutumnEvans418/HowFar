@@ -15,6 +15,12 @@ namespace HowFarApp.Models
             await page.DisplayAlertAsync("ERROR", errors, "Ok");
         }
 
+        public static void DeleteDatabase(DbConnection connection)
+        {
+            connection.Execute("DROP TABLE IF EXISTS ObjectMeasurements;");
+            connection.Execute("DROP TABLE IF EXISTS ObjectPacks;");
+        }
+
         public static void CreateDatabase(DbConnection connection)
         {
             connection.Execute($"create table ObjectMeasurements(SingleName string primary key, Value float, Image string, PluralName string, ObjectPackName string, ParentMeasurementSingleName string)");

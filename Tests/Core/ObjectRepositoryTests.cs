@@ -39,6 +39,14 @@ namespace Tests.Core
         }
 
         [Test]
+        public void DeleteDatabase()
+        {
+            var db =this.context.Database.GetDbConnection();
+
+            Ext.DeleteDatabase(db);
+        }
+
+        [Test]
         public void RemoveMeasurement()
         {
             var packs = model.GetObjectMeasurements();
