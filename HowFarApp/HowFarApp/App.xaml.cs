@@ -80,13 +80,13 @@ namespace HowFarApp
            
             using (var db = container.Resolve<DatabaseContext>())
             {
-                var connection = db.Database.GetDbConnection();
+                //var connection = db.Database.GetDbConnection();
 
                 try
                 {
-                    // db.Database.EnsureCreated();
+                     db.Database.EnsureCreated();
 
-                    Ext.CreateDatabase(connection);
+                    //Ext.CreateDatabase(connection);
 
                     db.ObjectMeasurements.FirstOrDefault();
                     db.ObjectPacks.FirstOrDefault();
@@ -94,8 +94,8 @@ namespace HowFarApp
                 catch (Exception e)
                 {
                     
-                    Ext.DeleteDatabase(connection);
-                   // db.Database.EnsureDeleted();
+                    //Ext.DeleteDatabase(connection);
+                    db.Database.EnsureDeleted();
                     Console.WriteLine(e);
                     throw;
                 }
