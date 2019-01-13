@@ -8,17 +8,17 @@
              mvvm:ViewModelLocator.AutowireViewModel="True"
             Title="Object Manager"
              x:Class="HowFarApp.Views.ObjectManagerPage" x:DataType="viewModels:ObjectManagerPageViewModel">
-        <Grid  RowSpacing="10"
+    <Grid  RowSpacing="10"
                      Padding="20"
                      BackgroundColor="White" Margin="10">
-            <Grid.Resources>
-                
-            </Grid.Resources>
-            <Grid.RowDefinitions>
+        <Grid.Resources>
+
+        </Grid.Resources>
+        <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+        </Grid.RowDefinitions>
 
         <Image Source="Assets/block.png" Opacity=".5"></Image>
         <StackLayout Grid.Row="0">
@@ -65,37 +65,37 @@
 
         </StackLayout>
         <StackLayout Grid.Row="1">
-                <Label Text="Comparisons" Style="{DynamicResource H1}"></Label>
-                <ListView  WidthRequest="100" SelectionMode="None" ItemsSource="{Binding Manager.Comparisons}" HasUnevenRows="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="core:ObjectCompare">
-                            <ViewCell>
-                                <Label Text="{Binding Result}"></Label>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+            <Label Text="Comparisons" Style="{DynamicResource H1}"></Label>
+            <ListView  WidthRequest="100" SelectionMode="None" ItemsSource="{Binding Manager.Comparisons}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="core:ObjectCompare">
+                        <ViewCell>
+                            <Label Text="{Binding Result}"></Label>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
-           
-            <ScrollView Grid.Row="2" HorizontalScrollBarVisibility="Always" Orientation="Both">
-                <StackLayout>
-                    <Label Text="Converter" Style="{DynamicResource H1}"></Label>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="From:" WidthRequest="40" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
-                        <Entry Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
+
+        <ScrollView Grid.Row="2" HorizontalScrollBarVisibility="Always" Orientation="Both">
+            <StackLayout>
+                <Label Text="Converter" Style="{DynamicResource H1}"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="From:" WidthRequest="40" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+                    <Entry Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
                     <Picker x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
-                    </StackLayout>
+                </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="To:" VerticalOptions="Center" VerticalTextAlignment="Center" WidthRequest="35"></Label>
                     <Picker x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
                     <Label VerticalTextAlignment="Center" VerticalOptions="Center" Text="{Binding ConvertResult}" WidthRequest="150"></Label>
                     <Label Text="{Binding ToObject.PluralName}" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
-                   
+
                 </StackLayout>
             </StackLayout>
-            </ScrollView>
+        </ScrollView>
 
-            <Button Text="+"
+        <Button Text="+"
                     TextColor="White"
                     BackgroundColor="SkyBlue"
                     WidthRequest="40" 

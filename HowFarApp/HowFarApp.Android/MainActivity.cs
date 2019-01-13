@@ -17,18 +17,18 @@ using Environment = System.Environment;
 
 namespace HowFarApp.Droid
 {
-    //[Activity(Label = "Mobile App Name", Icon = "@drawable/icon", Theme = "@style/splashscreen", MainLauncher = true, NoHistory = true)]
-    //public class SplashActivity : AppCompatActivity
-    //{
-    //    protected override void OnResume()
-    //    {
-    //        base.OnResume();
-    //        StartActivity(typeof(MainActivity));
-    //    }
-    //}
+    [Activity(Label = "Mobile App Name", Icon = "@mipmap/icon", Theme = "@style/splashscreen", MainLauncher = true, NoHistory = true)]
+    public class SplashActivity : AppCompatActivity
+    {
+        protected override void OnResume()
+        {
+            base.OnResume();
+            StartActivity(typeof(MainActivity));
+        }
+    }
 
 
-    [Activity(Label = "HowFarApp", Icon = "@mipmap/icon", Theme = "@style/splashscreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "HowFarApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -53,9 +53,10 @@ namespace HowFarApp.Droid
             string dbPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.Personal),
                 "ormdemo.db3");
-          //  var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
+            //  var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
+            //base.SetTheme(Resource.Style.MainTheme);
+
             LoadApplication(new App(new Initializer(dbPath)));
-            base.SetTheme(Resource.Style.MainTheme);
             //StartPlayer("Assets/bensound-creativeminds.mp3");
         }
         //protected MediaPlayer player;
