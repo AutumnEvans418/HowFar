@@ -30,6 +30,16 @@ namespace HowFarApp
 
         public App(IPlatformInitializer platformInitializer):base(platformInitializer)
         {
+            AppDomain.CurrentDomain.UnhandledException += App_UnhandledExceptionHandler;
+        }
+
+        private void App_UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception ex)
+            {
+                Crashes.TrackError(ex);
+                App.Current.MainPage.DisplayAlert("ERROR", ex.Message + "\n" + ex.StackTrace, "Ok");
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
