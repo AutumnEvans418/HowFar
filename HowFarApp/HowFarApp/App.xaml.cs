@@ -63,7 +63,7 @@ namespace HowFarApp
             }
 
 
-            container.RegisterType<IObjectRepository, ObjectRepository>();
+            container.RegisterType<IObjectRepository, ObjectRepositoryEF>();
             container.RegisterSingleton<IMeasureConverters, MeasureConverters>();
             container.RegisterInstance(container.Resolve<MeasureConverters>());
             container.RegisterInstance(typeof(IQuizGenerator),

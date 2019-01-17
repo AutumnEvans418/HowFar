@@ -24,7 +24,7 @@ namespace Tests.Core
             var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
             var db = new DatabaseContext(options);
             db.Database.EnsureCreated();
-            fixture.Inject(new ObjectRepository(db) as IObjectRepository);
+            fixture.Inject(new ObjectRepositoryEF(db) as IObjectRepository);
             fixture.Inject(fixture.Build<MeasureConverters>().OmitAutoProperties().Create() as IMeasureConverters);
             fixture.Inject(fixture.Build<AnswerScorerPercent>().OmitAutoProperties().Create<AnswerScorerPercent>() as IAnswerScorer);
         }

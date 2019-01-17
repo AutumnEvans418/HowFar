@@ -28,7 +28,7 @@ namespace Tests.Core
             Ext.CreateDatabase(context.Database.GetDbConnection());
             //context.Database.EnsureCreated();
             fixture.Inject(context);
-            fixture.Inject(fixture.Build<ObjectRepository>().OmitAutoProperties().Create() as IObjectRepository);
+            fixture.Inject(fixture.Build<ObjectRepositoryEF>().OmitAutoProperties().Create() as IObjectRepository);
             model = fixture.Build<MeasureConverters>().OmitAutoProperties().Create();
         }
 
