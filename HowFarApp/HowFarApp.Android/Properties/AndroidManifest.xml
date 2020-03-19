@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.4" package="com.pittstate.howfar" android:installLocation="auto" android:versionCode="9">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:versionName="1.5" 
+          package="com.pittstate.howfar" 
+          android:installLocation="auto" 
+          android:versionCode="10"
+          android:usesCleartextTraffic="true" >
+  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
@@ -19,5 +24,7 @@
 	<permission android:name="com.pittstate.howfar.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
 	<application android:label="HowFar" android:icon="@drawable/block">
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC40Tpm1zyXPatlq0FO1I6qThA2KRsHVK4" />
-	</application>
+    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+  </application>
 </manifest>

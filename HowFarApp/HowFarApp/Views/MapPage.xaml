@@ -46,7 +46,7 @@
                         <Label Text="Start"></Label>
                         <Entry x:Name="StartEntry" Text="{Binding StartEntry}"></Entry>
                         <Label Text="End"></Label>
-                        <Entry x:Name="EndEntry" Text="{Binding EndEntry}"></Entry>
+                        <Entry x:Name="EndEntry" Text="{Binding EndEntry}" ></Entry>
                         <Button  Text="Compare!" Command="{Binding GoCommand}"></Button>
                     </StackLayout>
                 </Grid>

@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using HowFar.Core.Models;
 using HowFarApp.Models;
 using HowFarApp.ViewModels;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Unity;
 using Unity.Injection;
 using Unity.Resolution;
@@ -156,10 +154,10 @@ namespace HowFarApp.Views
 
     //    public OnOrientation()
     //    {
-           
+
     //    }
 
-        
+
 
     //    public static implicit operator T(OnOrientation<T> orientation)
     //    {
@@ -212,30 +210,24 @@ namespace HowFarApp.Views
 
         private async Task GetPermissions()
         {
-            if (CrossPermissions.IsSupported)
+            var status = await Xamarin.Essentials.Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            if (status != PermissionStatus.Granted)
             {
-                var perm = CrossPermissions.Current;
-                var status = await perm.CheckPermissionStatusAsync(Permission.Location);
-                if (status != PermissionStatus.Granted)
+                status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            }
+
+            if (status == PermissionStatus.Granted)
+            {
+                try
                 {
-                    var results = await perm.RequestPermissionsAsync(Permission.Location);
-                    if (results.ContainsKey(Permission.Location))
-                        status = results[Permission.Location];
+                    Map.MyLocationEnabled = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
                 }
 
-                if (status == PermissionStatus.Granted)
-                {
-                    try
-                    {
-                        Map.MyLocationEnabled = true;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
-
-                }
             }
         }
 
@@ -255,7 +247,7 @@ namespace HowFarApp.Views
                         Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(location.Latitude, location.Longitude),
                             Distance.FromMiles(1)));
                     }
-                  
+
                 }
             }
             //catch (FeatureNotSupportedException fnsEx)
@@ -272,8 +264,8 @@ namespace HowFarApp.Views
                 await DisplayAlert("Error", ex.Message, "Ok");
                 // Unable to get location
             }
-            
-           // Map.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(position, 3)));
+
+            // Map.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(position, 3)));
         }
 
         private void Map_OnMapLongClicked(object sender, MapLongClickedEventArgs e)
