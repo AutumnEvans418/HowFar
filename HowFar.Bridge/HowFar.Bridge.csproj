@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;BRIDGE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,11 +31,47 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;BRIDGE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\HowFar.Core\BindableBase.cs">
+      <Link>BindableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\AppModel.cs">
+      <Link>AppModel.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\Interfaces\IApp.cs">
+      <Link>IApp.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\Interfaces\IMeasureConverters.cs">
+      <Link>IMeasureConverters.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\Interfaces\IObjectMeasurement.cs">
+      <Link>IObjectMeasurement.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\Interfaces\IObjectRepository.cs">
+      <Link>IObjectRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\MeasureConverters.cs">
+      <Link>MeasureConverters.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\MeasurementCompare.cs">
+      <Link>MeasurementCompare.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\ObjectMeasurement.cs">
+      <Link>ObjectMeasurement.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\ObjectPack.cs">
+      <Link>ObjectPack.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\ObjectRepositoryCache.cs">
+      <Link>ObjectRepositoryCache.cs</Link>
+    </Compile>
+    <Compile Include="..\HowFar.Core\Models\ObjectRepositorySeeder.cs">
+      <Link>ObjectRepositorySeeder.cs</Link>
+    </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

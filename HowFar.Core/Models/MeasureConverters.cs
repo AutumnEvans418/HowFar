@@ -16,17 +16,29 @@ namespace HowFar.Core.Models
             UpdateList();
         }
 
-       
-       
 
+
+#if BRIDGE
+        private void UpdateList()
+        {
+            ObjectMeasurements = new List<ObjectMeasurement>(GetAll().OrderBy(p => p, new MeasurementCompare(this)));
+            ObjectPacks = new List<ObjectPack>(_repository.GetObjectPacks());
+        }
+        public List<ObjectPack> ObjectPacks { get; set; }
+        public List<ObjectMeasurement> ObjectMeasurements { get; set; }
+
+#else
         private void UpdateList()
         {
             ObjectMeasurements = new ObservableCollection<ObjectMeasurement>(GetAll().OrderBy(p => p, new MeasurementCompare(this)));
             ObjectPacks = new ObservableCollection<ObjectPack>(_repository.GetObjectPacks());
 
         }
-
         public ObservableCollection<ObjectPack> ObjectPacks { get; set; }
+        public ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
+
+#endif
+
 
         public double Convert(ObjectMeasurement @from, ObjectMeasurement to, double valueFrom = 1)
         {
@@ -97,7 +109,6 @@ namespace HowFar.Core.Models
             return null;
         }
 
-        public ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
 
         private List<ObjectMeasurement> GetAll()
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace HowFar.Core.Models
 {
@@ -7,7 +8,13 @@ namespace HowFar.Core.Models
         private string _packName;
         private string _description;
         private string _packImage;
-        public virtual ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; }
+
+#if BRIDGE
+        public virtual List<ObjectMeasurement> ObjectMeasurements { get; set; } = new List<ObjectMeasurement>();
+#else
+        public virtual ObservableCollection<ObjectMeasurement> ObjectMeasurements { get; set; } = new ObservableCollection<ObjectMeasurement>();
+
+#endif
         public override string ToString()
         {
             return PackName;
@@ -36,13 +43,12 @@ namespace HowFar.Core.Models
 
         public ObjectPack()
         {
-            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>();
+
         }
         public ObjectPack(string name,string description)
         {
             PackName = name;
             Description = description;
-            ObjectMeasurements = new ObservableCollection<ObjectMeasurement>();
             PackImage = "https://via.placeholder.com/150";
         }
     }

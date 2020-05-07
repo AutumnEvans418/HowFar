@@ -1,13 +1,23 @@
 ﻿using Bridge;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using HowFar.Core.Models;
 
 namespace HowFar.Bridge
 {
-    public class App
+    
+
+    public class App 
     {
         public static void Main()
         {
+
+            var converter = new MeasureConverters(new ObjectRepositoryCache(new AppModel()));
+
+            
+
             // Write a message to the Console
             //Console.WriteLine("Welcome to Bridge.NET");
 
@@ -23,5 +33,7 @@ namespace HowFar.Bridge
 
             // This application will then run in the browser.
         }
+
+      
     }
 }

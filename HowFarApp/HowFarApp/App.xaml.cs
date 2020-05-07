@@ -126,9 +126,7 @@ namespace HowFarApp
         protected override void OnInitialized()
         {
             AppCenter.Start("android=46b78faa-c161-49fa-8309-e0ab855f4905;" + "uwp=c1529d5e-180b-4bec-9a10-f528ecf7dd7a;", typeof(Analytics), typeof(Crashes));
-#if DEBUG
-            LiveReload.Init();
-#endif
+
             InitializeComponent();
 
             NavigationService.NavigateAsync("NavigationPage/MainMenuPage");

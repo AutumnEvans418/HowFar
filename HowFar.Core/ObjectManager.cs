@@ -1,63 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using HowFar.Core.Annotations;
 using HowFar.Core.Models;
 
 namespace HowFar.Core
 {
-    public class BindableBase : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void SetProperty<T>(ref T property, T value, Action action = null, [CallerMemberName] string name = null)
-        {
-            if (property?.Equals(value) != true)
-            {
-                property = value;
-                OnPropertyChanged(name);
-                action?.Invoke();
-            }
-
-        }
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public class ObjectMeasurementViewModel : BindableBase
-    {
-        private readonly Action<ObjectMeasurementViewModel> _selectedChanged;
-        private bool _selected;
-        public ObjectMeasurement ObjectMeasurement { get; set; }
-
-        public ObjectMeasurementViewModel(Action<ObjectMeasurementViewModel> selectedChanged)
-        {
-            _selectedChanged = selectedChanged;
-        }
-        public bool Selected
-        {
-            get => _selected;
-            set => SetProperty(ref _selected, value, () => _selectedChanged(this));
-        }
-
-
-    }
-    public class ObjectCompare
-    {
-        public ObjectMeasurement From { get; set; }
-        public ObjectMeasurement To { get; set; }
-        public double ToQty { get; set; }
-        public string Result => $"A {From.SingleName} is {ToQty:N} {To.PluralName}";
-        public override string ToString()
-        {
-            return Result;
-        }
-    }
     public class ObjectManager : BindableBase, IObjectManager
     {
         private ObservableCollection<ObjectMeasurementViewModel> _objectMeasurementViewModels;
