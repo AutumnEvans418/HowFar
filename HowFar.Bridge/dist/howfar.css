@@ -1,4 +1,36 @@
-﻿body {
-    background-color: gray;
-    color: white;
+﻿
+:root {
+    --whiteText: #d8d8d8;
+    --tanText: #ffefc8;
+    --grayBackground: #323639;
+    --grayBackgroundTran: rgba(50, 54, 57, 0.691);
+    --orangeText: #e29236;
+    --blackBackground: #302f2f;
+}
+
+select {
+    padding: 5px;
+}
+
+.chosen-container {
+    color: var(--orangeText);
+}
+
+body {
+    background-color: var(--blackBackground);
+    color: var(--tanText);
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+
+.vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
 }
