@@ -15,8 +15,8 @@
     <script src="newtonsoft.json.js"></script>
     <script src="HowFar.Bridge.js"></script>
     <script src="HowFar.Bridge.meta.js"></script>
-    <link rel="stylesheet" href="docsupport/style.css">
-    <link rel="stylesheet" href="docsupport/prism.css">
+    <!--<link rel="stylesheet" href="docsupport/style.css">-->
+    <!--<link rel="stylesheet" href="docsupport/prism.css">-->
     <link rel="stylesheet" href="chosen.css">
     <link href="howfar.css" rel="stylesheet" />
 </head>
@@ -34,10 +34,10 @@
                 <div class="col text-center">
                     <p>
                         How many
-                        <select id="exampleFormControlSelect1" class="choose"><option>Pencils</option></select>
+                        <select id="from" class="choose"><option>Pencils</option></select>
                         can go into
-                        <input type="number" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex. 12">
-                        <select id="exampleFormControlSelect1" class="choose">
+                        <input type="number" id="num" aria-describedby="emailHelp" placeholder="ex. 12">
+                        <select id="to" class="choose">
                             <option>Earths</option>
                             <option>Earths</option>
                             <option>Earths</option>
@@ -48,17 +48,20 @@
 
             <div class="row ">
                 <div class="col text-center">
-                    <h1>12 Pencils = 0.0000001 Earths</h1>
+                    <h1 id="answer">12 Pencils = 0.0000001 Earths</h1>
                 </div>
             </div>
         </div>
 
 </div>
 <script src="chosen.jquery.js" type="text/javascript"></script>
-<script src="docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
-<script src="docsupport/init.js" type="text/javascript" charset="utf-8"></script>
-    <script>
+<!--<script src="docsupport/prism.js" type="text/javascript" charset="utf-8"></script>-->
+<!--<script src="docsupport/init.js" type="text/javascript" charset="utf-8"></script>-->
+<script>
+    var choose = function() {
         $('.choose').chosen();
-    </script>
+    }
+    
+</script>
 </body>
 </html>

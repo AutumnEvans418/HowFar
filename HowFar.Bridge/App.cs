@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bridge.Html5;
 using HowFar.Core.Models;
 
 namespace HowFar.Bridge
@@ -11,6 +12,11 @@ namespace HowFar.Bridge
 
     public class App 
     {
+       static  HTMLElement from = Document.GetElementById("from");
+       static  HTMLElement to = Document.GetElementById("to");
+       static  HTMLElement num = Document.GetElementById("num");
+       static  HTMLElement answer = Document.GetElementById("answer");
+
         public static void Main()
         {
 
@@ -18,20 +24,20 @@ namespace HowFar.Bridge
 
             
 
-            // Write a message to the Console
-            //Console.WriteLine("Welcome to Bridge.NET");
+            converter.ObjectMeasurements.ForEach(p =>
+                {
+                    from.AppendChild(new HTMLOptionElement() {Text = p.PluralName});
+                    to.AppendChild(new HTMLOptionElement(){Text = p.PluralName});
+                });
 
-            // After building (Ctrl + Shift + B) this project, 
-            // browse to the /bin/Debug or /bin/Release folder.
+            from.OnChange = e =>
+            {
+                
+            };
 
-            // A new bridge/ folder has been created and
-            // contains your projects JavaScript files. 
+            Script.Call("choose");
 
-            // Open the bridge/index.html file in a browser by
-            // Right-Click > Open With..., then choose a
-            // web browser from the list
 
-            // This application will then run in the browser.
         }
 
       

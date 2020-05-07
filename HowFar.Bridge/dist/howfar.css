@@ -12,8 +12,13 @@ select {
     padding: 5px;
 }
 
-.chosen-container {
+a:not([href]):hover {
     color: var(--orangeText);
+}
+
+.chosen-container-single .chosen-single {
+    color: var(--orangeText);
+    background-color: var(--blackBackground);
 }
 
 body {
