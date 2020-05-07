@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2047
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowFarApp", "HowFarApp\HowFarApp\HowFarApp.csproj", "{7B9B32DF-233B-44C9-B4FA-235A49B0BCF7}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowFar.Core", "HowFar.Core\HowFar.Core.csproj", "{3388B70A-141D-443F-9CEB-88F3A9C09A97}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{18E213F3-D55B-439A-BEA4-7F54E1BDD77D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowFar.Bridge", "HowFar.Bridge\HowFar.Bridge.csproj", "{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,22 @@ Global
 		{18E213F3-D55B-439A-BEA4-7F54E1BDD77D}.Release|x64.Build.0 = Release|Any CPU
 		{18E213F3-D55B-439A-BEA4-7F54E1BDD77D}.Release|x86.ActiveCfg = Release|Any CPU
 		{18E213F3-D55B-439A-BEA4-7F54E1BDD77D}.Release|x86.Build.0 = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|x64.Build.0 = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|ARM.Build.0 = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|x64.ActiveCfg = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|x64.Build.0 = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{A36BEEE3-62E9-482A-BF81-F476CF8ED2FC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
