@@ -1,4 +1,5 @@
-﻿using Bridge.Html5;
+﻿using System;
+using Bridge.Html5;
 using Newtonsoft.Json;
 
 namespace HowFar.Core.Models
@@ -15,7 +16,7 @@ namespace HowFar.Core.Models
             if (Window.LocalStorage == null) return;
 
             var str = JsonConvert.SerializeObject(obj);
-
+            //Console.WriteLine($"cached updated {key}");
             Window.LocalStorage.SetItem(key, str);
         }
 
@@ -26,7 +27,7 @@ namespace HowFar.Core.Models
             return Window.LocalStorage.GetItem(key) != null;
         }
 
-        public T Get<T>(string key)
+        public T Get<T>(string key) where T : class
         {
             if (Window.LocalStorage == null) 
                 return default(T);

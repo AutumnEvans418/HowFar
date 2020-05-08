@@ -10,7 +10,7 @@ namespace HowFar.Core.Models
         private readonly List<ObjectMeasurement> measurements;
         private readonly List<ObjectPack> packs;
 
-        T GetKey<T>(string key)
+        T GetKey<T>(string key) where T : class
         {
             if (_app.Properties.ContainsKey(key))
             {
@@ -44,10 +44,15 @@ namespace HowFar.Core.Models
         }
         async void SaveChanges()
         {
+            if(!ShouldSave)
+                return;
+            
             InsertKey(ObjectKey, measurements);
             InsertKey(PackKey, packs);
             await _app.SavePropertiesAsync();
         }
+
+        public bool ShouldSave { get; set; } = true;
 
         public ObjectMeasurement GetObjectMeasurement(string name)
         {

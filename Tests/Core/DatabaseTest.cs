@@ -43,7 +43,7 @@ namespace Tests.Core
 
             var count = db.ObjectMeasurements.Count();
             Assert.AreEqual(2, count);
-            var first = db.ObjectMeasurements.Last();
+            var first = db.ObjectMeasurements.ToList().Last();
             Assert.NotNull(first.Measurement);
         }
 

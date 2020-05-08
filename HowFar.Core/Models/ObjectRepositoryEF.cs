@@ -17,7 +17,7 @@ namespace HowFar.Core.Models
         }
 
 
-        
+
 
         public void UpdatePack(string pack, ObjectMeasurement newObject)
         {
@@ -35,8 +35,14 @@ namespace HowFar.Core.Models
                 throw new InvalidOperationException($"package '{pack}' must exist first");
             }
 
-            db.SaveChanges();
+            Save();
 
+        }
+
+        private void Save()
+        {
+            if (ShouldSave)
+                db.SaveChanges();
         }
 
         public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurementStr, string pack = "Custom")
@@ -45,7 +51,7 @@ namespace HowFar.Core.Models
 
         }
 
-      
+
 
         public ObjectMeasurement NewObject(string pluralName, string singleName,
             double value, ObjectMeasurement measurement, string pack = "Custom")
@@ -54,6 +60,7 @@ namespace HowFar.Core.Models
         }
 
 
+        public bool ShouldSave { get; set; } = true;
 
         public ObjectMeasurement GetObjectMeasurement(string name)
         {
@@ -62,23 +69,23 @@ namespace HowFar.Core.Models
         }
 
 
-      
+
         public IEnumerable<ObjectMeasurement> GetObjectMeasurements()
         {
-            var data = db.ObjectMeasurements.ToList();
+            var data = db.ObjectMeasurements.ToList().Union(db.ObjectMeasurements.Local).ToList();
             return ObjectRepositorySeeder.SetupTree(data);
         }
 
         public void AddObject(ObjectMeasurement measurement)
         {
             db.ObjectMeasurements.Add(measurement);
-            db.SaveChanges();
+            Save();
         }
 
         public void RemoveObject(ObjectMeasurement measurement)
         {
             db.ObjectMeasurements.Remove(measurement);
-            db.SaveChanges();
+            Save();
         }
 
 
@@ -91,19 +98,19 @@ namespace HowFar.Core.Models
         public void AddPack(ObjectPack pack)
         {
             db.ObjectPacks.Add(pack);
-            db.SaveChanges();
+            Save();
         }
 
         public void RemovePack(ObjectPack pack)
         {
             db.ObjectPacks.Remove(pack);
-            db.SaveChanges();
+            Save();
         }
 
         public void UpdateObject(ObjectMeasurement selectedObject)
         {
             db.ObjectMeasurements.Update(selectedObject);
-            db.SaveChanges();
+            Save();
         }
 
         public void Dispose()

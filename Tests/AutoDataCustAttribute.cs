@@ -4,14 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.NUnit3;
+using HowFar.Core;
 using HowFar.Core.Models;
 using NUnit.Framework;
 
 namespace Tests
 {
+  
+
     public class AppModel : IApp
     {
-        public IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
+        public IProperties Properties { get; } = new Properties(new Dictionary<string, object>());
+
         public async Task SavePropertiesAsync()
         {
 

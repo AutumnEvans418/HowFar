@@ -12,6 +12,7 @@ namespace HowFar.Core.Models
 
         public static void Startup(IObjectRepository repository)
         {
+            repository.ShouldSave = false;
 #if BRIDGE
             var objectPacks = new List<ObjectPack>();
 #else
@@ -48,6 +49,8 @@ namespace HowFar.Core.Models
             var lightyear = repository.NewObject("Lightyears", "Lightyear", 5878625000000, mile, Space);
 
             var alpha = repository.NewObject("Distance from Earth to Alpha Centauri", "Distance from Earth to Alpha Centauri", 4.4, lightyear, Space);
+
+            repository.ShouldSave = true;
             var pico = repository.NewObject("Picometers", "Picometer", 0.001, nanoMeter, Metric);
         }
 

@@ -31,6 +31,7 @@ namespace HowFarApp
         public App(IPlatformInitializer platformInitializer):base(platformInitializer)
         {
             AppDomain.CurrentDomain.UnhandledException += App_UnhandledExceptionHandler;
+            Properties = new Properties(base.Properties);
         }
 
         private void App_UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
@@ -150,5 +151,9 @@ namespace HowFarApp
         //}
 
         // public Func<IDatabase> Database { get; set; }
+        public IProperties Properties { get; }
     }
+
+
+
 }

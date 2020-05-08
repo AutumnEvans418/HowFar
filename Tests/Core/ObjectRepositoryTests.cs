@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using HowFar.Core;
 using HowFar.Core.Models;
 using HowFarApp.Models;
 using Microsoft.Data.Sqlite;
@@ -31,9 +32,8 @@ namespace Tests.Core
             Ext.CreateDatabase(context.Database.GetDbConnection());
 
             var app = fixture.Freeze<Mock<IApp>>();
-            var dict = new Dictionary<string, object>();
 
-            app.Setup(p => p.Properties).Returns(dict);
+            app.Setup(p => p.Properties).Returns(new Properties(new Dictionary<string, object>()));
             //context.Database.EnsureCreated();
             fixture.Inject(context);
             model = fixture.Build<T>().OmitAutoProperties().Create();

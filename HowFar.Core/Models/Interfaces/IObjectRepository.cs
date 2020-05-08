@@ -5,6 +5,7 @@ namespace HowFar.Core.Models
 {
     public interface IObjectRepository : IDisposable
     {
+        bool ShouldSave { get; set; }
         ObjectMeasurement GetObjectMeasurement(string name);
         IEnumerable<ObjectMeasurement> GetObjectMeasurements();
         void AddObject(ObjectMeasurement measurement);

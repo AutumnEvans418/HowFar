@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace HowFar.Core.Models
 {
@@ -27,7 +28,7 @@ namespace HowFar.Core.Models
             get => _parentMeasurementSingleName;
             set => SetProperty(ref _parentMeasurementSingleName,value);
         }
-
+        [JsonIgnore]
         public virtual ObjectMeasurement Measurement
         {
             get => _measurement;
@@ -72,7 +73,7 @@ namespace HowFar.Core.Models
             obj.Measurement = this;
             ObjectMeasurements.Add(obj);
         }
-
+        [JsonIgnore]
         public virtual List<ObjectMeasurement> ObjectMeasurements
         {
             get => _objectMeasurements;
@@ -84,7 +85,7 @@ namespace HowFar.Core.Models
             get => _singleName;
             set => SetProperty(ref _singleName,value);
         }
-
+        [JsonIgnore]
         public ObjectPack ObjectPack
         {
             get => _objectPack;

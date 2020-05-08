@@ -9,7 +9,7 @@ namespace HowFar.Core.Models
         bool ContainsKey(string key);
         //object this[string index] { get; set; }
 
-        T Get<T>(string key);
+        T Get<T>(string key) where T : class;
 
         void Set(string key, object obj);
 
