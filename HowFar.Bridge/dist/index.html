@@ -19,6 +19,7 @@
     <!--<link rel="stylesheet" href="docsupport/prism.css">-->
     <link rel="stylesheet" href="chosen.css">
     <link href="howfar.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body>
     <div class="vertical-center">
@@ -43,24 +44,28 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col text-center">
-                    <button id="reverse">Reverse</button>
+            <div class="row text-center btn-group">
+                <div class="col ">
+                    <button id="reverse" class="btn">Reverse</button>
+                </div>
+                <div class="col">
+                    <button id="random" class="btn">Random</button>
                 </div>
             </div>
-            <div class="row ">
+            <div class="row md-space">
                 <div class="col text-center">
                     <h1 id="answer">12 Pencils = 0.0000001 Earths</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row lg-space">
                 <div class="col text-center">
                     <div class="form-group">
+                        <h3>Add your own</h3>
                         <input id="add_name" placeholder="plural name" class="form-control" type="text"/>
-                        <input id="add_num" placeholder="number of units" class="form-control" type="number" />
-                        <label for="add_unit" class="form-control">Units</label>
+                        <input id="add_num" placeholder="number of units" class="form-control" type="number"/>
+                        <label for="add_unit">Units</label>
                         <select id="add_unit" class="choose"></select>
-                        <button id="add_btn" class="form-control">Add</button>
+                        <button id="add_btn" class="btn">Add</button>
                     </div>
                 </div>
             </div>
@@ -76,6 +81,29 @@
     }
     var update = function() {
         $('.choose').trigger('chosen:updated');
+    }
+
+    function numberWithCommas(x) {
+        x = toFixed(x);
+        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function toFixed(x) {
+        if (Math.abs(x) < 1.0) {
+            var e = parseInt(x.toString().split('e-')[1]);
+            if (e) {
+                x *= Math.pow(10,e-1);
+                x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+            }
+        } else {
+            var e = parseInt(x.toString().split('+')[1]);
+            if (e > 20) {
+                e -= 20;
+                x /= Math.pow(10,e);
+                x += (new Array(e+1)).join('0');
+            }
+        }
+        return x;
     }
     
 </script>

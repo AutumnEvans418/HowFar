@@ -12,9 +12,9 @@ namespace HowFar.Core.Models
 
         T GetKey<T>(string key)
         {
-            if (_app.Properties.ContainsKey(key) && _app.Properties[key] is T data)
+            if (_app.Properties.ContainsKey(key))
             {
-                return data;
+                return _app.Properties.Get<T>(key);
             }
             return default(T);
         }
@@ -24,7 +24,8 @@ namespace HowFar.Core.Models
             _app = app;
             measurements = GetKey<List<ObjectMeasurement>>(ObjectKey) ?? new List<ObjectMeasurement>();
             packs = GetKey<List<ObjectPack>>(PackKey) ?? new List<ObjectPack>();
-            ObjectRepositorySeeder.Startup(this);
+            if (!measurements.Any())
+                ObjectRepositorySeeder.Startup(this);
         }
         public void Dispose()
         {
@@ -34,11 +35,11 @@ namespace HowFar.Core.Models
         {
             if (_app.Properties.ContainsKey(key))
             {
-                _app.Properties[key] = data;
+                _app.Properties.Set(key,data);
             }
             else
             {
-                _app.Properties.Add(key,data);
+                _app.Properties.Add(key, data);
             }
         }
         async void SaveChanges()
@@ -47,7 +48,7 @@ namespace HowFar.Core.Models
             InsertKey(PackKey, packs);
             await _app.SavePropertiesAsync();
         }
-       
+
         public ObjectMeasurement GetObjectMeasurement(string name)
         {
             var data = GetObjectMeasurements();
@@ -62,7 +63,7 @@ namespace HowFar.Core.Models
         }
         public void AddObject(ObjectMeasurement measurement)
         {
-            if (measurement.ObjectPackName== null)
+            if (measurement.ObjectPackName == null)
                 throw new InvalidOperationException("must have a pack name");
 
             if (measurement.ParentMeasurementSingleName == null && measurement.Measurement != null)
@@ -100,7 +101,7 @@ namespace HowFar.Core.Models
         {
             packs.Add(pack);
             SaveChanges();
-            
+
         }
 
         public void RemovePack(ObjectPack pack)

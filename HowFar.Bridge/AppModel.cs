@@ -3,37 +3,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bridge;
 using Bridge.Html5;
+using HowFar.Bridge;
 
 namespace HowFar.Core.Models
 {
-    public class AddModel
-    {
-        private HTMLInputElement name;
-        private HTMLInputElement quantity;
-        private HTMLSelectElement unit;
-        private HTMLElement btn;
-        public AddModel(IMeasureConverters converters, Action<ObjectMeasurement> onAdd)
-        {
-            name = Document.GetElementById<HTMLInputElement>("add_name");
-            quantity = Document.GetElementById<HTMLInputElement>("add_num");
-            unit = Document.GetElementById<HTMLSelectElement>("add_unit");
-            btn = Document.GetElementById("add_btn");
-
-            converters.ObjectMeasurements.ForEach(p => unit.AppendChild(new HTMLOptionElement() { Text = p.PluralName }));
-            Script.Call("update");
-            btn.OnClick = e =>
-            {
-                var result = converters.NewObject(name.Value, name.Value, quantity.ValueAsNumber, unit.Value);
-                name.Value = "";
-                quantity.Value = "";
-                
-                onAdd(result);
-            };
-        }
-    }
-
     public class AppModel : IApp
     {
+        HTMLSelectElement fromSelect = Document.GetElementById<HTMLSelectElement>("from");
+        HTMLSelectElement toSelect = Document.GetElementById<HTMLSelectElement>("to");
+        HTMLInputElement num = Document.GetElementById<HTMLInputElement>("num");
+        HTMLElement answer = Document.GetElementById("answer");
+        private HTMLElement reversebtn = Document.GetElementById("reverse");
+        MeasureConverters converter;
+        private HTMLElement randombtn = Document.GetElementById("random");
+        Random random = new Random();
         public AppModel()
         {
             converter = new MeasureConverters(new ObjectRepositoryCache(this));
@@ -45,6 +28,9 @@ namespace HowFar.Core.Models
 
             fromSelect.OnChange = e => Convert();
             toSelect.OnChange = e => Convert();
+
+            if (randombtn != null)
+                randombtn.OnClick = e => Random();
 
             if (reversebtn != null)
                 reversebtn.OnClick = e =>
@@ -60,10 +46,10 @@ namespace HowFar.Core.Models
             num.OnKeyDown = e => Convert();
             num.OnMouseUp = e => Convert();
             Script.Call("choose");
-            Convert();
+            Random();
             var add = new AddModel(converter, p =>
             {
-                var f = new HTMLOptionElement() {Text = p.PluralName};
+                var f = new HTMLOptionElement() { Text = p.PluralName };
                 fromSelect.AppendChild(f);
                 toSelect.AppendChild(new HTMLOptionElement() { Text = p.PluralName });
 
@@ -72,26 +58,28 @@ namespace HowFar.Core.Models
                 Convert();
             });
         }
-        HTMLSelectElement fromSelect = Document.GetElementById<HTMLSelectElement>("from");
-        HTMLSelectElement toSelect = Document.GetElementById<HTMLSelectElement>("to");
-        HTMLInputElement num = Document.GetElementById<HTMLInputElement>("num");
 
-        HTMLElement answer = Document.GetElementById("answer");
+        private void Random()
+        {
+            var count = fromSelect.Options.Length;
 
-        private HTMLElement reversebtn = Document.GetElementById("reverse");
+            fromSelect.SelectedIndex = random.Next(0, count - 1);
+            toSelect.SelectedIndex = random.Next(0, count - 1);
+            Script.Call("update");
+            Convert();
+        }
 
-        MeasureConverters converter;
         void Convert()
         {
             if (double.TryParse(num.Value, out var n))
             {
                 var result = converter.Convert(fromSelect.Value, toSelect.Value, n);
 
-                answer.TextContent = $"1 {fromSelect.Value} = {result} {toSelect.Value}";
+                answer.TextContent = $"1 {fromSelect.Value} = {App.NumberFormat(result)} {toSelect.Value}";
             }
         }
 
-        public IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
+        public IProperties Properties { get; } = new Properties();
         public async Task SavePropertiesAsync()
         {
 

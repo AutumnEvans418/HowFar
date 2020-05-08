@@ -14,7 +14,10 @@ namespace HowFar.Bridge
 
     public class App 
     {
-      
+        public static string NumberFormat(double x)
+        {
+            return Script.Call<string>("numberWithCommas", x);
+        }
 
         public static void Main()
         {

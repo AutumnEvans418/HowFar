@@ -4,10 +4,22 @@ using System.Threading.Tasks;
 
 namespace HowFar.Core.Models
 {
+    public interface IProperties
+    {
+        bool ContainsKey(string key);
+        //object this[string index] { get; set; }
+
+        T Get<T>(string key);
+
+        void Set(string key, object obj);
+
+        void Add(string key, object obj);
+    }
     public interface IApp
     {
         //Func<IDatabase> Database { get; }
-        IDictionary<string,object> Properties { get; }
+        IProperties Properties { get; }
         Task SavePropertiesAsync();
+        
     }
 }

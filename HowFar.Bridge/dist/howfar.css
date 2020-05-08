@@ -34,8 +34,64 @@ a:not([href]):hover {
     width: 100%;
 }
 
+
+p {
+    word-wrap: break-word;
+}
+
+.md-space {
+    margin-top: 10%;
+}
+
+.lg-space {
+    margin-top: 20%;
+}
+
+
+
+.form-control {
+    width: 50%;
+    text-align: center;
+    margin: 1em auto 1em auto;
+    background-color: var(--blackBackground);
+    color: var(--tanText);
+    border-color: var(--orangeText);
+}
+
+.form-control:hover {
+    background-color: var(--blackBackground);
+    color: var(--orangeText);
+}
+
+.btn-group {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .form-control {
+        width: 100%;
+    }
+
+    .btn-group {
+        width: 100%;
+    }
+}
+
 input {
     width: 3.5em;
+    margin: 1em;
+}
+
+.btn {
+    background-color: var(--blackBackground);
+    color: var(--orangeText);
+    border-style: solid;
+    border-color: var(--orangeText);
+}
+
+.btn:hover {
+    background-color: var(--orangeText);
+    color: var(--blackBackground);
 }
 
 body {

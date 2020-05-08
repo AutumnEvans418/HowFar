@@ -69,8 +69,10 @@
     <Compile Include="..\HowFar.Core\Models\ObjectRepositorySeeder.cs">
       <Link>ObjectRepositorySeeder.cs</Link>
     </Compile>
+    <Compile Include="AddModel.cs" />
     <Compile Include="App.cs" />
     <Compile Include="AppModel.cs" />
+    <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
