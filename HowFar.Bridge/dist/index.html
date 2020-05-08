@@ -34,18 +34,20 @@
                 <div class="col text-center">
                     <p>
                         How many
-                        <select id="from" class="choose"><option>Pencils</option></select>
+                        <select id="from" class="choose"></select>
                         can go into
-                        <input type="number" id="num" aria-describedby="emailHelp" placeholder="ex. 12">
+                        <input type="number" id="num" aria-describedby="emailHelp" placeholder="ex. 12" value="1">
                         <select id="to" class="choose">
-                            <option>Earths</option>
-                            <option>Earths</option>
-                            <option>Earths</option>
+                          
                         </select>?
                     </p>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col text-center">
+                    <button id="reverse">Reverse</button>
+                </div>
+            </div>
             <div class="row ">
                 <div class="col text-center">
                     <h1 id="answer">12 Pencils = 0.0000001 Earths</h1>
@@ -60,6 +62,9 @@
 <script>
     var choose = function() {
         $('.choose').chosen();
+    }
+    var update = function() {
+        $('.choose').trigger('chosen:updated');
     }
     
 </script>

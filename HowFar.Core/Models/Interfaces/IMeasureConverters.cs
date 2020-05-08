@@ -15,7 +15,7 @@ namespace HowFar.Core.Models
         ObservableCollection<ObjectPack> ObjectPacks { get; set; }
 #endif
 
-        double Convert(ObjectMeasurement from, ObjectMeasurement to, double valueFrom = 1);
+        double Convert(ObjectMeasurement fromMeasurement, ObjectMeasurement to, double valueFrom = 1);
         double Convert(string nameFrom, string nameTo, double valueFrom = 1);
 
         void NewPack(ObjectPack pack);

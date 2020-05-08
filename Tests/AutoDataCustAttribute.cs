@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.NUnit3;
 using HowFar.Core.Models;
@@ -7,6 +9,14 @@ using NUnit.Framework;
 
 namespace Tests
 {
+    public class AppModel : IApp
+    {
+        public IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
+        public async Task SavePropertiesAsync()
+        {
+
+        }
+    }
     [TestFixture]
     public class BridgeTests
     {

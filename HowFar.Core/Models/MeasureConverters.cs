@@ -40,36 +40,36 @@ namespace HowFar.Core.Models
 #endif
 
 
-        public double Convert(ObjectMeasurement @from, ObjectMeasurement to, double valueFrom = 1)
+        public double Convert(ObjectMeasurement fromMeasurement, ObjectMeasurement to, double valueFrom = 1)
         {
-            if(from == null) throw new ArgumentNullException("'from' cannot be null");
+            if(fromMeasurement == null) throw new ArgumentNullException("'from' cannot be null");
             if (to == null) throw new ArgumentNullException("'to' cannot be null");
-            return Convert(from.PluralName, to.PluralName, valueFrom);
+            return Convert(fromMeasurement.PluralName, to.PluralName, valueFrom);
         }
 
         public double Convert(string nameFrom, string nameTo, double valueFrom = 1)
         {
 
-            var from = Find(nameFrom);
+            var fromMeasurement = Find(nameFrom);
             var to = Find(nameTo);
-            if (to == from)
+            if (to == fromMeasurement)
             {
                 return valueFrom;
             }
-            return valueFrom * Calculate(from, to) ?? 0;
+            return valueFrom * Calculate(fromMeasurement, to) ?? 0;
         }
        
-        private double? Calculate(ObjectMeasurement @from, ObjectMeasurement to, double value = 1)
+        private double? Calculate(ObjectMeasurement fromMeasurement, ObjectMeasurement to, double value = 1)
         {
-            if (from.ParentMeasurementSingleName != null)
+            if (fromMeasurement.ParentMeasurementSingleName != null)
             {
-                if (from.ParentMeasurementSingleName == to.SingleName)
+                if (fromMeasurement.ParentMeasurementSingleName == to.SingleName)
                 {
-                    return from.Value * value;
+                    return fromMeasurement.Value * value;
                 }
                 else
                 {
-                    var up = Calculate(from.Measurement, to, from.Value * value);
+                    var up = Calculate(fromMeasurement.Measurement, to, fromMeasurement.Value * value);
                     if (up != null)
                     {
                         return up;
@@ -78,14 +78,14 @@ namespace HowFar.Core.Models
             }
             else
             {
-                return GoDown(from, to, value);
+                return GoDown(fromMeasurement, to, value);
             }
             return null;
         }
 
-        private double? GoDown(ObjectMeasurement from, ObjectMeasurement to, double value)
+        private double? GoDown(ObjectMeasurement fromMeasurement, ObjectMeasurement to, double value)
         {
-            var children = from.ObjectMeasurements;
+            var children = fromMeasurement.ObjectMeasurements;
             //if (children.Any() != true)
             //{
             //    children = Find(from.SingleName).ObjectMeasurements;

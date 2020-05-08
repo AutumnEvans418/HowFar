@@ -39,9 +39,6 @@
     <Compile Include="..\HowFar.Core\BindableBase.cs">
       <Link>BindableBase.cs</Link>
     </Compile>
-    <Compile Include="..\HowFar.Core\Models\AppModel.cs">
-      <Link>AppModel.cs</Link>
-    </Compile>
     <Compile Include="..\HowFar.Core\Models\Interfaces\IApp.cs">
       <Link>IApp.cs</Link>
     </Compile>
@@ -73,6 +70,7 @@
       <Link>ObjectRepositorySeeder.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
+    <Compile Include="AppModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
