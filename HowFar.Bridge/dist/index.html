@@ -36,7 +36,7 @@
                         How many
                         <select id="from" class="choose"></select>
                         can go into
-                        <input type="number" id="num" aria-describedby="emailHelp" placeholder="ex. 12" value="1">
+                        <input type="number" size="3" id="num" aria-describedby="emailHelp" placeholder="ex. 12" value="1">
                         <select id="to" class="choose">
                           
                         </select>?
@@ -53,6 +53,17 @@
                     <h1 id="answer">12 Pencils = 0.0000001 Earths</h1>
                 </div>
             </div>
+            <div class="row">
+                <div class="col text-center">
+                    <div class="form-group">
+                        <input id="add_name" placeholder="plural name" class="form-control" type="text"/>
+                        <input id="add_num" placeholder="number of units" class="form-control" type="number" />
+                        <label for="add_unit" class="form-control">Units</label>
+                        <select id="add_unit" class="choose"></select>
+                        <button id="add_btn" class="form-control">Add</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
 </div>
@@ -61,7 +72,7 @@
 <!--<script src="docsupport/init.js" type="text/javascript" charset="utf-8"></script>-->
 <script>
     var choose = function() {
-        $('.choose').chosen();
+        $('.choose').chosen({ width: "auto"});
     }
     var update = function() {
         $('.choose').trigger('chosen:updated');

@@ -8,6 +8,18 @@
     --blackBackground: #302f2f;
 }
 
+.choose {
+    width: auto;
+}
+
+.chosen-with-drop {
+    width: 100%;
+}
+
+.chosen-container {
+    width: 100%;
+}
+
 select {
     padding: 5px;
 }
@@ -19,6 +31,11 @@ a:not([href]):hover {
 .chosen-container-single .chosen-single {
     color: var(--orangeText);
     background-color: var(--blackBackground);
+    width: 100%;
+}
+
+input {
+    width: 3.5em;
 }
 
 body {
