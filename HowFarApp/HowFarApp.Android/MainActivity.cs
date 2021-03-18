@@ -50,27 +50,8 @@ namespace HowFarApp.Droid
             string dbPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.Personal),
                 "ormdemo.db3");
-            //  var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "exrin.db");
-            //base.SetTheme(Resource.Style.MainTheme);
-
             LoadApplication(new App(new Initializer(dbPath)));
-            //StartPlayer("Assets/bensound-creativeminds.mp3");
         }
-        //protected MediaPlayer player;
-        //public void StartPlayer(String filepath)
-        //{
-        //    if (player == null)
-        //    {
-        //        player = new MediaPlayer();
-        //    }
-        //    else
-        //    {
-        //        player.Reset();
-        //        player.SetDataSource(filepath);
-        //        player.Prepare();
-        //        player.Start();
-        //    }
-        //}
     }
     public class Initializer: IPlatformInitializer
     {

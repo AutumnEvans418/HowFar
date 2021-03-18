@@ -86,6 +86,8 @@
     <FlyoutItem Title="Practice Quizzes" Icon="Assets/Pencil.png">
         <ShellContent Route="QuizzesPage" ContentTemplate="{DataTemplate local:QuizzesPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Compare Objects" Icon="Assets/block.png">
+        <ShellContent Route="ComparePage" ContentTemplate="{DataTemplate local:ComparePage}" />
+    </FlyoutItem>
 
-    
 </Shell>
