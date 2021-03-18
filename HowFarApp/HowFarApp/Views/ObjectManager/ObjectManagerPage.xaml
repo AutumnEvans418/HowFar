@@ -20,7 +20,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image Source="Assets/block.png" Opacity=".5"></Image>
+        <!--<Image Source="Assets/block.png" Opacity=".5"></Image>-->
         <StackLayout Grid.Row="0">
             <Label Text="Objects" Style="{DynamicResource H1}"></Label>
             <Label Text="Select at least two objects to compare" Style="{DynamicResource BodyStyle}"></Label>
@@ -54,8 +54,7 @@
                                            Style="{DynamicResource ListItemTextStyle}"                                         
                                            Grid.Row="0"                                           
                                            Grid.Column="1"/>
-                                    <Switch IsToggled="{Binding Selected}" Grid.Column="2">
-                                    </Switch>
+                                    <CheckBox IsChecked="{Binding Selected}" Grid.Column="2"/>
                                 </Grid>
                             </StackLayout>
                         </ViewCell>
@@ -77,23 +76,35 @@
             </ListView>
         </StackLayout>
 
-        <ScrollView Grid.Row="2" HorizontalScrollBarVisibility="Always" Orientation="Both">
-            <StackLayout>
-                <Label Text="Converter" Style="{DynamicResource H1}"></Label>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="From:" WidthRequest="40" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
-                    <Entry Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
-                    <Picker x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="To:" VerticalOptions="Center" VerticalTextAlignment="Center" WidthRequest="35"></Label>
-                    <Picker x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
-                    <Label VerticalTextAlignment="Center" VerticalOptions="Center" Text="{Binding ConvertResult}" WidthRequest="150"></Label>
-                    <Label Text="{Binding ToObject.PluralName}" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+        <StackLayout Grid.Row="2">
+            <Label Text="Converter" Style="{DynamicResource H1}"></Label>
+            <Grid RowDefinitions="*,*" ColumnDefinitions="Auto,*,*">
+                <Label Text="From:" WidthRequest="40" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+                <Entry Grid.Column="1" Placeholder="ie. 10" Text="{Binding FromQty}" ></Entry>
+                <Picker Grid.Column="2"  x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="200" ItemsSource="{Binding Objects}" SelectedItem="{Binding FromObject}"></Picker>
 
-                </StackLayout>
+                <Label Grid.Row="1" Text="To:" VerticalOptions="Center" VerticalTextAlignment="Center" WidthRequest="35"></Label>
+                <Picker Grid.Row="1" Grid.Column="1" x:DataType="{x:Null}" ItemDisplayBinding="{Binding PluralName}" WidthRequest="100" ItemsSource="{Binding Objects}" SelectedItem="{Binding ToObject}"></Picker>
+                
+                
+                
+                <Label Grid.Column="2" Grid.Row="1" VerticalTextAlignment="Center" VerticalOptions="Center" WidthRequest="150">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding ConvertResult}" TextDecorations="Underline"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding ToObject.PluralName}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+            </Grid>
+            <StackLayout Orientation="Horizontal">
             </StackLayout>
-        </ScrollView>
+            <StackLayout Orientation="Horizontal">
+
+            </StackLayout>
+        </StackLayout>
 
         <Button Text="+"
                     TextColor="White"

@@ -144,8 +144,8 @@ namespace HowFarApp.ViewModels
                 ObjectMeasurement = data;
 
                 SelectedObject = ObjectMeasurement.Measurement;
-                SelectedObjectPack = ObjectMeasurement.ObjectPack;
-                SelectedObjectPack.PackName = ObjectMeasurement.ObjectPackName;
+                SelectedObjectPack = ObjectMeasurement?.ObjectPack;
+                SelectedObjectPack.PackName = ObjectMeasurement?.ObjectPackName;
                 SingleName = ObjectMeasurement.SingleName;
                 PluralName = ObjectMeasurement.PluralName;
                 MeasurementValue = ObjectMeasurement.Value;

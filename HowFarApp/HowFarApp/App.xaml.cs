@@ -1,7 +1,6 @@
 ﻿using HowFar.Core.Models;
 using System;
 using System.Linq;
-using Dapper;
 using HowFar.Core;
 using HowFarApp.Models;
 using HowFarApp.ViewModels;
