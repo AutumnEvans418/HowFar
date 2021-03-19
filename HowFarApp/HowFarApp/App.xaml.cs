@@ -24,7 +24,7 @@ using Xamarin.Forms.Xaml;
 namespace HowFarApp
 {
     public delegate string GetDbPath();
-    public partial class App : IApp
+    public partial class App : IAppCache
     {
 
         public App(IPlatformInitializer platformInitializer):base(platformInitializer)
@@ -45,7 +45,7 @@ namespace HowFarApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             var container = containerRegistry.GetContainer();
-            container.RegisterInstance(typeof(IApp), this);
+            container.RegisterInstance(typeof(IAppCache), this);
             container.RegisterType<DatabaseContext>(new InjectionConstructor(container.Resolve<GetDbPath>()()));
 
             try

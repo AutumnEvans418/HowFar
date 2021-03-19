@@ -15,7 +15,7 @@ namespace HowFar.Core.Models
 
         void Add(string key, object obj);
     }
-    public interface IApp
+    public interface IAppCache
     {
         //Func<IDatabase> Database { get; }
         IProperties Properties { get; }

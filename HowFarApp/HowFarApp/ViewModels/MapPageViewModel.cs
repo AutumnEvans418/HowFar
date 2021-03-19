@@ -23,8 +23,11 @@ namespace HowFarApp.ViewModels
         private string _distanceEntry;
         private IMeasureConverters _converters;
 
-        public MapPageViewModel(IMeasureConverters converters,
-            INavigationService navigationService, IGeocoder geocoder) : base(navigationService)
+        public MapPageViewModel(
+            IMeasureConverters converters,
+            INavigationService navigationService, 
+            IGeocoder geocoder)
+            : base(navigationService)
         {
             _geocoder = geocoder;
             Converters = converters;
@@ -49,41 +52,19 @@ namespace HowFarApp.ViewModels
             set => SetProperty(ref _converters, value);
         }
 
-        private double Distance(double lat1, double lon1, double lat2, double lon2, char unit)
-        {
-            double theta = lon1 - lon2;
-            double dist = Math.Sin(Deg2Rad(lat1)) * Math.Sin(Deg2Rad(lat2)) + Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2)) * Math.Cos(Deg2Rad(theta));
-            dist = Math.Acos(dist);
-            dist = Rad2Deg(dist);
-            dist = dist * 60 * 1.1515;
-            if (unit == 'K')
-            {
-                dist = dist * 1.609344;
-            }
-            else if (unit == 'N')
-            {
-                dist = dist * 0.8684;
-            }
-            return (dist);
-        }
-        private double Deg2Rad(double deg)
-        {
-            return (deg * Math.PI / 180.0);
-        }
-
-        private double Rad2Deg(double rad)
-        {
-            return (rad / Math.PI * 180.0);
-        }
+        
         public double CalculateDistances(Pin first, Pin second, ObjectMeasurement measurement)
         {
-            var kilometers = Distance(first.Position.Latitude, first.Position.Longitude, second.Position.Latitude,
-                second.Position.Longitude, 'K');
+            var kilometers = MeasureMath.Distance(
+                first.Position.Latitude, 
+                first.Position.Longitude, 
+                second.Position.Latitude,
+                second.Position.Longitude, 
+                'K');
             return Converters.Convert("Kilometers", measurement.PluralName, kilometers);
         }
         public async Task<string> GetLocationFromAddress(Position position)
         {
-            //Geocoder coder = new Geocoder();
             try
             {
                 IsBusy = true;

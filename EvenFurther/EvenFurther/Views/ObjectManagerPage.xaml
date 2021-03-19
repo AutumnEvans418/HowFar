@@ -1,13 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EvenFurther.Views.ObjectManagerPage" Title="Object Manager">
+             x:Class="EvenFurther.Views.ObjectManagerPage" 
+             Title="Object Manager"
+             xmlns:core="clr-namespace:HowFar.Core.Models;assembly=HowFar.Core"
+             xmlns:vm="clr-namespace:HowFarApp.ViewModels;assembly=HowFarApp"
+             x:DataType="vm:ObjectManagerPageViewModel">
     <ContentPage.Content>
-        <Grid>
-            <ListView>
+        <Grid Padding="10">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="MediumPurple" Offset="0"/>
+                    <GradientStop Color="LightBlue" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <ListView ItemsSource="{Binding Objects}">
                 <ListView.Header>
                     <Label>Objects</Label>
                 </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="core:ObjectMeasurement">
+                        <Label Text="{Binding Measurement}"></Label>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
 
             <Button HorizontalOptions="End" VerticalOptions="End" Text="+" Margin="10" CornerRadius="10" Padding="10"/>

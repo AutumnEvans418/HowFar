@@ -7,7 +7,7 @@ using HowFar.Bridge;
 
 namespace HowFar.Core.Models
 {
-    public class AppModel : IApp
+    public class AppModel : IAppCache
     {
         HTMLSelectElement fromSelect = Document.GetElementById<HTMLSelectElement>("from");
         HTMLSelectElement toSelect = Document.GetElementById<HTMLSelectElement>("to");

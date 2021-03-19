@@ -6,7 +6,7 @@ namespace HowFar.Core.Models
 {
     public class ObjectRepositoryCache : IObjectRepository
     {
-        private readonly IApp _app;
+        private readonly IAppCache _app;
         private readonly List<ObjectMeasurement> measurements;
         private readonly List<ObjectPack> packs;
 
@@ -19,7 +19,7 @@ namespace HowFar.Core.Models
             return default(T);
         }
 
-        public ObjectRepositoryCache(IApp app)
+        public ObjectRepositoryCache(IAppCache app)
         {
             _app = app;
             measurements = GetKey<List<ObjectMeasurement>>(ObjectKey) ?? new List<ObjectMeasurement>();

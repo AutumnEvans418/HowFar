@@ -8,10 +8,14 @@ using Xamarin.Forms;
 
 namespace EvenFurther.ViewModels
 {
+    public class ConverterPageViewModel : BaseViewModel
+    {
+
+    }
+
+
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
         bool isBusy = false;
         public bool IsBusy
         {

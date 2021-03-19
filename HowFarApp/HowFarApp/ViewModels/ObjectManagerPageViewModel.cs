@@ -8,6 +8,7 @@ using Unity;
 
 namespace HowFarApp.ViewModels
 {
+    
     public class ObjectManagerPageViewModel : ViewModelBase
     {
         public ObjectManagerPageViewModel(INavigationService navigationService,IObjectManager manager) : base(navigationService)
