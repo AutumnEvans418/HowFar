@@ -67,7 +67,7 @@ namespace HowFarApp.ViewModels
             ObjectPacks = measure.ObjectPacks;
             ObjectMeasurements = measure.ObjectMeasurements;
 
-            SelectedObjectPack = ObjectPacks.FirstOrDefault(p => p.Name == "Custom");
+            SelectedObjectPack = ObjectPacks.FirstOrDefault(p => p.PackName == "Custom");
             this.measure = measure;
             _dialog = dialog;
             _navigationService = navigationService;
@@ -108,8 +108,8 @@ namespace HowFarApp.ViewModels
                 {
                     ObjectMeasurement.Measurement = SelectedObject;
                     ObjectMeasurement.ObjectPack = SelectedObjectPack;
-                    ObjectMeasurement.ObjectPackName = SelectedObjectPack.PackName;
-                    ObjectMeasurement.ParentMeasurementSingleName = ObjectMeasurement.Measurement.SingleName;
+                    ObjectMeasurement.ObjectPackId = SelectedObjectPack.Id;
+                    ObjectMeasurement.ParentObjectMeasurementId = ObjectMeasurement.Measurement.Id;
                     ObjectMeasurement.SingleName = SingleName;
                     ObjectMeasurement.PluralName = PluralName;
                     ObjectMeasurement.Value = MeasurementValue;
@@ -117,7 +117,7 @@ namespace HowFarApp.ViewModels
                 }
                 else
                 {
-                var measurement = measure.NewObject(PluralName, SingleName, MeasurementValue, SelectedObject, SelectedObjectPack.Name);
+                var measurement = measure.NewObject(PluralName, SingleName, MeasurementValue, SelectedObject, SelectedObjectPack.PackName);
                 }
 
                 return true;
@@ -144,8 +144,11 @@ namespace HowFarApp.ViewModels
                 ObjectMeasurement = data;
 
                 SelectedObject = ObjectMeasurement.Measurement;
-                SelectedObjectPack = ObjectMeasurement?.ObjectPack;
-                SelectedObjectPack.PackName = ObjectMeasurement?.ObjectPackName;
+                if(ObjectMeasurement.ObjectPack != null)
+                {
+                    SelectedObjectPack = ObjectMeasurement.ObjectPack;
+                    SelectedObjectPack.Id = ObjectMeasurement.ObjectPackId ?? 0;
+                }
                 SingleName = ObjectMeasurement.SingleName;
                 PluralName = ObjectMeasurement.PluralName;
                 MeasurementValue = ObjectMeasurement.Value;

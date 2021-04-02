@@ -12,7 +12,7 @@ namespace Tests
 {
   
 
-    public class AppModel : IApp
+    public class AppModel : IAppCache
     {
         public IProperties Properties { get; } = new Properties(new Dictionary<string, object>());
 

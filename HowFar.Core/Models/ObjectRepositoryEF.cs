@@ -117,5 +117,10 @@ namespace HowFar.Core.Models
         {
             db?.Dispose();
         }
+
+        public ObjectPack GetObjectPack(string pack)
+        {
+            return db.ObjectPacks.FirstOrDefault(p => p.PackName == pack);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Prism.Services;
 
 namespace HowFarApp.Models
@@ -15,16 +16,19 @@ namespace HowFarApp.Models
             await page.DisplayAlertAsync("ERROR", errors, "Ok");
         }
 
-        public static void DeleteDatabase(DbConnection connection)
+        public static void DeleteDatabase(DbContext context)
         {
-            connection.Execute("DROP TABLE IF EXISTS ObjectMeasurements;");
-            connection.Execute("DROP TABLE IF EXISTS ObjectPacks;");
+            context.Database.EnsureDeleted();
+            //connection.Execute("DROP TABLE IF EXISTS ObjectMeasurements;");
+            //connection.Execute("DROP TABLE IF EXISTS ObjectPacks;");
         }
 
-        public static void CreateDatabase(DbConnection connection)
+        public static void CreateDatabase(DbContext context)
         {
-            connection.Execute($"create table ObjectMeasurements(SingleName string primary key, Value float, Image string, PluralName string, ObjectPackName string, ParentMeasurementSingleName string)");
-            connection.Execute($"create table ObjectPacks(PackName string primary key, Description string, PackImage string)");
+            context.Database.EnsureCreated();
+
+            //connection.Execute($"create table ObjectMeasurements(SingleName string primary key, Value float, Image string, PluralName string, ObjectPackName string, ParentMeasurementSingleName string)");
+            //connection.Execute($"create table ObjectPacks(PackName string primary key, Description string, PackImage string)");
         }
     }
 }

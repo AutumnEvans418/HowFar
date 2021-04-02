@@ -61,9 +61,9 @@ namespace HowFar.Core.Models
        
         private double? Calculate(ObjectMeasurement fromMeasurement, ObjectMeasurement to, double value = 1)
         {
-            if (fromMeasurement.ParentMeasurementSingleName != null)
+            if (fromMeasurement.ParentObjectMeasurementId != null)
             {
-                if (fromMeasurement.ParentMeasurementSingleName == to.SingleName)
+                if (fromMeasurement.ParentObjectMeasurementId == to.Id)
                 {
                     return fromMeasurement.Value * value;
                 }
@@ -125,13 +125,14 @@ namespace HowFar.Core.Models
         public ObjectMeasurement NewObject(string pluralName, string singleName, double value, string measurement, string pack = "Custom")
         {
             var measure = Find(measurement);
+            var packObj = _repository.GetObjectPack(pack);
             if (measure != null)
             {
                 var newObject = new ObjectMeasurement(singleName, pluralName)
                 {
                     Value = value,
-                    ObjectPackName = pack,
-                    ParentMeasurementSingleName = measure.SingleName
+                    ObjectPackId = packObj.Id,
+                    ParentObjectMeasurementId = measure.Id
 
                 };
                 _repository.AddObject(newObject);

@@ -20,8 +20,11 @@
                 </ListView.Header>
 
                 <ListView.ItemTemplate>
+                    
                     <DataTemplate x:DataType="core:ObjectMeasurement">
-                        <Label Text="{Binding Measurement}"></Label>
+                        <ViewCell>
+                            <Label Text="{Binding Measurement.PluralName}"></Label>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

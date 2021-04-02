@@ -8,7 +8,7 @@ namespace HowFar.Core.Models
         private string _packName;
         private string _description;
         private string _packImage;
-
+        public int Id { get; set; }
 #if BRIDGE
         public virtual List<ObjectMeasurement> ObjectMeasurements { get; set; } = new List<ObjectMeasurement>();
 #else
@@ -26,8 +26,8 @@ namespace HowFar.Core.Models
             set => SetProperty(ref _packName, value);
         }
 
-        public string Name => PackName;
-        public string ImageURL => PackImage;
+        //public string Name => PackName;
+        //public string ImageURL => PackImage;
 
         public string Description
         {

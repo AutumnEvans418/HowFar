@@ -12,9 +12,9 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackLayout>
-            <Image Source="{Binding Pack.ImageURL}" HeightRequest="100"></Image>
+            <Image Source="{Binding Pack.PackImage}" HeightRequest="100"></Image>
 
-            <Label Text="{Binding Pack.Name}" Style="{DynamicResource H1}"></Label>
+            <Label Text="{Binding Pack.PackName}" Style="{DynamicResource H1}"></Label>
             <Label Text="{Binding Pack.Description}" Style="{DynamicResource SubtitleStyle}"/>
             <Button Text="Delete Pack" Command="{Binding DeleteCommand}"></Button>
             <ImageButton Source="Assets/cart.png"

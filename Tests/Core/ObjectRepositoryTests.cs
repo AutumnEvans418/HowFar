@@ -29,9 +29,9 @@ namespace Tests.Core
             connection.Open();
             var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
             context = new DatabaseContext(options);
-            Ext.CreateDatabase(context.Database.GetDbConnection());
+            Ext.CreateDatabase(context);
 
-            var app = fixture.Freeze<Mock<IApp>>();
+            var app = fixture.Freeze<Mock<IAppCache>>();
 
             app.Setup(p => p.Properties).Returns(new Properties(new Dictionary<string, object>()));
             //context.Database.EnsureCreated();
@@ -49,7 +49,7 @@ namespace Tests.Core
         [Test]
         public void DeleteDatabase()
         {
-            var db =this.context.Database.GetDbConnection();
+            var db =this.context;
 
             Ext.DeleteDatabase(db);
         }

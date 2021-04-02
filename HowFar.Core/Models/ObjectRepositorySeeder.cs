@@ -18,8 +18,7 @@ namespace HowFar.Core.Models
 #else
                 var objectPacks = new ObservableCollection<ObjectPack>();
 #endif
-            var centimeter = new ObjectMeasurement("Centimeter", "Centimeters") { Value = 1 };
-            centimeter.ObjectPackName = Metric;
+           
             objectPacks.Add(new ObjectPack("Custom", "Objects that are made in the app are placed here.") { PackImage = "Assets/block.png" });
             objectPacks.Add(new ObjectPack(Imperial, "A default package for the US measurement system") { PackImage = "https://logoeps.com/wp-content/uploads/2013/06/flag-of-usa-vector-logo.png" });
             objectPacks.Add(new ObjectPack(Metric, "The metric system.  Used by everyone except the US") { PackImage = "http://www.knightstemplarorder.org/wp-content/uploads/2016/06/UN-SEAL-Stylized-500-Brown.png" });
@@ -30,6 +29,9 @@ namespace HowFar.Core.Models
                 if (!packs.Select(p => p.PackName).Contains(objectPack.PackName))
                     repository.AddPack(objectPack);
             }
+
+            var centimeter = new ObjectMeasurement("Centimeter", "Centimeters") { Value = 1 };
+            centimeter.ObjectPack = objectPacks.First(p => p.PackName == Metric);
 
             //db.SaveChanges();
             if (repository.GetObjectMeasurements().All(p => p.SingleName != centimeter.SingleName))
@@ -54,14 +56,21 @@ namespace HowFar.Core.Models
             var pico = repository.NewObject("Picometers", "Picometer", 0.001, nanoMeter, Metric);
         }
 
-        public static ObjectMeasurement NewObjectAction(string pluralName, string singleName, double value, string measurementStr, string pack, IObjectRepository repository)
+        public static ObjectMeasurement NewObjectAction(
+            string pluralName, 
+            string singleName, 
+            double value, 
+            string measurementStr, 
+            string pack, 
+            IObjectRepository repository)
         {
+            var packObj = repository.GetObjectPack(pack);
             if (measurementStr != null && repository.GetObjectMeasurements().All(p => p.SingleName != singleName))
             {
                 var measure = repository.GetObjectMeasurement(measurementStr);
                 if (measure != null)
                 {
-                    var newObject = new ObjectMeasurement(singleName, pluralName) { Value = value, ObjectPackName = pack };
+                    var newObject = new ObjectMeasurement(singleName, pluralName) { Value = value, ObjectPackId = packObj.Id };
                     measure.Add(newObject);
                     repository.AddObject(newObject);
                     //repository.UpdatePack(pack, newObject);
@@ -76,13 +85,13 @@ namespace HowFar.Core.Models
         {
             foreach (var objectMeasurement in data)
             {
-                if (objectMeasurement.ParentMeasurementSingleName != null)
+                if (objectMeasurement.ParentObjectMeasurementId != null)
                 {
                     objectMeasurement.Measurement =
-                        data.First(p => p.SingleName == objectMeasurement.ParentMeasurementSingleName);
+                        data.First(p => p.Id == objectMeasurement.ParentObjectMeasurementId);
                 }
 
-                var t = data.Where(p => p.ParentMeasurementSingleName == objectMeasurement.SingleName);
+                var t = data.Where(p => p.ParentObjectMeasurementId == objectMeasurement.Id);
                 objectMeasurement.ObjectMeasurements = t.ToList();
             }
 

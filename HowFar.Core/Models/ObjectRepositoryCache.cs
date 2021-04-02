@@ -68,20 +68,20 @@ namespace HowFar.Core.Models
         }
         public void AddObject(ObjectMeasurement measurement)
         {
-            if (measurement.ObjectPackName == null)
-                throw new InvalidOperationException("must have a pack name");
+            //if (measurement.ObjectPackId == null)
+            //    throw new InvalidOperationException("must have a pack name");
 
-            if (measurement.ParentMeasurementSingleName == null && measurement.Measurement != null)
-                measurement.ParentMeasurementSingleName = measurement.Measurement.SingleName;
-            else if (measurement.ParentMeasurementSingleName != null && measurement.Measurement == null)
+            if (measurement.ParentObjectMeasurementId == null && measurement.Measurement != null)
+                measurement.ParentObjectMeasurementId = measurement.Measurement.Id;
+            else if (measurement.ParentObjectMeasurementId != null && measurement.Measurement == null)
                 measurement.Measurement =
-                    measurements.FirstOrDefault(p => p.SingleName == measurement.ParentMeasurementSingleName);
-            if (measurement.ObjectPackName == null && measurement.ObjectPack != null)
-                measurement.ObjectPackName = measurement.ObjectPack.PackName;
-            else if (measurement.ObjectPackName != null && measurement.ObjectPack == null)
-                measurement.ObjectPack = packs.FirstOrDefault(p => p.PackName == measurement.ObjectPackName);
+                    measurements.FirstOrDefault(p => p.Id == measurement.ParentObjectMeasurementId);
+            if (measurement.ObjectPackId == null && measurement.ObjectPack != null)
+                measurement.ObjectPackId = measurement.ObjectPack.Id;
+            else if (measurement.ObjectPackId != null && measurement.ObjectPack == null)
+                measurement.ObjectPack = packs.FirstOrDefault(p => p.Id == measurement.ObjectPackId);
 
-            var pack = packs.First(p => p.PackName == measurement.ObjectPackName);
+            var pack = packs.First(p => p.Id == measurement.ObjectPackId);
             if (pack.ObjectMeasurements.Any(p => p.SingleName == measurement.SingleName) != true)
             {
                 pack.ObjectMeasurements.Add(measurement);
@@ -121,9 +121,19 @@ namespace HowFar.Core.Models
         }
 
 
-        public ObjectMeasurement NewObject(string plural, string single, double value, ObjectMeasurement parent, string pack)
+        public ObjectMeasurement NewObject(
+            string plural, 
+            string single, 
+            double value, 
+            ObjectMeasurement parent, 
+            string pack)
         {
             return ObjectRepositorySeeder.NewObjectAction(plural, single, value, parent.SingleName, pack, this);
+        }
+
+        public ObjectPack GetObjectPack(string pack)
+        {
+            return packs.FirstOrDefault(p => p.PackName == pack);
         }
     }
 }

@@ -16,5 +16,6 @@ namespace HowFar.Core.Models
         void UpdateObject(ObjectMeasurement selectedObject);
         //void UpdatePack(string packName, ObjectMeasurement objectM);
         ObjectMeasurement NewObject(string plural, string single, double value, ObjectMeasurement parent, string pack);
+        ObjectPack GetObjectPack(string pack);
     }
 }

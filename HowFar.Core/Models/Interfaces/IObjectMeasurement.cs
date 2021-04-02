@@ -4,14 +4,12 @@ namespace HowFar.Core.Models
 {
     public interface IObjectMeasurement
     {
+        int Id { get; set; }
         string Image { get; set; }
-        ObjectMeasurement Measurement { get; set; }
         string PluralName { get;  }
         string SingleName { get; }
         double Value { get; set; }
 
-        void Add(ObjectMeasurement obj);
-        //IEnumerable<ObjectMeasurement> GetChildren();
-        string ToString();
+        int? ParentObjectMeasurementId { get; }
     }
 }

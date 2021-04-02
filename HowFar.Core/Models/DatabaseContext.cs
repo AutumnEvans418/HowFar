@@ -33,16 +33,14 @@ namespace HowFarApp.Models
         {
             modelBuilder.Entity<ObjectPack>(e =>
             {
-                e.HasKey(p => p.PackName);
-                e.HasMany(p => p.ObjectMeasurements).WithOne(p => p.ObjectPack).HasForeignKey(p=>p.ObjectPackName);
+                e.HasMany(p => p.ObjectMeasurements).WithOne(p => p.ObjectPack).HasForeignKey(p=>p.ObjectPackId);
             });
 
             modelBuilder.Entity<ObjectMeasurement>(e =>
             {
-                e.HasKey(p => p.SingleName);
                 e.HasOne(p => p.Measurement).WithMany(p => p.ObjectMeasurements);
                 e.HasMany(p => p.ObjectMeasurements).WithOne(p => p.Measurement)
-                    .HasForeignKey(p => p.ParentMeasurementSingleName);
+                    .HasForeignKey(p => p.ParentObjectMeasurementId);
 
 
             });

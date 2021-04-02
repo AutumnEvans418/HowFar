@@ -25,7 +25,7 @@ namespace Tests.Core
             connection.Open();
             var options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
             context = new DatabaseContext(options);
-            Ext.CreateDatabase(context.Database.GetDbConnection());
+            Ext.CreateDatabase(context);
             //context.Database.EnsureCreated();
             fixture.Inject(context);
             fixture.Inject(fixture.Build<ObjectRepositoryEF>().OmitAutoProperties().Create() as IObjectRepository);
@@ -49,14 +49,6 @@ namespace Tests.Core
             Assert.AreEqual(count +1, model.ObjectMeasurements.Count);
         }
 
-        [Test]
-        public void PackName()
-        {
-            var pack = model.ObjectPacks.First();
-            
-            Assert.AreEqual(pack.Name, pack.PackName);
-            Assert.AreEqual(pack.ImageURL, pack.PackImage);
-        }
 
 
         [Test]
